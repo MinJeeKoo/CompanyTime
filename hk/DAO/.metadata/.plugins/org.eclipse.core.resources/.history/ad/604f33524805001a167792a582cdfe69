@@ -1,0 +1,13 @@
+package persistence.dao;
+
+import java.util.List;
+import service.dto.StatisticDTO;
+
+public class StatisticDAO {
+	public List<StatisticDTO> getStatisticList();		
+	public Integer insertInfo(StatisticDTO statistic);	
+	public Integer updateInfo(StatisticDTO statistic);	
+	public Integer deleteInfo(Integer dCode);		
+	public StatisticDTO getStatisticByName(String dName);		
+	public StatisticDTO getStatisticByCode(String dCode);		
+}

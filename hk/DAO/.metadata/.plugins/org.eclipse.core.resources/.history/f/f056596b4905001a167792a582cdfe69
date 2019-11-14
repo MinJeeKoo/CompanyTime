@@ -1,0 +1,13 @@
+package persistence.dao;
+
+import java.util.List;
+import service.dto.TrustDTO;
+
+public Integererface TrustDAO {
+	public List<TrustDTO> getInfoList();		
+	public Integer insertTrust(TrustDTO Info);	
+	public Integer updateTrust(TrustDTO Info);	
+	public Integer deleteTrust(Integer dCode);		
+	public TrustDTO getTrustByName(String dName);		
+	public TrustDTO getTrustByCode(String dCode);		
+}

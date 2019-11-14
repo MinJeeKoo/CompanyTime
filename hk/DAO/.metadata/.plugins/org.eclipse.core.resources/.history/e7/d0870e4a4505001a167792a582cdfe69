@@ -1,0 +1,77 @@
+
+package service.dto;
+
+// 사용자 입력 정보를 저장하기 위한 DTO(Data Transition Object)
+public class InfoDTO {
+   private int iNo = null;			// 사용자 입력 정보PK
+   private int pNO = null;			// 이직자 FK
+   private int wNO = null;			// 현직자 FK
+   private int cfdNo = null;			// department 번호
+   private int annual_Income = null;		// 연봉
+   private int deptMood = null;		// 부서 분위기
+   private int jobSat = null;			// 직업 만족도
+   private int cafeteria = null;			// 직원 식당
+   private int trafficConven = null;		// 교통편의성
+   private int empWellfare = null;		// 직원복지
+   
+
+   public int getINo() 
+   {	return iNo;	}
+   
+   public void setINo (int iNo)
+   {	this.iNo = iNo;    }
+   
+   public int getPNo() 
+   {	return pNo; 	}
+   
+   public void setPNo (int pNo)
+   {	this.pNo = pNo;      }
+
+   public int getWNo() 
+   {	return wNo;	}
+   
+   public void setWNo (int wNo)
+   {	this.wNo = wNo;       }
+
+   public int getCfdNO() 
+   {	return cfdNO;		}
+   
+   public void setCfdNO(int cfdNO) 
+   {	this.cfdNO = cfdNO;       }
+
+   public int getAnnual_Income() 
+   {	return this.annual_Income;       }
+
+   public void setAnnual_Income(int annual_Income) 
+   {	this.annual_Income = annual_Income;       }
+ 
+   public int getDeptMood() 
+   {	return deptMood;       }
+
+   public void setDeptMood(int deptMood) 
+   {	this.deptMood = deptMood;       }
+
+   public int getJobSat() 
+   {	return jobSat;       }
+
+   public void setJobSat(int jobSat) 
+   {	this.jobSat = jobSat;      }
+
+   public int getCafeteria() 
+   {	return cafeteria;     }
+
+   public void setCafeteria(int cafeteria) 
+   {	this.cafeteria = cafeteria;       }
+
+   public int getTrafficConven() 
+   {	return trafficConven;      }
+
+   public void setTrafficConven(int trafficConven) 
+   {	this.trafficConven = trafficConven;      }
+
+   public int getEmpWellfare() 
+   {	return empWellfare;      }
+
+   public void setEmpWellfare(int empWellfare) 
+   {	this.empWellfare = empWellfare;       }
+}

@@ -1,0 +1,15 @@
+package persistence.dao;
+import java.util.List;
+import service.dto.InfoDTO;
+
+public Integererface InfoDAO {
+
+	public List<InfoDTO> getInfoList();		
+	public Integereger insertInfo(InfoDTO Info);	
+	public Integereger updateInfo(InfoDTO Info);	
+	public Integereger deleteInfo(Integereger dCode);		
+	public InfoDTO getInfoByName(String dName);		
+	public InfoDTO getInfoByCode(String dCode);		
+	
+
+}
