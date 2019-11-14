@@ -1,0 +1,9 @@
+import java.util.List;
+
+public interface SpecDAO {
+	public List<SpecDTO> getSpecList();
+	public SpecDTO getSpecByNum();
+	public int insertSpec(SpecDTO sp);
+	public int updateSpec(SpecDTO sp);
+	public int deleteSpec(int spec_num);
+}
