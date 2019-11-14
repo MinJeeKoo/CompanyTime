@@ -6,10 +6,10 @@ public class CompanyDTO {
 	private String C_NAME = null;
 	private String ADDRESS = null;
 	
-	public Integer getCFNUM() {
+	public Integer getC_NUM() {
 		return C_NUM;
 	}
-	public void setCFNUM(Integer C_NUM) {
+	public void setC_NUM(Integer C_NUM) {
 		this.C_NUM = C_NUM;
 	}
 	
