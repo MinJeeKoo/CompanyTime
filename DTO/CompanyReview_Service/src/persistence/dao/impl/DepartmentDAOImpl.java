@@ -19,53 +19,6 @@ public class DepartmentDAOImpl implements DepartmentDAO{
 	private String CFD_NAME = null;
 	private Integer ANNULAL_INCOME = null;....?
 	 */
-	@Override
-	public int insertDepartment(DepartmentDTO dept) {
-		int result = 0;
-		String insertQuery = "INSERT INTO DEPARTMENT(CFD_NUM, CF_NUM, CFD_NAME)" + 
-				"VALUES(Sequence_DEPARTMENT.NEXTVAL, ?, ?)";
-		Integer deptNum = dept.getCF_NUM();
-		String detpName = dept.getCFD_NAME();
-		
-		Object[] param = new Object[] {deptNum, detpName};
-		jdbcUtil.setSql(insertQuery);
-		jdbcUtil.setParameters(param);
-		
-		try {
-			result =jdbcUtil.executeUpdate();
-			result = 1;//성공할 경우 1
-		}catch(Exception ex) {
-			ex.printStackTrace();
-		}finally{
-			jdbcUtil.close();
-		}
-		return result;
-	}
-	
-	@Override
-	public int updateDeparment(DepartmentDTO dept, String change) {
-		int result = 0;
-		String updateQuery = "UPDATE DEPARTMENT" + 
-				"SET CFD_NAME= " + change +
-				"WHERE CFD_NUM=?" ; 
-				
-		Integer DEPT_NUM = dept.getCFD_NUM();
-		
-		Object[] param = new Object[] {DEPT_NUM};
-		jdbcUtil.setSql(updateQuery);
-		jdbcUtil.setParameters(param);
-		
-		try {
-			result =jdbcUtil.executeUpdate();
-			result = 1;//성공할 경우 1
-		}catch(Exception ex) {
-			ex.printStackTrace();
-		}finally{
-			jdbcUtil.close();
-		}
-		return result;
-
-	}
 	
 	@Override
 	public List<DepartmentDTO> getDepartmentList() {
@@ -87,6 +40,27 @@ public class DepartmentDAOImpl implements DepartmentDAO{
 		}finally{
 			jdbcUtil.close();
 		}return null;
+	}
+	@Override
+	public Integer getCFD_NUMByCFD_NAME(String cfd_name) {
+		Integer cfd_num = null;//Integer 타입이라 null로 초기화함.
+		String query = "SELECT CFD_NUM"
+				+ "FROM DEPARTMENT"
+				+ "WHERE CFD_NAME = ?;" ;
+		
+		Object[] param = new Object[] {cfd_num};
+		jdbcUtil.setSql(query);
+		jdbcUtil.setParameters(param);
+		
+		try {
+			ResultSet result = jdbcUtil.executeQuery();
+			cfd_num = result.getInt("CFD_NUM");
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally{
+			jdbcUtil.close();
+		}
+		return cfd_num;
 	}
 
 }

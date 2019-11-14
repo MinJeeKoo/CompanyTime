@@ -5,8 +5,7 @@ import dto.CompanyDTO;
 public interface CompanyDAO {
 
 	public int insertCompany(CompanyDTO comp);
-	public Integer getC_NUMByC_NAME(String c_name);
-	
+	public int updateCompany(CompanyDTO comp, int choice, String change);
 	public List<CompanyDTO> getCompanyList();
 	
 	

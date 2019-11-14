@@ -1,5 +1,9 @@
 package persistence.dao.impl;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import dto.CompanyDTO;
 import dto.FieldDTO;
 import persistence.dao.FieldDAO;
 public class FieldDAOImpl implements FieldDAO{
@@ -8,51 +12,48 @@ public class FieldDAOImpl implements FieldDAO{
 	public FieldDAOImpl(){
 		jdbcUtil = new JDBCUtil();
 	}
-	@Override
-	public int insertField(FieldDTO field) {
-		int result = 0;
-		String insertQuery = "INSERT INTO DEPARTMENT(CF_NUM, CF_NAME)" + 
-				"VALUES(Sequence_DEPARTMENT.NEXTVAL, ?)";
-		String fieldName = field.getCF_NAME();
+	
+	public Integer getCF_NUMByCF_NAME(String cf_name) {
 		
-		Object[] param = new Object[] {fieldName};
-		jdbcUtil.setSql(insertQuery);
+		Integer cf_num = null;//Integer 타입이라 null로 초기화함.
+		String query = "SELECT CF_NUM"
+				+ "FROM FIELD"
+				+ "WHERE CF_NAME = ?;" ;
+		
+		Object[] param = new Object[] {cf_num};
+		jdbcUtil.setSql(query);
 		jdbcUtil.setParameters(param);
 		
 		try {
-			result =jdbcUtil.executeUpdate();
-			result = 1;//성공할 경우 1
+			ResultSet result = jdbcUtil.executeQuery();
+			cf_num = result.getInt("CF_NUM");
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}finally{
 			jdbcUtil.close();
 		}
-		return result;
+		return cf_num;
 	}
 
 	@Override
-	public int updateField(FieldDTO field, String change) {
-		int result = 0;
-		String updateQuery = "UPDATE FIELD" + 
-				"SET CF_NAME= " + change +
-				"WHERE CF	_NUM=?" ; 
-				
-		Integer FIELD_NUM = field.getCF_NUM();
-		
-		Object[] param = new Object[] {FIELD_NUM};
-		jdbcUtil.setSql(updateQuery);
-		jdbcUtil.setParameters(param);
-		
+	public List<FieldDTO> getFieldList() {
+		String query = " SELECT CF_NUM, CF_NAME FROM FIELD ; ";
+		jdbcUtil.setSql(query);
 		try {
-			result =jdbcUtil.executeUpdate();
-			result = 1;//성공할 경우 1
+			ResultSet rs = jdbcUtil.executeQuery();
+			List<FieldDTO> list = new ArrayList<FieldDTO>();
+			while(rs.next()) {
+				FieldDTO dto = new FieldDTO();
+				dto.setCF_NUM(rs.getInt("CF_NUM"));
+				dto.setCF_NAME(rs.getString("CF_NAME"));
+				list.add(dto);
+			}
+			return list;
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}finally{
 			jdbcUtil.close();
-		}
-		return result;
+		}return null;
 	}
-
 	
 }

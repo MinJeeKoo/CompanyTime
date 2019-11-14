@@ -39,33 +39,58 @@ public abstract class CompanyDAOImpl implements CompanyDAO{
 		return result;
 		
 	}
-	
+	public int upDateCompany(CompanyDTO comp, int choice, String change){
+		
+		int result = 0;
+		if(choice == 1) {
+			String updateQuery = "UPDATE COMPANY" + 
+					"SET C_NAME= " + change +
+					"WHERE C_NUM=?" ; 
+					
+			Integer company_NUM = comp.getC_NUM();
+			
+			Object[] param = new Object[] {company_NUM};
+			jdbcUtil.setSql(updateQuery);
+			jdbcUtil.setParameters(param);
+			
+			try {
+				result =jdbcUtil.executeUpdate();
+				result = 1;//성공할 경우 1
+			}catch(Exception ex) {
+				ex.printStackTrace();
+			}finally{
+				jdbcUtil.close();
+			}
+			return result;
+		}
+		else {
+			String updateQuery = "UPDATE COMPANY" + 
+					"SET ADDRESS= " + change +
+					"WHERE C_NUM=?" ; 
+					
+			Integer company_NUM = comp.getC_NUM();
+			
+			Object[] param = new Object[] {company_NUM};
+			jdbcUtil.setSql(updateQuery);
+			jdbcUtil.setParameters(param);
+			
+			try {
+				result =jdbcUtil.executeUpdate();
+				result = 1;//성공할 경우 1
+			}catch(Exception ex) {
+				ex.printStackTrace();
+			}finally{
+				jdbcUtil.close();
+			}
+			return result;
+		}
+		
+	}
 	/*
 	private Integer C_NUM = null;
 	private String C_NAME = null;
 	private String ADDRESS = null;
 	 */
-	public Integer getC_NUMByC_NAME(String c_name) {
-		
-		Integer c_num = null;//Integer 타입이라 null로 초기화함.
-		String query = "SELECT C_NUM"
-				+ "FROM COMPANY"
-				+ "WHERE C_NAME = ?;" ;
-		
-		Object[] param = new Object[] {c_name};
-		jdbcUtil.setSql(query);
-		jdbcUtil.setParameters(param);
-		
-		try {
-			ResultSet result = jdbcUtil.executeQuery();
-			c_num = result.getInt("C_NUM");
-		}catch(Exception ex) {
-			ex.printStackTrace();
-		}finally{
-			jdbcUtil.close();
-		}
-		return c_num;
-	}
 	public List<CompanyDTO> getCompanyList(){
 		
 		String query = " SELECT C_NUM, C_NAME, C_ADDRESS FROM COMPANY; ";

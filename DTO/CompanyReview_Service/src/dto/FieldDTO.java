@@ -16,7 +16,7 @@ public class FieldDTO {
 		return CF_NAME;
 	}
 	
-	public void setC_NAME(String CF_NAME) {
+	public void setCF_NAME(String CF_NAME) {
 		this.CF_NAME = CF_NAME;
 	}
 }
