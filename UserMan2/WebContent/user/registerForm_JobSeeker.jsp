@@ -124,7 +124,7 @@ function userList(targetUri) {
 	    <table style="width: 100%">
 		  <tr>
 			<td align="left">
-			<input type="button" value="회원 가입" onClick="userCreate()"> &nbsp;
+			<input type="button" value="회원 가입" onClick="userCreate()" /> &nbsp;
 			<input type="button" value="목록" onClick="userList('<c:url value='/user/list' />')">
 			</td>
 		  </tr>

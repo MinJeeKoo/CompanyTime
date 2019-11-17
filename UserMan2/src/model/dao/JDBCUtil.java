@@ -19,7 +19,7 @@ public class JDBCUtil {
 	// 기본 생성자
 	public JDBCUtil() {	}
 
-	/*
+	
 	// 매개변수 없는 query를 전달받아 query를 설정하는 생성자
 	public JDBCUtil(String sql) {
 		this.setSql(sql);		
@@ -40,7 +40,7 @@ public class JDBCUtil {
 	public void setParameters(Object[] parameters) {
 		this.parameters = parameters;
 	}
-	*/
+	
 	
 	// sql 변수 getter
 	public String getSql() {
