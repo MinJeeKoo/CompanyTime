@@ -1,7 +1,0 @@
-package persistence.dao.impl;
-import java.sql.*;
-import dto.FieldDTO;
-
-public class FieldDTO {
-
-}
