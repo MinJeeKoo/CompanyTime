@@ -19,8 +19,8 @@ function userList(targetUri) {
 <body>
 <form name="form" method="POST" action="<c:url value='/user/registerJS/form' />">
 	<input type="submit" value="취준생" /> &nbsp;
-	<input type="button" value="이직준비자" onClick="userList('<c:url value='/user/registerJS/form' />')">&nbsp;
-	<input type="button" value="현직자" onClick="userList('<c:url value='/user/registerJS/form' />')">
+	<input type="button" value="이직준비자" onClick="userList('<c:url value='/user/registerPT/form' />')">&nbsp;
+	<input type="button" value="현직자" onClick="userList('<c:url value='/user/registerW/form' />')">
 </form>
 
 </body>
