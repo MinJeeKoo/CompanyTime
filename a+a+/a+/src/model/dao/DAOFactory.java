@@ -9,4 +9,12 @@ public class DAOFactory {
 		return new FieldDAOImpl();
 	}
 	//...
+	
+//	public CompanyDAO getCompanyDAO() {
+//		return new CompanyDAOImpl();
+//	}
+	
+	public DepartmentDAO getDeparmentDAO() {
+		return new DepartmentDAOImpl();
+	}
 }

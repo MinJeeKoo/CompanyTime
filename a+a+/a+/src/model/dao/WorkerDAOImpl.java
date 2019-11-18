@@ -80,14 +80,14 @@
 //		// WorkerDAO 객체를 생성하여 이직준비자 정보에 포함되어 있는 field의 cf_num을 알아옴
 //		// Field는 재직중인 부서의 분야를 뜻함
 //		FieldDAO fieldDAO = factory.getFieldDAO();		// factory 를 통해 필드에 대한 DAO 획득
-//		Integer cf_num = fieldDAO.getCf_numByCf_name(cf_name); // 필드 DAO 의 필드명을 사용하여 cf_num을 얻어오는 메소드 사용
+//		Integer cf_num = fieldDAO.getCF_NUMByCF_NAME(cf_name); // 필드 DAO 의 필드명을 사용하여 cf_num을 얻어오는 메소드 사용
 //		if (cf_num == null) {
 //			return 0;
 //		}
 //		
 //		// DepartmentDAO 객체를 생성하여 현직자 정보에 포함되어 있는 부서의 cfd_num을 알아옴
 //		DepartmentDAO departmentDAO = factory.getDepartmentDAO();		// factory 를 통해 부서에 대한 DAO 획득
-//		Integer cfd_num = departmentDAO.getCfd_numByCfd_name(cfd_name);		// DepartmentDAO의 이름을 사용하여 cfd를 얻어오는 메소드 사용
+//		Integer cfd_num = departmentDAO.getCFD_NUMByCFD_NAME(cfd_name);		// DepartmentDAO의 이름을 사용하여 cfd를 얻어오는 메소드 사용
 //		if (cfd_num == null) {
 //			return 0;
 //		}
@@ -116,58 +116,16 @@
 //	
 //	// 현직자정보를 수정
 //	public int updateWorker(WorkerDTO w) {
-//		String updateQuery = "UPDATE Worker SET ";
-//		int index = 0;
-//		Object[] tempParam = new Object[9];		// update 문에 사용할 매개변수를 저장할 수 있는 임시 배열
-//		
-//		if (w.getW_id() != null) {		// id가 설정되어 있을 경우
-//			updateQuery += "ID = ?, ";		// update 문에 패스워드 수정 부분 추가
-//			tempParam[index++] = w.getW_id();		// 매개변수에 수정할 패스워드 추가
-//		}
-//		if (w.getPw() != null) {		// pw가 설정되어 있을 경우
-//			updateQuery += "PW = ?, ";		// update 문에 휴대폰 수정 부분 추가
-//			tempParam[index++] = w.getPw();		// 매개변수에 수정할 휴대폰 추가
-//		}
-//		if (w.getName() != null) {		// 이름이 설정되어 있을 경우
-//			updateQuery += "NAME = ?, ";		// update 문에 학년 수정 부분 추가
-//			tempParam[index++] = w.getName();		// 매개변수에 수정할 학년 추가
-//		}		
-//		if (w.getEmp_num() != null) {		// 사원번호가 설정되어 있을 경우
-//			updateQuery += "EMP_NUM = ?, ";		// update 문에 사원번호 수정 부분 추가
-//			tempParam[index++] = w.getEmp_num();		// 매개변수에 수정할 사원번호 추가
-//		}
-//		if (w.getCompany_email() != null) {		// EMAIL이 설정되어 있을 경우
-//			updateQuery += "COMPANY_EMAIL = ?, ";		// update 문에 EMAIL 수정 부분 추가
-//			tempParam[index++] = w.getCompany_email();		// 매개변수에 수정할 EMAIL 추가
-//		}
-//		if (w.getMatching_result() != null) {		// 매칭결과가 설정되어 있을 경우
-//			updateQuery += "MATCHING_RESULT = ?, ";		// update 문에 매칭결과 수정 부분 추가
-//			tempParam[index++] = w.getMatching_result();		// 매개변수에 수정할 매칭결과 추가
-//		}
-//		if (w.getC_num() != null) {		// 회사가 설정되어 있을 경우
-//			updateQuery += "C_NUM = ?, ";		// update 문에 회사 수정 부분 추가
-//			tempParam[index++] = w.getC_num();		// 매개변수에 수정할 회사 추가
-//		}
-//		if (w.getCf_num() != null) {		// 필드가 설정되어 있을 경우
-//			updateQuery += "CF_NUM = ?, ";		// update 문에 필드 수정 부분 추가
-//			tempParam[index++] = w.getCf_num();		// 매개변수에 수정할 필드 추가
-//		}
-//		if (w.getCfd_num() != null) {		// 부서가 설정되어 있을 경우
-//			updateQuery += "CFD_NUM = ?, ";		// update 문에 부서 수정 부분 추가
-//			tempParam[index++] = w.getCfd_num();		// 매개변수에 수정할 부서 추가
-//		}
-//		updateQuery += "WHERE id = ? ";		// update 문에 조건 지정
-//		updateQuery = updateQuery.replace(", WHERE", " WHERE");		// update 문의 where 절 앞에 있을 수 있는 , 제거
-//		
-//		tempParam[index++] = w.getW_id();		// 찾을 조건에 해당하는 학번에 대한 매개변수 추가
-//		
-//		Object[] newParam = new Object[index];
-//		for (int i=0; i < newParam.length; i++)		// 매개변수의 개수만큼의 크기를 갖는 배열을 생성하고 매개변수 값 복사
-//			newParam[i] = tempParam[i];
-//		
-//		jdbcUtil.setSql(updateQuery);			// JDBCUtil에 update 문 설정
-//		jdbcUtil.setParameters(newParam);		// JDBCUtil 에 매개변수 설정
-//		
+//		String updateQuery = "UPDATE worker SET "
+//				+ "c_num = ?, cfd_num = ?, name = ?, emp_num = ?, company_email = ?, "
+//				+ "pw = ?, matching_result = ?, cf_num = ? "
+//				+ "WHERE w_id = ? ";
+//		Object[] param = new Object[] {w.getC_num(), w.getCfd_num(), w.getName(), w.getEmp_num(), w.getCompany_email(),
+//									w.getPw(), w.getMatching_result(), w.getCf_num(), w.getW_id()};
+//		// update 문에 사용할 매개변수를 저장할 수 있는 임시 배열
+//		jdbcUtil.setSql(updateQuery);
+//		jdbcUtil.setParameters(param);
+//
 //		try {
 //			int result = jdbcUtil.executeUpdate();		// update 문 실행
 //			return result;			// update 에 의해 반영된 레코드 수 반환
@@ -184,6 +142,7 @@
 //	
 //	// 현직자정보를 삭제
 //	public int deleteWorker(int w_id) {
+//		String deleteQuery = "DELETE FROM worker WHERE w_id = ?";
 //		jdbcUtil.setSql(deleteQuery);			// JDBCUtil 에 query 문 설정
 //		Object[] param = new Object[] {w_id};
 //		jdbcUtil.setParameters(param);			// JDBCUtil 에 매개변수 설정

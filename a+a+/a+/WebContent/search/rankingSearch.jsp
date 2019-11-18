@@ -39,7 +39,7 @@
 </div>
 <div id="fld">
 	<h5>분야</h5>
-	<select id="field" name="cf_name" onchange='location.href="<c:url value ='/search/rankingSearch'/>" '>
+	<select id="field" name="cf_name" onchange='location.href="<c:url value ='/search/rankingSearch' />"'>
 		<option value="bussiness">경영/사무</option>
 		<option value="sales">영업/고객상담</option>
 		<option value="IT">IT/인터넷</option>

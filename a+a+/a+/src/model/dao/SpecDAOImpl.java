@@ -92,74 +92,29 @@ public class SpecDAOImpl implements SpecDAO {
 	@Override
 	public int updateSpec(SpecDTO sp) {
 		// TODO Auto-generated method stub
-		String query = "UPDATE SPEC SET ";
-		int index = 0;
-		// 왜 14갠지 모름
-		Object[] tempParam = new Object[14];
-		
-		if (sp.getCertification() != null) {
-			query += "certification = ?, ";
-			tempParam[index++] = sp.getCertification();
-		}
-		if (sp.getGrade() != null) {
-			query += "grade = ?, ";
-			tempParam[index++] = sp.getGrade();
-		}
-		if (sp.getInternship() != null) {
-			query += "internship = ?, ";
-			tempParam[index++] = sp.getInternship();
-		}
-		if (sp.getToeic() != null) {
-			query += "toeic = ?, ";
-			tempParam[index++] = sp.getToeic();
-		}
-		if (sp.getOpic() != null) {
-			query += "opic = ?, ";
-			tempParam[index++] = sp.getOpic();
-		}
-		if (sp.getContest() != null) {
-			query += "contest = ?, ";
-			tempParam[index++] = sp.getContest();
-		}
-		if (sp.getAwards() != null) {
-			query += "awards = ?, ";
-			tempParam[index++] = sp.getAwards();
-		}
-		if (sp.getStudy_abroad() != null) {
-			query += "study_abroad = ?, ";
-			tempParam[index++] = sp.getStudy_abroad();
-		}
-		if (sp.getVolun() != null) {
-			query += "volun = ?, ";
-			tempParam[index++] = sp.getVolun();
-		}
-		if (sp.getToeic_speaking() != null) {
-			query += "toeic_speaking = ?, ";
-			tempParam[index++] = sp.getToeic_speaking();
-		}
-		query += "WHERE spec_num = ? ";
-		query += query.replace(", WHERE", " WHERE");
-		
-		tempParam[index++] = sp.getSpec_num();
-		
-		Object[] newParam = new Object[index];
-		for (int i = 0; i < newParam.length; i++) {
-			newParam[i] = tempParam[i];
-		}
-		
-		jdbcUtil.setSql(query);
-		jdbcUtil.setParameters(newParam);
-		
+		String updateQuery = "UPDATE spec SET "
+				+ "certification = ?, grade = ?, internship = ?, toeic = ?, opic = ?, "
+				+ "contest = ?, awards = ?, study_abroad = ?, volun = ?, spec_num = ?, "
+				+ "toeic_speaking = ? "
+				+ "WHERE spec_num = ? ";
+		Object[] param = new Object[] {sp.getCertification(), sp.getGrade(), sp.getInternship(), sp.getToeic(), 
+									sp.getOpic(), sp.getContest(), sp.getAwards(), sp.getStudy_abroad(),
+									sp.getVolun(), sp.getSpec_num(), sp.getToeic_speaking(), sp.getSpec_num()};
+		// update 문에 사용할 매개변수를 저장할 수 있는 임시 배열
+		jdbcUtil.setSql(updateQuery);
+		jdbcUtil.setParameters(param);
+
 		try {
-			int result = jdbcUtil.executeUpdate();
-			return result;
+			int result = jdbcUtil.executeUpdate();		// update 문 실행
+			return result;			// update 에 의해 반영된 레코드 수 반환
 		} catch (Exception ex) {
 			jdbcUtil.rollback();
 			ex.printStackTrace();
-		} finally {
-			jdbcUtil.commit();
-			jdbcUtil.close();
 		}
+		finally {
+			jdbcUtil.commit();
+			jdbcUtil.close();		// ResultSet, PreparedStatement, Connection 반환
+		}		
 		return 0;
 	}
 

@@ -5,6 +5,7 @@
 //import java.sql.SQLException;
 //import java.util.ArrayList;
 //import java.util.List;
+//import model.dao.*;
 //
 //public class P_TurnoverDAOImpl implements P_TurnoverDAO {
 //	private JDBCUtil jdbcUtil = null;		// JDBCUtil 객체를 지정하기 위한 변수
@@ -87,14 +88,14 @@
 //		// FieldDAO 객체를 생성하여 이직준비자 정보에 포함되어 있는 field의 cf_num을 알아옴
 //		// Field는 이직하고자 하는 분야를 뜻함
 //		FieldDAO fieldDAO = factory.getFieldDAO();		// factory 를 통해 필드에 대한 DAO 획득
-//		Integer cf_num = fieldDAO.getCf_numByCf_name(cf_name); // 필드 DAO 의 필드명을 사용하여 cf_num을 얻어오는 메소드 사용			// cf_num을 설정
+//		Integer cf_num = fieldDAO.getCF_NUMByCF_NAME(cf_name); // 필드 DAO 의 필드명을 사용하여 cf_num을 얻어오는 메소드 사용			// cf_num을 설정
 //		if (cf_num == null) {
 //			return 0;
 //		}
 //		
 //		// DepartmentDAO 객체를 생성하여 이직준비자 정보에 포함되어 있는 부서의 cfd_num을 알아옴
 //		DepartmentDAO departmentDAO = factory.getDepartmentDAO();		// factory 를 통해 부서에 대한 DAO 획득
-//		Integer cfd_num = departmentDAO.getcfd_numByCfd_name(cfd_name);	// departmentDAO 의 이름을 사용하여 cfd를 얻어오는 메소드 사용		// 부서번호를 설정
+//		Integer cfd_num = departmentDAO.getCFD_NUMByCFD_NAME(cfd_name);	// departmentDAO 의 이름을 사용하여 cfd를 얻어오는 메소드 사용		// 부서번호를 설정
 //		if (cfd_num == null) {
 //			return 0;
 //		}
@@ -123,58 +124,17 @@
 //
 //	// 이직자정보를 수정
 //	public int updateP_Turnover(P_TurnoverDTO pt) {
-//		String updateQuery = "UPDATE Preparation_for_Turnover SET ";
-//		int index = 0;
-//		Object[] tempParam = new Object[9];		// update 문에 사용할 매개변수를 저장할 수 있는 임시 배열
-//		
-//		if (pt.getP_id() != null) {		// id가 설정되어 있을 경우
-//			updateQuery += "ID = ?, ";		// update 문에 패스워드 수정 부분 추가
-//			tempParam[index++] = pt.getP_id();		// 매개변수에 수정할 패스워드 추가
-//		}
-//		if (pt.getPw() != null) {		// pw가 설정되어 있을 경우
-//			updateQuery += "PW = ?, ";		// update 문에 휴대폰 수정 부분 추가
-//			tempParam[index++] = pt.getPw();		// 매개변수에 수정할 휴대폰 추가
-//		}
-//		if (pt.getName() != null) {		// 이름이 설정되어 있을 경우
-//			updateQuery += "NAME = ?, ";		// update 문에 학년 수정 부분 추가
-//			tempParam[index++] = pt.getName();		// 매개변수에 수정할 학년 추가
-//		}		
-//		if (pt.getEmp_num() != null) {		// 사원번호가 설정되어 있을 경우
-//			updateQuery += "EMP_NUM = ?, ";		// update 문에 사원번호 수정 부분 추가
-//			tempParam[index++] = pt.getEmp_num();		// 매개변수에 수정할 사원번호 추가
-//		}
-//		if (pt.getCompany_email() != null) {		// EMAIL이 설정되어 있을 경우
-//			updateQuery += "COMPANY_EMAIL = ?, ";		// update 문에 EMAIL 수정 부분 추가
-//			tempParam[index++] = pt.getCompany_email();		// 매개변수에 수정할 EMAIL 추가
-//		}
-//		if (pt.getMatching_result() != null) {		// 매칭결과가 설정되어 있을 경우
-//			updateQuery += "MATCHING_RESULT = ?, ";		// update 문에 매칭결과 수정 부분 추가
-//			tempParam[index++] = pt.getMatching_result();		// 매개변수에 수정할 매칭결과 추가
-//		}
-//		if (pt.getC_num() != null) {		// 회사가 설정되어 있을 경우
-//			updateQuery += "C_NUM = ?, ";		// update 문에 회사 수정 부분 추가
-//			tempParam[index++] = pt.getC_num();		// 매개변수에 수정할 회사 추가
-//		}
-//		if (pt.getCf_num() != null) {		// 필드가 설정되어 있을 경우
-//			updateQuery += "CF_NUM = ?, ";		// update 문에 필드 수정 부분 추가
-//			tempParam[index++] = pt.getCf_num();		// 매개변수에 수정할 필드 추가
-//		}
-//		if (pt.getCfd_num() != null) {		// 부서가 설정되어 있을 경우
-//			updateQuery += "CFD_NUM = ?, ";		// update 문에 부서 수정 부분 추가
-//			tempParam[index++] = pt.getCf_num();		// 매개변수에 수정할 부서 추가
-//		}
-//		updateQuery += "WHERE p_id = ? ";		// update 문에 조건 지정
-//		updateQuery = updateQuery.replace(", WHERE", " WHERE");		// update 문의 where 절 앞에 있을 수 있는 , 제거
-//		
-//		tempParam[index++] = pt.getP_id();		// 찾을 조건에 해당하는 id에 대한 매개변수 추가
-//		
-//		Object[] newParam = new Object[index];
-//		for (int i=0; i < newParam.length; i++)		// 매개변수의 개수만큼의 크기를 갖는 배열을 생성하고 매개변수 값 복사
-//			newParam[i] = tempParam[i];
-//		
-//		jdbcUtil.setSql(updateQuery);			// JDBCUtil에 update 문 설정
-//		jdbcUtil.setParameters(newParam);		// JDBCUtil 에 매개변수 설정
-//		
+//		String updateQuery = "UPDATE Preparation_For_Turnover SET "
+//				+ "c_num = ?, cfd_num = ?, name = ?, company_email = ?, pw = ?, "
+//				+ "cf_num = ?, matching_result = ? "
+//				+ "WHERE p_id = ? ";
+//		Object[] param = new Object[] {pt.getC_num(), pt.getCfd_num(),
+//									pt.getName(), pt.getCompany_email(), pt.getPw(), 
+//									pt.getCf_num(), pt.getMatching_result(), pt.getP_id()};
+//		// update 문에 사용할 매개변수를 저장할 수 있는 임시 배열
+//		jdbcUtil.setSql(updateQuery);
+//		jdbcUtil.setParameters(param);
+//
 //		try {
 //			int result = jdbcUtil.executeUpdate();		// update 문 실행
 //			return result;			// update 에 의해 반영된 레코드 수 반환

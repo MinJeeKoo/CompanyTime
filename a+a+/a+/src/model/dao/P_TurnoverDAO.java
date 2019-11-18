@@ -3,7 +3,7 @@ package model.dao;
 import model.dto.*;
 import java.util.List;
 
-public interface P_TurnoveDAO {
+public interface P_TurnoverDAO {
 	public List<P_TurnoverDTO> getP_TurnoverList();
 	public int insertP_Turnover(P_TurnoverDTO pt);
 	public int updateP_Turnover(P_TurnoverDTO pt);
