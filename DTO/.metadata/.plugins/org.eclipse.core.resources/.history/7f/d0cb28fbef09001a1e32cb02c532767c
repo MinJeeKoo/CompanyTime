@@ -1,0 +1,15 @@
+package persistence.dao;
+import java.util.List;
+import dto.InfoDTO;
+
+public interface InfoDAO {
+
+	public List<InfoDTO> getInfoList();		
+	public Integer insertInfo(InfoDTO Info);	
+	public Integer updateInfo(InfoDTO Info, Integer changeNo);	//다시한번 체크하기
+	public Integer deleteInfo(Integer iCode);		
+	public InfoDTO getInfoByName(String iName);		
+	public InfoDTO getInfoByCode(String iCode);		
+	
+
+}
