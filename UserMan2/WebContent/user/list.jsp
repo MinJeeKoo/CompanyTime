@@ -67,8 +67,10 @@
 %>	  	
 	  </table>	  	 
 	  <br>   
-	  <a href="<c:url value='/user/register/form' />">사용자 추가</a>
-	</td>
+	  <a href="<c:url value='/user/selectType/form' />">사용자 추가</a>
+	  <br>
+	  <a href="<c:url value='/user/main/form' />">홈화면</a>
+	  </td>
   </tr>
 </table>  
 </body>

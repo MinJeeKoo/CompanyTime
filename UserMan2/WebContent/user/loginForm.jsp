@@ -72,12 +72,15 @@ function userCreate(targetUri) {
 	    </table>
 	  </td>	  
 	</tr>
-	<tr height="100"><td>&nbsp;</td>
+<!--  	<tr height="100">
+		<td>
+			 &nbsp;
+		</td>
 	  <td>
-		<a href="http://cs.dongduk.ac.kr">
+		<input type="button" value="home" onClick="userCreate('<c:url value='/user/main/form' />')">
 		  <img src="<c:url value='/images/logo.gif' />" /></a>		
 	  </td>
-	</tr>
+	</tr>-->
   </table>  
 </form>
 </body>
