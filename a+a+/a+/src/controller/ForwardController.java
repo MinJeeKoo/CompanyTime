@@ -17,4 +17,5 @@ public class ForwardController implements Controller {
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
         return forwardUrl;
     }
+    
 }

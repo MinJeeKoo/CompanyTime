@@ -6,7 +6,6 @@ import java.util.List;
 
 public class InfoDAOImpl implements InfoDAO {
 
-	private static String query = "";
 	private JDBCUtil jdbcUtil = null;
 	
 	public InfoDAOImpl() {
@@ -76,9 +75,8 @@ public class InfoDAOImpl implements InfoDAO {
 				+ "FROM info "
 				+ "WHERE p_id = ? ";
 		
-		jdbcUtil.setSql(query);
 		Object[] param = new Object[] { p_id };
-		jdbcUtil.setParameters(param);
+		jdbcUtil.setSqlAndParameters(query, param);
 		
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();
@@ -116,9 +114,8 @@ public class InfoDAOImpl implements InfoDAO {
 				+ "FROM info "
 				+ "WHERE w_id = ? ";
 		
-		jdbcUtil.setSql(query);
 		Object[] param = new Object[] { w_id };
-		jdbcUtil.setParameters(param);
+		jdbcUtil.setSqlAndParameters(query, param);
 		
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();
@@ -154,9 +151,8 @@ public class InfoDAOImpl implements InfoDAO {
 				+ "FROM info "
 				+ "WHERE p_id = ? ";
 		
-		jdbcUtil.setSql(query);
 		Object[] param = new Object[] { p_id };
-		jdbcUtil.setParameters(param);
+		jdbcUtil.setSqlAndParameters(query, param);
 		
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();
@@ -179,9 +175,8 @@ public class InfoDAOImpl implements InfoDAO {
 				+ "FROM info "
 				+ "WHERE w_id = ? ";
 		
-		jdbcUtil.setSql(query);
 		Object[] param = new Object[] { w_id };
-		jdbcUtil.setParameters(param);
+		jdbcUtil.setSqlAndParameters(query, param);
 		
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();

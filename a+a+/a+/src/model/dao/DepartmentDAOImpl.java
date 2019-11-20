@@ -24,7 +24,7 @@ public class DepartmentDAOImpl implements DepartmentDAO{
 	@Override
 	public List<DepartmentDTO> getDepartmentList() {
 		String query = " SELECT CFD_NUM, CF_NUM, CFD_NAME FROM DEPARTMENT; ";
-		jdbcUtil.setSql(query);
+		jdbcUtil.setSqlAndParameters(query, null);
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();
 			List<DepartmentDTO> list = new ArrayList<DepartmentDTO>();
@@ -52,8 +52,7 @@ public class DepartmentDAOImpl implements DepartmentDAO{
 				+ "WHERE CFD_NAME = ?;" ;
 		
 		Object[] param = new Object[] {cfd_num};
-		jdbcUtil.setSql(query);
-		jdbcUtil.setParameters(param);
+		jdbcUtil.setSqlAndParameters(query, param);
 		
 		try {
 			ResultSet result = jdbcUtil.executeQuery();
@@ -78,8 +77,7 @@ public class DepartmentDAOImpl implements DepartmentDAO{
 		Integer cf_num = cfDAO.getCF_NUMByCF_NAME(cf_name);	//¹ÎÁö²¨¶û¸ÂÃß±â	// cf_numÀ» ¼³Á¤
 		
 		Object[] param = new Object[] {cf_num};
-		jdbcUtil.setSql(query);
-		jdbcUtil.setParameters(param);
+		jdbcUtil.setSqlAndParameters(query, param);
 		
 		try { 
 			ResultSet rs = jdbcUtil.executeQuery();		// query ¹® ½ÇÇà			

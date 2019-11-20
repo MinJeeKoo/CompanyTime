@@ -35,7 +35,7 @@ public class JobSeekerDAOImpl {
 				String allQuery = query + ", " + "CF_NUM AS CF_NUM, " +
 										         "matching_result AS matching_result  " + 
 										    "FROM JobSeeker ";		
-				jdbcUtil.setSql(allQuery);		// JDBCUtil 에 query 설정
+				jdbcUtil.setSqlAndParameters(allQuery, null);		// JDBCUtil 에 query 설정
 				
 				try { 
 					ResultSet rs = jdbcUtil.executeQuery();		// query 문 실행			
@@ -80,8 +80,7 @@ public class JobSeekerDAOImpl {
 	
 		// query 문에 사용할 매개변수 값을 갖는 매개변수 배열 생성
 		Object[] param = new Object[] { js.getJs_id(), js.getPw(), js.getName(), js.getSchool(), js.getMajor(), js.getPersonal_email(), cf_num};		
-		jdbcUtil.setSql(insertQuery);			// JDBCUtil 에 insert 문 설정
-		jdbcUtil.setParameters(param);			// JDBCUtil 에 매개변수 설정
+		jdbcUtil.setSqlAndParameters(insertQuery, param);			// JDBCUtil 에 insert 문 설정		// JDBCUtil 에 매개변수 설정
 				
 		try {				
 			result = jdbcUtil.executeUpdate();		// insert 문 실행
@@ -110,8 +109,7 @@ public class JobSeekerDAOImpl {
 									js.getPersonal_email(), js.getCf_num(), js.getMatching_result(), 
 									js.getJs_id()};
 				// update 문에 사용할 매개변수를 저장할 수 있는 임시 배열
-		jdbcUtil.setSql(updateQuery);
-		jdbcUtil.setParameters(param);
+		jdbcUtil.setSqlAndParameters(updateQuery, param);
 		
 		try {
 			int result = jdbcUtil.executeUpdate();		// update 문 실행
@@ -131,9 +129,9 @@ public class JobSeekerDAOImpl {
 	public int deleteJobSeeker(int js_id) {
 		String deleteQuery = "DELETE FROM JobSeeker WHERE js_id = ?";
 		
-		jdbcUtil.setSql(deleteQuery);			// JDBCUtil 에 query 문 설정
 		Object[] param = new Object[] {js_id};
-		jdbcUtil.setParameters(param);			// JDBCUtil 에 매개변수 설정
+		jdbcUtil.setSqlAndParameters(deleteQuery, param);			// JDBCUtil 에 query 문 설정
+		// JDBCUtil 에 매개변수 설정
 		
 		try {
 			int result = jdbcUtil.executeUpdate();		// delete 문 실행
@@ -151,10 +149,10 @@ public class JobSeekerDAOImpl {
 	// 취준생 정보를 이름으로 찾음
 	public JobSeekerDTO getJobSeekerByName(String name) {
 		String searchQuery = query + ", " + "FROM JobSeeker " +
-			  "WHERE NAME = ? ";	 
-		jdbcUtil.setSql(searchQuery);				// JDBCUtil 에 query 문 설정
-		Object[] param = new Object[] { name };		// 취준생을 찾기 위한 조건으로 이름을 설정
-		jdbcUtil.setParameters(param);				// JDBCUtil 에 query 문의 매개변수 값으로 사용할 매개변수 설정
+			  "WHERE NAME = ? ";	
+		
+		Object[] param = new Object[] { name };	
+		jdbcUtil.setSqlAndParameters(searchQuery, param);				// JDBCUtil 에 query 문 설정			// JDBCUtil 에 query 문의 매개변수 값으로 사용할 매개변수 설정
 		
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();		// query 문 실행
@@ -182,9 +180,10 @@ public class JobSeekerDAOImpl {
 	public JobSeekerDTO getJobSeekerById(String js_id) {
 		String searchQuery = query + ", " + "FROM JobSeeker " +
 				  "WHERE id = ? ";	 
-			jdbcUtil.setSql(searchQuery);				// JDBCUtil 에 query 문 설정
-			Object[] param = new Object[] { js_id };		// 취준생을 찾기 위한 조건으로 이름을 설정
-			jdbcUtil.setParameters(param);				// JDBCUtil 에 query 문의 매개변수 값으로 사용할 매개변수 설정
+		
+		Object[] param = new Object[] { js_id };
+		jdbcUtil.setSqlAndParameters(searchQuery, param);				// JDBCUtil 에 query 문 설정
+				// 취준생을 찾기 위한 조건으로 이름을 설정			// JDBCUtil 에 query 문의 매개변수 값으로 사용할 매개변수 설정
 			
 			try {
 				ResultSet rs = jdbcUtil.executeQuery();		// query 문 실행

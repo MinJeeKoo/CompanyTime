@@ -10,22 +10,30 @@
 <style>
 	
 </style>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script>
+	function fnCngList() {
+		console.log("hi");
+		alert("hello");
+		
+		var f = document.form;
+		
+		
+		var cf = $("#field option:selected").text();
+		console.log(cf);
+		
+		list = new Array();
+		list = <%= request.getAttribute( %> cf <%= ) %> ;
+		var len = list.length;
+		for (var i = 0; i < len; i++) {
+			f.department.options[i] = null;
+			f.department.options[i] = new Option(list[i], list[i]);
+		}
+		console.log('hi');
+	}
+</script>
 </head>
 <body>
-<script>
-	(function fnCngList() {
-		var f = document.form;
-		list = ${departmentList};
-		
-		if (list != null) {
-			var len = list.length;
-			for (var i = 0; i < len; i++) {
-				f.department.options[i] = null;
-				f.department.options[i] = new Option(list[i], list[i]);
-			}
-		}	
-	})();  
-</script>
 <center><h3>랭킹 검색</h3></center>
 <form action="" id="form" name="form">
 <div id="cat">
@@ -39,7 +47,7 @@
 </div>
 <div id="fld">
 	<h5>분야</h5>
-	<select id="field" name="cf_name" onchange='location.href="<c:url value ='/search/rankingSearch' />"'>
+	<select id="field" name="cf_name" onchange="fnCngList();">
 		<option value="bussiness">경영/사무</option>
 		<option value="sales">영업/고객상담</option>
 		<option value="IT">IT/인터넷</option>

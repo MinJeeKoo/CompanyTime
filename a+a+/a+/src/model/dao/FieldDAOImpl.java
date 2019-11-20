@@ -4,11 +4,15 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+
 import model.dto.FieldDTO;
 import model.dao.FieldDAO;
 
 public class FieldDAOImpl implements FieldDAO{
 	JDBCUtil jdbcUtil = null;
+	private static final Logger logger = LoggerFactory.getLogger(FieldDAOImpl.class);
 	
 	public FieldDAOImpl(){
 		jdbcUtil = new JDBCUtil();
@@ -17,37 +21,42 @@ public class FieldDAOImpl implements FieldDAO{
 	public Integer getCF_NUMByCF_NAME(String cf_name) {
 		
 		Integer cf_num = null;//Integer 타입이라 null로 초기화함.
-		String query = "SELECT CF_NUM"
-				+ "FROM FIELD"
-				+ "WHERE CF_NAME = ?;" ;
+		String query = "SELECT CF_NUM "
+				+ "FROM FIELD "
+				+ "WHERE CF_NAME = ?" ;
 		
 		Object[] param = new Object[] {cf_num};
-		jdbcUtil.setSql(query);
-		jdbcUtil.setParameters(param);
+		jdbcUtil.setSqlAndParameters(query, param);
 		
 		try {
 			ResultSet result = jdbcUtil.executeQuery();
-			cf_num = result.getInt("CF_NUM");
+			while (result.next()) {
+				cf_num = result.getInt("CF_NUM");
+			}
+			return cf_num;
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}finally{
 			jdbcUtil.close();
 		}
-		return cf_num;
+		return null;
 	}
 
 	@Override
-	public List<FieldDTO> getFieldList() {
-		String query = " SELECT CF_NUM, CF_NAME FROM FIELD ; ";
-		jdbcUtil.setSql(query);
+	public List<FieldDTO> getFieldList() throws SQLException {
+		String query = "SELECT cf_num, cf_name FROM field";
+		jdbcUtil.setSqlAndParameters(query, null);
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();
 			List<FieldDTO> list = new ArrayList<FieldDTO>();
 			while(rs.next()) {
-				FieldDTO dto = new FieldDTO();
-				dto.setCF_NUM(rs.getInt("CF_NUM"));
-				dto.setCF_NAME(rs.getString("CF_NAME"));
+				FieldDTO dto = new FieldDTO(
+						rs.getInt("cf_num"),
+						rs.getString("cf_name"));
+//				dto.setCF_NUM(rs.getInt("CF_NUM"));
+//				dto.setCF_NAME(rs.getString("CF_NAME"));
 				list.add(dto);
+				logger.info("ha");
 			}
 			return list;
 		}catch(Exception ex) {
@@ -55,6 +64,6 @@ public class FieldDAOImpl implements FieldDAO{
 		}finally{
 			jdbcUtil.close();
 		}return null;
-	}
+	}  
 	
 }

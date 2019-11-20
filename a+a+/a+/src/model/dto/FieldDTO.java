@@ -2,9 +2,14 @@ package model.dto;
 
 public class FieldDTO {
 
-	private Integer CF_NUM = null;
-	private String CF_NAME = null;
+	private Integer CF_NUM;
+	private String CF_NAME;
 
+	public FieldDTO(int CF_NUM, String CF_NAME) {
+		// TODO Auto-generated constructor stub
+		this.CF_NUM = CF_NUM;
+		this.CF_NAME = CF_NAME;
+	}
 	public Integer getCF_NUM() {
 		return CF_NUM;
 	}

@@ -30,9 +30,10 @@ public class SpecDAOImpl implements SpecDAO {
 						+ " FROM spec WHERE spec_num = ? ";
 		
 		SpecDTO s = null;
-		jdbcUtil.setSql(query);
+		
 		Object[] param = new Object[] { specNo };
-		jdbcUtil.setParameters(param);
+		jdbcUtil.setSqlAndParameters(query, param);
+	
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();
 			if (rs.next()) {
@@ -65,12 +66,9 @@ public class SpecDAOImpl implements SpecDAO {
 		String query = "INSERT INTO SPEC (spec_num, p_num, w_num, js_num, certification, grade, internship toeic, opic, contest, awards, study_abroad, volun, toeic_speaking)"
 						+ " VALUES (sequence_spec.nextval(), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
-		DAOFactory factory = new DAOFactory();
-		
 		Object[] param = new Object[] { sp.getP_num(), sp.getW_num(), sp.getJs_num(), sp.getCertification(), sp.getGrade(), sp.getInternship(), sp.getToeic(), sp.getOpic(), sp.getContest(), sp.getAwards(), sp.getStudy_abroad(), sp.getVolun(), sp.getToeic_speaking() };
 		
-		jdbcUtil.setSql(query);
-		jdbcUtil.setParameters(param);
+		jdbcUtil.setSqlAndParameters(query, param);
 		try {
 			result = jdbcUtil.executeUpdate();
 		} catch(SQLException e) {
@@ -101,8 +99,7 @@ public class SpecDAOImpl implements SpecDAO {
 									sp.getOpic(), sp.getContest(), sp.getAwards(), sp.getStudy_abroad(),
 									sp.getVolun(), sp.getSpec_num(), sp.getToeic_speaking(), sp.getSpec_num()};
 		// update 문에 사용할 매개변수를 저장할 수 있는 임시 배열
-		jdbcUtil.setSql(updateQuery);
-		jdbcUtil.setParameters(param);
+		jdbcUtil.setSqlAndParameters(updateQuery, param);
 
 		try {
 			int result = jdbcUtil.executeUpdate();		// update 문 실행
@@ -123,10 +120,9 @@ public class SpecDAOImpl implements SpecDAO {
 		// TODO Au to-generated method stub
 		String query = "DELETE FROM spec WHERE spec_num = ?";
 		
-		jdbcUtil.setSql(query);
 		Object[] param = new Object[] { spec_num };
-		jdbcUtil.setParameters(param);
-		
+		jdbcUtil.setSqlAndParameters(query, param);
+	
 		try {
 			int result = jdbcUtil.executeUpdate();
 			return result;
@@ -145,9 +141,9 @@ public class SpecDAOImpl implements SpecDAO {
 		String query = "SELECT spec_num AS spec_num "
 				+ "FROM spec WHERE p_Id = ? ";
 
-		jdbcUtil.setSql(query);
 		Object[] param = new Object[] { pNum };
-		jdbcUtil.setParameters(param);
+		jdbcUtil.setSqlAndParameters(query, param);
+		
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();
 			if (rs.next()) {
@@ -165,10 +161,10 @@ public class SpecDAOImpl implements SpecDAO {
 	public int getSpecNumByW_num(String wId) {
 		String query = "SELECT spec_num AS spec_num "
 				+ "FROM spec WHERE w_Id = ? ";
-
-		jdbcUtil.setSql(query);
+		
 		Object[] param = new Object[] { wId };
-		jdbcUtil.setParameters(param);
+		jdbcUtil.setSqlAndParameters(query, param);
+		
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();
 			if (rs.next()) {
@@ -186,10 +182,10 @@ public class SpecDAOImpl implements SpecDAO {
 	public int getSpecNumByJS_num(String jsId) {
 		String query = "SELECT spec_num AS spec_num"
 				+ "FROM spec WHERE pId = ? ";
-
-		jdbcUtil.setSql(query);
+		
 		Object[] param = new Object[] { jsId };
-		jdbcUtil.setParameters(param);
+		jdbcUtil.setSqlAndParameters(query, param);
+		
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();
 			if (rs.next()) {

@@ -21,7 +21,7 @@ public class ManagerDAOImpl implements ManagerDAO{
 	public List<ManagerDTO> getManagerList(){
 		String allQuery = query + ", " + "FROM Manager ORDER BY mgr_num";
 
-	 	jdbcUtil.setSql(allQuery);
+	 	jdbcUtil.setSqlAndParameters(allQuery, null);
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();
 			List<ManagerDTO> list = new ArrayList<ManagerDTO>();		// StudentDTO 객체들을 담기위한 list 객체
@@ -49,8 +49,7 @@ public class ManagerDAOImpl implements ManagerDAO{
 
 		// query 문에 사용할 매개변수 값을 갖는 매개변수 배열 생성
 		Object[] param = new Object[] { mgr.getId(), mgr.getPw()};		
-		jdbcUtil.setSql(insertQuery);			// JDBCUtil 에 insert 문 설정
-		jdbcUtil.setParameters(param);			// JDBCUtil 에 매개변수 설정
+		jdbcUtil.setSqlAndParameters(insertQuery, param);			// JDBCUtil 에 insert 문 설		// JDBCUtil 에 매개변수 설정
 				
 		try {				
 			result = jdbcUtil.executeUpdate();		// insert 문 실행
@@ -74,9 +73,10 @@ public class ManagerDAOImpl implements ManagerDAO{
 		// 기본 쿼리와 합쳐져 교수테이블에서 지도교수명, 학과 테이블에서 학과명을 가져오는 테이블
 				String searchQuery = query + ", " + "FROM Manager " +
 				  							  "WHERE Manager.id = ? ";	 
-				jdbcUtil.setSql(searchQuery);				// JDBCUtil 에 query 문 설정
-				Object[] param = new Object[] { id };		// 관리자를 찾기 위한 조건으로 id를 설정
-				jdbcUtil.setParameters(param);				// JDBCUtil 에 query문의 매개변수 값으로 사용할 매개변수 설정
+				
+				Object[] param = new Object[] { id };
+				jdbcUtil.setSqlAndParameters(searchQuery, param);				// JDBCUtil 에 query 문 설정
+						// 관리자를 찾기 위한 조건으로 id를 설정			// JDBCUtil 에 query문의 매개변수 값으로 사용할 매개변수 설정
 				
 				try {
 					ResultSet rs = jdbcUtil.executeQuery();		// query 문 실행
