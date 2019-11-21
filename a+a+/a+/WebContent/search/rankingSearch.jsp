@@ -5,32 +5,54 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	
 </style>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script>
-	function fnCngList() {
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#field").on("change", function() {
+		$.ajax({
+			type: "GET",
+			url: "<c:url value='/search/rankingSearch/json' />" + "?cf_name=" + $("#field option:selected").text(),
+			cache: false,
+			dataType: "json",
+			success: function(departmentList) {
+				alert("hello");
+				
+				var f = document.form;
+				var len = departmentList.length;
+				var opt = $("#field option").length;
+				
+				for (var i = 0; i < opt; i++) {
+					f.department.options[0] = null;
+				}
+				
+				for (var i = 0; i < len; i++) {
+					f.department.options[i] = new Option(departmentList[i], departmentList[i]);
+				}
+			}
+		});
+	});
+});
+	/* function fnCngList() {
 		console.log("hi");
 		alert("hello");
 		
 		var f = document.form;
 		
-		
 		var cf = $("#field option:selected").text();
 		console.log(cf);
 		
-		list = new Array();
-		list = <%= request.getAttribute( %> cf <%= ) %> ;
+		list = $(cf);
 		var len = list.length;
 		for (var i = 0; i < len; i++) {
 			f.department.options[i] = null;
 			f.department.options[i] = new Option(list[i], list[i]);
 		}
 		console.log('hi');
-	}
+	} */
 </script>
 </head>
 <body>
@@ -47,7 +69,7 @@
 </div>
 <div id="fld">
 	<h5>분야</h5>
-	<select id="field" name="cf_name" onchange="fnCngList();">
+	<select id="field" name="cf_name">
 		<option value="bussiness">경영/사무</option>
 		<option value="sales">영업/고객상담</option>
 		<option value="IT">IT/인터넷</option>
@@ -65,7 +87,7 @@
 </div>
 <div id="dept">
 	<h5>부서</h5>
-	<select name="department">
+	<select name="cfd_name" id="department">
 		<option value="">부서</option>
 	</select>
 </div>

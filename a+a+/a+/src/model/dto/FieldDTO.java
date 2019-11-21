@@ -10,6 +10,7 @@ public class FieldDTO {
 		this.CF_NUM = CF_NUM;
 		this.CF_NAME = CF_NAME;
 	}
+	
 	public Integer getCF_NUM() {
 		return CF_NUM;
 	}

@@ -19,17 +19,16 @@ public class FieldDAOImpl implements FieldDAO{
 	}
 	
 	public Integer getCF_NUMByCF_NAME(String cf_name) {
-		
-		Integer cf_num = null;//Integer 타입이라 null로 초기화함.
 		String query = "SELECT CF_NUM "
 				+ "FROM FIELD "
-				+ "WHERE CF_NAME = ?" ;
+				+ "WHERE CF_NAME = ?";
 		
-		Object[] param = new Object[] {cf_num};
+		Object[] param = new Object[] {cf_name};
 		jdbcUtil.setSqlAndParameters(query, param);
 		
 		try {
 			ResultSet result = jdbcUtil.executeQuery();
+			Integer cf_num = null;
 			while (result.next()) {
 				cf_num = result.getInt("CF_NUM");
 			}

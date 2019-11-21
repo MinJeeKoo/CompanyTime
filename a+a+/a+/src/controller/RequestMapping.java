@@ -26,7 +26,8 @@ public class RequestMapping {
 //        mappings.put("/user/update", new UpdateUserController());
 //        mappings.put("/user/delete", new DeleteUserController());
         
-    	mappings.put("/search/rankingSearch", new ListDepartmentController());
+        mappings.put("/search/rankingSearch", new ForwardController("/search/rankingSearch.jsp"));
+    	mappings.put("/search/rankingSearch/json", new ListDepartmentJSONController());
         logger.info("Initialized Request Mapping!");
     }
 
