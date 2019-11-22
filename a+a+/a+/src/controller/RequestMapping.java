@@ -28,6 +28,7 @@ public class RequestMapping {
         
         mappings.put("/search/rankingSearch", new ForwardController("/search/rankingSearch.jsp"));
     	mappings.put("/search/rankingSearch/json", new ListDepartmentJSONController());
+    	mappings.put("/temp", new tempController());
         logger.info("Initialized Request Mapping!");
     }
 

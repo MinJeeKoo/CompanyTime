@@ -2,8 +2,8 @@ package model.dto;
 
 public class InfoDTO {
 	   private Integer iNo = null;			// 사용자 입력 정보PK
-	   private Integer pId = null;			// 이직자 FK
-	   private Integer wId = null;			// 현직자 FK
+	   private String pId = null;			// 이직자 FK
+	   private String wId = null;			// 현직자 FK
 	   private Integer cfdNo = null;			// department 번호
 	   private Integer annual_Income = null;		// 연봉
 	   private Integer InfoMood = null;		// 부서 분위기
@@ -19,16 +19,16 @@ public class InfoDTO {
 	public void setiNo(Integer iNo) {
 		this.iNo = iNo;
 	}
-	public Integer getpId() {
+	public String getpId() {
 		return pId;
 	}
-	public void setpId(Integer pId) {
+	public void setpId(String pId) {
 		this.pId = pId;
 	}
-	public Integer getwId() {
+	public String getwId() {
 		return wId;
 	}
-	public void setwId(Integer wId) {
+	public void setwId(String wId) {
 		this.wId = wId;
 	}
 	public Integer getCfdNo() {

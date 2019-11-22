@@ -19,8 +19,6 @@ $(document).ready(function() {
 			cache: false,
 			dataType: "json",
 			success: function(departmentList) {
-				alert("hello");
-				
 				var f = document.form;
 				var len = departmentList.length;
 				var opt = $("#field option").length;
@@ -36,31 +34,18 @@ $(document).ready(function() {
 		});
 	});
 });
-	/* function fnCngList() {
-		console.log("hi");
-		alert("hello");
-		
-		var f = document.form;
-		
-		var cf = $("#field option:selected").text();
-		console.log(cf);
-		
-		list = $(cf);
-		var len = list.length;
-		for (var i = 0; i < len; i++) {
-			f.department.options[i] = null;
-			f.department.options[i] = new Option(list[i], list[i]);
-		}
-		console.log('hi');
-	} */
+
+function search() {
+	form.submit();
+}
 </script>
 </head>
 <body>
 <center><h3>랭킹 검색</h3></center>
-<form action="" id="form" name="form">
+<form action="<c:url value='/temp' />" id="form" name="form">
 <div id="cat">
 	<h5>카테고리</h5>
-	<select id="category">
+	<select id="category" name="category">
 		<option value="annual_income">연봉</option>
 		<option value="mood">부서 분위기</option>
 		<option value="satisfaction">직업 만족도</option>
@@ -90,6 +75,7 @@ $(document).ready(function() {
 	<select name="cfd_name" id="department">
 		<option value="">부서</option>
 	</select>
+<input type="button" value="검색" onclick="search()" />
 </div>
 </form>
 </body>

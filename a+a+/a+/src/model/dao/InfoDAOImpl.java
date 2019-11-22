@@ -2,6 +2,7 @@ package model.dao;
 
 import model.dto.*;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 public class InfoDAOImpl implements InfoDAO {
@@ -15,8 +16,44 @@ public class InfoDAOImpl implements InfoDAO {
 	@Override
 	public Integer insertInfo(InfoDTO Info) {
 		// TODO Auto-generated method stub
+		int result = 0;
 		
-		return null;
+		String insertQuery = "INSERT INTO INFO " + 
+				"VALUES(?, ?, ?, ?, ?, ?, ?, ?, sequence_info.nextval, ?, ?)";
+		
+		DAOFactory factory = new DAOFactory();
+		
+		String p_id = Info.getpId();
+		String w_id = Info.getwId();
+		Integer annual_Income = Info.getAnnual_Income();//1
+		Integer InfoMood = Info.getInfoMood();//2
+		Integer jobSat_R = Info.getJobSat_R();//3
+		String jobSat_H = Info.getJobSat_H();
+		Integer cafeteria = Info.getCafeteria();//4
+		Integer trafficConven = Info.getTrafficConven();//5
+		String empWellfare = Info.getEmpWellfare();//6
+		Integer cfdNo = Info.getCfdNo();
+		
+		Object[] param = new Object[] {annual_Income, InfoMood, jobSat_R, cafeteria, 
+				trafficConven, empWellfare, p_id, w_id, cfdNo, jobSat_H};
+		
+		jdbcUtil.setSqlAndParameters(insertQuery, param);
+		
+		try {				
+			result = jdbcUtil.executeUpdate();		// insert 문 실행
+			
+		} catch (SQLException ex) {
+			System.out.println("입력오류 발생!!!");
+			if (ex.getErrorCode() == 1)
+				System.out.println("동일한 취준생정보가 이미 존재합니다."); 
+		} catch (Exception ex) {
+			jdbcUtil.rollback();
+			ex.printStackTrace();
+		} finally {		
+			jdbcUtil.commit();
+			jdbcUtil.close();		// ResultSet, PreparedStatement, Connection 반환
+		}		
+		return result;
 	}
 
 	@Override
