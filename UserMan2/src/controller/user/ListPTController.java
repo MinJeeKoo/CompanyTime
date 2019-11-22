@@ -4,14 +4,16 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import controller.Controller;
+import model.P_TurnoverDTO;
 import model.User_JobSeeker;
 import model.service.UserManager;
+import model.service.UserManager_PT;
 
-public class ListUserController implements Controller {
-	// private static final int countPerPage = 100;	// 한 화면에 출력할 사용자 수
+public class ListPTController implements Controller {
 
-    @Override
+	@Override
     public String execute(HttpServletRequest request, HttpServletResponse response)	throws Exception {
 		// 로그인 여부 확인
     	if (!UserSessionUtils.hasLogined(request.getSession())) {
@@ -26,9 +28,9 @@ public class ListUserController implements Controller {
 		}		
     	
     	
-		UserManager manager = UserManager.getInstance();
-		List<User_JobSeeker> userList = manager.findUserList();
-//		List<User_JobSeeker> userList = manager.findUserList(currentPage, countPerPage);
+		UserManager_PT manager = UserManager_PT.getInstance();
+		List<P_TurnoverDTO> userList = manager.findUserList();
+//		List<P_TurnoverDTO> userList = manager.findUserList(currentPage, countPerPage);
 
 		// userList 객체와 현재 로그인한 사용자 ID를 request에 저장하여 전달
 		request.setAttribute("userList", userList);				
@@ -36,6 +38,7 @@ public class ListUserController implements Controller {
 				UserSessionUtils.getLoginUserId(request.getSession()));		
 
 		// 사용자 리스트 화면으로 이동(forwarding)
-		return "/user/list.jsp";        
+		return "/user/list_pt.jsp";
     }
+
 }

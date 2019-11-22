@@ -4,36 +4,37 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import model.P_TurnoverDTO;
 import model.User_JobSeeker;
+import model.dao.P_TurnoverDAOImpl;
 import model.dao.User_JobSeekerDAO;
 
-// an example business class
-public class UserAnalysis {
-	private User_JobSeekerDAO dao;
+public class UserAnalysis_PT {
+	private P_TurnoverDAOImpl dao;
 	
-	public UserAnalysis() {}
+	public UserAnalysis_PT() {}
 	
-	public UserAnalysis(User_JobSeekerDAO dao) {
+	public UserAnalysis_PT(P_TurnoverDAOImpl dao) {
 		super();
 		this.dao = dao;
 	}
 
 //	// an example business method
-//	public List<User_JobSeeker> recommendFriends(String userId) throws Exception {
-//		User_JobSeeker thisuser = dao.findUser(userId);
+//	public List<P_TurnoverDTO> recommendFriends(String p_id) throws Exception {
+//		P_TurnoverDTO thisuser = dao.findUser(p_id);
 //		if (thisuser == null) {
 //			throw new Exception("invalid user ID!");
 //		}
-//		int m1 = userId.indexOf('@');
+//		int m1 = p_id.indexOf('@');
 //		if (m1 == -1) return null;
 //		String mserver1 = thisuser.getEmail().substring(m1);
 //		
-//		List<User_JobSeeker> friends = new ArrayList<User_JobSeeker>();
+//		List<P_TurnoverDAOImpl> friends = new ArrayList<P_TurnoverDAOImpl>();
 //		
-//		List<User_JobSeeker> userList = dao.findUserList(1, 10000);
-//		Iterator<User_JobSeeker> userIter = userList.iterator();		
+//		List<P_TurnoverDAOImpl> userList = dao.findUserList(1, 10000);
+//		Iterator<P_TurnoverDAOImpl> userIter = userList.iterator();		
 //		while (userIter.hasNext()) {
-//			User_JobSeeker user = (User_JobSeeker)userIter.next();
+//			P_TurnoverDAOImpl user = (P_TurnoverDAOImpl)userIter.next();
 //			
 //			if (user.getUserId().equals(userId)) continue;
 //			int m2 = user.getEmail().indexOf('@');

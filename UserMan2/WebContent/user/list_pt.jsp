@@ -8,7 +8,7 @@
 --%>
 <html>
 <head>
-<title>사용자 관리</title>
+<title>이직자 관리</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel=stylesheet href="<c:url value='/css/user.css' />" type="text/css">
 </head>
@@ -47,35 +47,43 @@
 	  <c:forEach var="user" items="${userList}">  			  	
   		<tr>
 		  <td width="190" align="center" bgcolor="ffffff" height="20">
-		  	${user.p_id}       <%-- <%=user.getUserId()%> --%>
+		  	${user.p_id}       <%-- <%=user.getP_id()%> --%>
 		  </td>
-		  <td width="200" bgcolor="ffffff" style="padding-left: 10">
-			<a href="<c:url value='/user/view'>
+<%-- 		   <td width="200" bgcolor="ffffff" style="padding-left: 10">
+			<a href="<c:url value='/user/view_pt'>
 					   <c:param name='userId' value='${user.userId}'/>
 			 		 </c:url>">
-			  ${user.name}</a>	 <%-- <%=user.getName()%></a> --%>
+			  ${user.name}</a>	 
+
+		  </td> 
+--%>
+		  <td width="190" align="center" bgcolor="ffffff" height="20">
+		  	${user.name}       <%-- <%=user.getName()%> --%>
 		  </td>
 		  <td width="200" align="center" bgcolor="ffffff" height="20">
-		    ${user.email}        <%-- <%=user.getEmail()%> --%>
+		    ${user.company_email}        <%-- <%=user.getCompany_Email()%> --%>
 		  </td>
-		  <td width="200" align="center" bgcolor="ffffff" height="20">
+<%--  <td width="200" align="center" bgcolor="ffffff" height="20">
 			<a href="<c:url value='/community/view'>
 					   <c:param name='commId' value='${user.commId}'/>
 			 		 </c:url>">		
 			${user.commName}</a>
 		  </td>
+--%>
+		   <td width="190" align="center" bgcolor="ffffff" height="20">
+		  	${user.c_num}       <%-- <%=user.getC_num()%> --%>
+		  	
+		  </td>  
 		</tr>
 	  </c:forEach> 
 <%--
 	  }
 	}
 --%>	 
-	  </table>	  	 
-	  <br>   
-	  <a href="<c:url value='/user/register/form' />">사용자 추가</a>
-	  <br>   
-	  <a href="<c:url value='/community/list' />">커뮤니티 목록</a>
-	</td>
+	   </table>	  	 
+	  <br>
+	  <a href="<c:url value='/user/main_login/form' />">홈화면</a>
+	  </td>
   </tr>
 </table>  
 </body>

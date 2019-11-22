@@ -75,9 +75,9 @@ public class UserManager {
 		return true;
 	}
 
-	public List<User_JobSeeker> makeFriends(String userId) throws Exception {
-		return userAanlysis.recommendFriends(userId);
-	}
+//	public List<User_JobSeeker> makeFriends(String userId) throws Exception {
+//		return userAanlysis.recommendFriends(userId);
+//	}
 	
 	public User_JobSeekerDAO getUserDAO() {
 		return this.userDAO;

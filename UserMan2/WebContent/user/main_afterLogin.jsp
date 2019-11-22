@@ -44,13 +44,10 @@
 <body>
 	<h1 align="CENTER">우리사이</h1>
 
-<!-- 로그인클릭시 로그인화면으로 넘어감 -->
-<form name="login" method="get" action="<c:url value='/user/login/form' />">
-<input type="submit" value="로그인">
-</form>
+<!-- 로그아웃클릭시 로그인화면으로 넘어감 -->
+<a href="<c:url value='/user/logout' />">로그아웃(&nbsp;${curUserId}&nbsp;)</a>
 <br>
 <br>
-
 <form name="search" style="margin-right:70px;" method = "get"  
 		action ="NextFile.jsp" onsubmit="return keyword_check()">
 <!-- 일단 NextFile.jsp로 넘어감 -->
@@ -65,7 +62,7 @@
 <table style="width:100%">
 	<tr>
 		<td>
-			<form action="<c:url value='/user/view_pt'>
+		<form action="<c:url value='/user/view_pt'>
 				<c:param name='userId' value='${user.userId}'/>
 					</c:url>">
 			<button type="submit" style="font-size:2em; border-radius:0.5em; padding:5px 20px">
