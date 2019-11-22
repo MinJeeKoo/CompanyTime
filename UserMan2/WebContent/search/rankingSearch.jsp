@@ -35,11 +35,15 @@ $(document).ready(function() {
 		});
 	});
 });
+
+function search() {
+	form.submit();
+}
 </script>
 </head>
 <body>
 <center><h3>랭킹 검색</h3></center>
-<form action="" id="form" name="form">
+<form action="<c:url value='/temp' />" id="form" name="form">
 <div id="cat">
 	<h5>카테고리</h5>
 	<select id="category">
@@ -72,6 +76,7 @@ $(document).ready(function() {
 	<select name="cfd_name" id="department">
 		<option value="">부서</option>
 	</select>
+<input type="button" value="검색" onclick="search()" />
 </div>
 </form>
 </body>

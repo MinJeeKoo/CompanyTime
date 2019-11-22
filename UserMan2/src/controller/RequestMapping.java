@@ -11,11 +11,11 @@ import controller.search.*;
 public class RequestMapping {
     private static final Logger logger = LoggerFactory.getLogger(DispatcherServlet.class);
     
-    // °¢ ¿äÃ» uri¿¡ ´ëÇÑ controller °´Ã¼¸¦ ÀúÀåÇÒ HashMap »ý¼º
+    // ï¿½ï¿½ ï¿½ï¿½Ã» uriï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ controller ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ HashMap ï¿½ï¿½ï¿½ï¿½
     private Map<String, Controller> mappings = new HashMap<String, Controller>();
 
     public void initMapping() {
-    	// °¢ uri¿¡ ´ëÀÀµÇ´Â controller °´Ã¼¸¦ »ý¼º ¹× ÀúÀå
+    	// ï¿½ï¿½ uriï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç´ï¿½ controller ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         mappings.put("/", new ForwardController("index.jsp"));
         mappings.put("/user/login/form", new ForwardController("/user/loginForm.jsp"));
         mappings.put("/user/login", new LoginController());
@@ -38,11 +38,14 @@ public class RequestMapping {
         mappings.put("/search/rankingSearch", new ForwardController("/search/rankingSearch.jsp"));
     	mappings.put("/search/rankingSearch/json", new ListDepartmentJSONController());
         
+    	//ë¯¼ì§€ëž‘ ì—°ê²°í•˜ë©´ ë°”ê¾¸ê¸°
+    	mappings.put("/temp", new tempController());
+    	
         logger.info("Initialized Request Mapping!");
     }
 
     public Controller findController(String uri) {	
-    	// ÁÖ¾îÁø uri¿¡ ´ëÀÀµÇ´Â controller °´Ã¼¸¦ Ã£¾Æ ¹ÝÈ¯
+    	// ï¿½Ö¾ï¿½ï¿½ï¿½ uriï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç´ï¿½ controller ï¿½ï¿½Ã¼ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½È¯
         return mappings.get(uri);
     }
 }
