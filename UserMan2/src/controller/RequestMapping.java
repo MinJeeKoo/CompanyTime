@@ -1,9 +1,11 @@
 package controller;
 
 import java.util.HashMap;
+
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import controller.user.*;
 
 public class RequestMapping {
@@ -34,6 +36,8 @@ public class RequestMapping {
         mappings.put("/user/delete", new DeleteUserController());
         mappings.put("/user/selectType/form", new ForwardController("/user/selectTypeForm.jsp"));
 //        mappings.put("/user/selectType", new SelectTypeUserController());
+        mappings.put("/search/rankingSearch", new ForwardController("/search/rankingSearch.jsp"));
+    	mappings.put("/search/rankingSearch/json", new ListDepartmentJSONController());
         
         logger.info("Initialized Request Mapping!");
     }
