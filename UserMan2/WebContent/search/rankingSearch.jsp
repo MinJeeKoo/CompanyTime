@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="EUC-KR"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
@@ -36,59 +36,42 @@ $(document).ready(function() {
 		});
 	});
 });
-	/* function fnCngList() {
-		console.log("hi");
-		alert("hello");
-		
-		var f = document.form;
-		
-		var cf = $("#field option:selected").text();
-		console.log(cf);
-		
-		list = $(cf);
-		var len = list.length;
-		for (var i = 0; i < len; i++) {
-			f.department.options[i] = null;
-			f.department.options[i] = new Option(list[i], list[i]);
-		}
-		console.log('hi');
-	} */
 </script>
 </head>
 <body>
-<center><h3>·©Å· °Ë»ö</h3></center>
+<h3>ëž­í‚¹ ê²€ìƒ‰</h3>
 <form action="" id="form" name="form">
 <div id="cat">
-	<h5>Ä«Å×°í¸®</h5>
+	<h5>ì¹´í…Œê³ ë¦¬</h5>
 	<select id="category">
-		<option value="annual_income">¿¬ºÀ</option>
-		<option value="mood">ºÎ¼­ ºÐÀ§±â</option>
-		<option value="satisfaction">Á÷¾÷ ¸¸Á·µµ</option>
-		<option value="traffic_convenience">±³Åë ÆíÀÇ¼º</option>
+		<option value="annual_income">ì—°ë´‰</option>
+		<option value="mood">ë¶€ì„œ ë¶„ìœ„ê¸°</option>
+		<option value="satisfaction">ì§ì—… ë§Œì¡±ë„</option>
+		<option value="traffic_convenience">êµí†µ íŽ¸ì˜ì„±</option>
 	</select>
 </div>
 <div id="fld">
-	<h5>ºÐ¾ß</h5>
+	<h5>ë¶„ì•¼</h5>
 	<select id="field" name="cf_name">
-		<option value="bussiness">°æ¿µ/»ç¹«</option>
-		<option value="sales">¿µ¾÷/°í°´»ó´ã</option>
-		<option value="IT">IT/ÀÎÅÍ³Ý</option>
-		<option value="design">µðÀÚÀÎ</option>
-		<option value="service">¼­ºñ½º</option>
-		<option value="professional">Àü¹®Á÷</option>
-		<option value="medical">ÀÇ·á</option>
-		<option value="manufacture">»ý»ê/Á¦Á¶</option>
-		<option value="construction">°Ç¼³</option>
-		<option value="trade">À¯Åë/¹«¿ª</option>
-		<option value="media">¹Ìµð¾î</option>
-		<option value="education">±³À°</option>
-		<option value="public/specialized">Æ¯¼ö°èÃþ/°ø°ø</option>
+		<option value="bussiness">ê²½ì˜/ì‚¬ë¬´</option>
+		<option value="sales">ì˜ì—…/ê³ ê°ìƒë‹´</option>
+		<option value="IT">IT/ì¸í„°ë„·</option>
+		<option value="design">ë””ìžì¸</option>
+		<option value="service">ì„œë¹„ìŠ¤</option>
+		<option value="professional">ì „ë¬¸ì§</option>
+		<option value="medical">ì˜ë£Œ</option>
+		<option value="manufacture">ìƒì‚°/ì œì¡°</option>
+		<option value="construction">ê±´ì„¤</option>
+		<option value="trade">ìœ í†µ/ë¬´ì—­</option>
+		<option value="media">ë¯¸ë””ì–´</option>
+		<option value="education">êµìœ¡</option>
+		<option value="public/specialized">íŠ¹ìˆ˜ê³„ì¸µ/ê³µê³µ</option>
 	</select>
 </div>
 <div id="dept">
-	<h5>ºÎ¼­</h5>
+	<h5>ë¶€ì„œ</h5>
 	<select name="cfd_name" id="department">
-		<option value="">ºÎ¼­</option>
+		<option value="">ë¶€ì„œ</option>
 	</select>
 </div>
 </form>

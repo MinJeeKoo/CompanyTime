@@ -12,7 +12,7 @@ public class ForwardController implements Controller {
         }
         this.forwardUrl = forwardUrl;
     }
-
+                    
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
         return forwardUrl;

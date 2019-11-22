@@ -1,1 +1,1 @@
-<% response.sendRedirect(request.getContextPath() + "/user/list_pt"); %>
+<% response.sendRedirect(request.getContextPath() + "/user/main/form"); %>

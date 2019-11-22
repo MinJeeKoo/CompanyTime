@@ -75,9 +75,11 @@
 		</td>
 		
 		<td>
-			<button type="button" style="font-size:2em; border-radius:0.5em; padding:5px 20px" onclick="" >
-			랭킹검색
-			</button>
+			<form name="login" method="get" action="<c:url value='/search/rankingSearch' />">
+				<button type="submit" style="font-size:2em; border-radius:0.5em; padding:5px 20px">
+				랭킹검색
+				</button>
+			</form>
 		</td>
 	</tr>
 	

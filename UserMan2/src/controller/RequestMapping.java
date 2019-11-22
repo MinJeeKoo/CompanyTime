@@ -35,7 +35,6 @@ public class RequestMapping {
         mappings.put("/user/update", new UpdateUser_JobSeekerController());
         mappings.put("/user/delete", new DeleteUserController());
         mappings.put("/user/selectType/form", new ForwardController("/user/selectTypeForm.jsp"));
-//        mappings.put("/user/selectType", new SelectTypeUserController());
         mappings.put("/search/rankingSearch", new ForwardController("/search/rankingSearch.jsp"));
     	mappings.put("/search/rankingSearch/json", new ListDepartmentJSONController());
         

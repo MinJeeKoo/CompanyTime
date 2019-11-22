@@ -48,6 +48,7 @@
 <a href="<c:url value='/user/logout' />">로그아웃(&nbsp;${curUserId}&nbsp;)</a>
 <br>
 <br>
+
 <form name="search" style="margin-right:70px;" method = "get"  
 		action ="NextFile.jsp" onsubmit="return keyword_check()">
 <!-- 일단 NextFile.jsp로 넘어감 -->
@@ -72,9 +73,11 @@
 		</td>
 		
 		<td>
-			<button type="button" style="font-size:2em; border-radius:0.5em; padding:5px 20px" onclick="" >
-			랭킹검색
-			</button>
+			<form method="get" action="<c:url value='/search/rankingSearch' />">
+				<button type="submit" style="font-size:2em; border-radius:0.5em; padding:5px 20px">
+				랭킹검색
+				</button>
+			</form>
 		</td>
 	</tr>
 	

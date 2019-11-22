@@ -14,7 +14,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import controller.Controller;
 import controller.DispatcherServlet;
-import model.FieldDTO;
 import model.service.SearchManager;
 
 public class ListDepartmentJSONController implements Controller {
