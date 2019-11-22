@@ -7,6 +7,8 @@
 <link rel=stylesheet href="<c:url value='/css/user.css' />" type="text/css">
 <script>
 function userCreate() {
+	alert("ha");
+	console.log('ha');
 	if (form.userId.value == "") {
 		alert("사용자 ID를 입력하십시오.");
 		form.userId.focus();
@@ -31,17 +33,6 @@ function userCreate() {
 	if(emailExp.test(form.email.value)==false) {
 		alert("이메일 형식이 올바르지 않습니다.");
 		form.email.focus();
-		return false;
-	}
-	var phoneExp = /^\d{2,3}-\d{3,4}-\d{4}$/;
-	if(phoneExp.test(form.phone.value)==false) {
-		alert("전화번호 형식이 올바르지 않습니다.");
-		form.phone.focus();
-		return false;
-	}
-	if (form.empno.value == "") {
-		alert("사원번호를 입력하십시오.");
-		form.empno.focus();
 		return false;
 	}
 	if (form.company.value == "") {
@@ -129,7 +120,7 @@ function itemChange(f){
 <body bgcolor=#FFFFFF text=#000000 leftmargin=0 topmargin=0 marginwidth=0 marginheight=0>
 <br>
 <!-- registration form  -->
-<form name="form" method="POST" action="">
+<form name="form" action="<c:url value='/user/register_pt' />">
   <table style="width: 100%">
     <tr>
       <td width="20"></td>
@@ -179,34 +170,12 @@ function itemChange(f){
 				<c:if test="${registerFailed}">value="${user.emailExp}"</c:if>
 		
 			</td>
-		  </tr>	
-	  	  <tr height="40">
-			<td width="150" align="center" bgcolor="E6ECDE">전화번호</td>
-			<td width="250" bgcolor="ffffff" style="padding-left: 10">
-				<input type="text" style="width: 240" name="phone" >
-				<c:if test="${registerFailed}">value="${user.phoneExp}"</c:if>
-		
-			</td>
-		  </tr>		  
-		  <tr height="40">
-			<td width="150" align="center" bgcolor="E6ECDE">사원번호</td>
-			<td width="250" bgcolor="ffffff" style="padding-left: 10">
-				<input type="text" style="width: 240" name="empno" >
-				<c:if test="${registerFailed}">value="${user.empno}"</c:if>
-		
-			</td>
-		  </tr>		 
-		  
+		  </tr>	  	 
 		  <!-- 회사 정보 -->		  
 		  <tr height="40">
 			<td width="150" align="center" bgcolor="E6ECDE">회사</td>
 			<td width="250" bgcolor="ffffff" style="padding-left: 10">
-				<select name="job">
-				    <option value="">회사선택</option>
-				    <option value="학생">회사1</option>
-				    <option value="회사원">회사2</option>
-				    <option value="기타">회사3</option>
-				</select>
+				<input type="text" style="width: 240" name="company" >
 				<c:if test="${registerFailed}">value="${user.company}"</c:if>
 		
 			</td>
@@ -215,8 +184,8 @@ function itemChange(f){
 		  <tr height="40">
 			<td width="150" align="center" bgcolor="E6ECDE">희망분야</td>
 			<td width="250" bgcolor="ffffff" style="padding-left: 10">
-				<input type="text" style="width: 240" name="empno" >
-				<c:if test="${registerFailed}">value="${user.dept}"</c:if>
+				<input type="text" style="width: 240" name="field" >
+				<c:if test="${registerFailed}">value="${user.field}"</c:if>
 		
 			</td>
 		  </tr>	
@@ -224,8 +193,8 @@ function itemChange(f){
 		  <tr height="40">
 			<td width="150" align="center" bgcolor="E6ECDE">부서</td>
 			<td width="250" bgcolor="ffffff" style="padding-left: 10">
-				<input type="text" style="width: 240" name="empno" >
-				<c:if test="${registerFailed}">value="${user.field}"</c:if>
+				<input type="text" style="width: 240" name="dept" >
+				<c:if test="${registerFailed}">value="${user.dept}"</c:if>
 		
 			</td>
 		  </tr>	
@@ -235,7 +204,11 @@ function itemChange(f){
 		  <tr height="40">
 			<td width="150" align="center" bgcolor="E6ECDE">연봉</td>
 			<td width="250" bgcolor="ffffff" style="padding-left: 10">
-				<input type="number" style="width: 240" name="annual_income" min="1" max="5" step="1" >
+				<input type="radio" name="annual_income" value="0">매우불만
+				<input type="radio" name="annual_income" value="1">불만
+				<input type="radio" name="annual_income" value="2">보통
+				<input type="radio" name="annual_income" value="3">좋음
+				<input type="radio" name="annual_income" value="4">매우좋음
 				<c:if test="${registerFailed}">value="${user.annual_income}"</c:if>
 		
 			</td>
@@ -243,7 +216,11 @@ function itemChange(f){
 		  <tr height="40">
 			<td width="150" align="center" bgcolor="E6ECDE">부서 분위기</td>
 			<td width="250" bgcolor="ffffff" style="padding-left: 10">
-				<input type="number" style="width: 240" name="department_mood" min="1" max="5" step="1">
+				<input type="radio" name="department_mood" value="0">매우불만
+				<input type="radio" name="department_mood" value="1">불만
+				<input type="radio" name="department_mood" value="2">보통
+				<input type="radio" name="department_mood" value="3">좋음
+				<input type="radio" name="department_mood" value="4">매우좋음
 				<c:if test="${registerFailed}">value="${user.department_mood}"</c:if>
 		
 			</td>
@@ -251,7 +228,11 @@ function itemChange(f){
 		  <tr height="40">
 			<td width="150" align="center" bgcolor="E6ECDE">직업만족도</td>
 			<td width="250" bgcolor="ffffff" style="padding-left: 10">
-				<input type="number" style="width: 240" name="job_satisfaction" min="1" max="5" step="1">
+				<input type="radio" name="job_satisfaction" value="0">매우불만
+				<input type="radio" name="job_satisfaction" value="1">불만
+				<input type="radio" name="job_satisfaction" value="2">보통
+				<input type="radio" name="job_satisfaction" value="3">좋음
+				<input type="radio" name="job_satisfaction" value="4">매우좋음
 				<c:if test="${registerFailed}">value="${user.job_satisfaction}"</c:if>
 		
 			</td>
@@ -259,15 +240,23 @@ function itemChange(f){
 		  <tr height="40">
 			<td width="150" align="center" bgcolor="E6ECDE">구내식당</td>
 			<td width="250" bgcolor="ffffff" style="padding-left: 10">
-				<input type="number" style="width: 240" name="cafeteria" min="1" max="5" step="1" >
+				<input type="radio" name="cafeteria" value="0">매우불만
+				<input type="radio" name="cafeteria" value="1">불만
+				<input type="radio" name="cafeteria" value="2">보통
+				<input type="radio" name="cafeteria" value="3">좋음
+				<input type="radio" name="cafeteria" value="4">매우좋음
 				<c:if test="${registerFailed}">value="${user.cafeteria}"</c:if>
 		
 			</td>
 		  </tr>		 
 		  <tr height="40">
-			<td width="150" align="center" bgcolor="E6ECDE">교통편의성</td>
+			<td width="150" align="center" bgcolor="E6ECDE">교통편의성 </td>
 			<td width="250" bgcolor="ffffff" style="padding-left: 10">
-				<input type="number" style="width: 240" name="traffic_convenience" min="1" max="5" step="1">
+				<input type="radio" name="traffic_convenience" value="0">매우불만
+				<input type="radio" name="traffic_convenience" value="1">불만
+				<input type="radio" name="traffic_convenience" value="2">보통
+				<input type="radio" name="traffic_convenience" value="3">좋음
+				<input type="radio" name="traffic_convenience" value="4">매우좋음
 				<c:if test="${registerFailed}">value="${user.traffic_convenience}"</c:if>
 		
 			</td>
@@ -275,7 +264,11 @@ function itemChange(f){
 		  <tr height="40">
 			<td width="150" align="center" bgcolor="E6ECDE">직원복지</td>
 			<td width="250" bgcolor="ffffff" style="padding-left: 10">
-				<input type="number" style="width: 240" name="employee_wellfare" min="1" max="5" step="1">
+				<input type="radio" name="employee_wellfare" value="0">매우불만
+				<input type="radio" name="employee_wellfare" value="1">불만
+				<input type="radio" name="employee_wellfare" value="2">보통
+				<input type="radio" name="employee_wellfare" value="3">좋음
+				<input type="radio" name="employee_wellfare" value="4">매우좋음
 				<c:if test="${registerFailed}">value="${user.employee_wellfare}"</c:if>
 		
 			</td>
@@ -287,7 +280,7 @@ function itemChange(f){
 	    <table style="width: 100%">
 		  <tr>
 			<td align="left">
-			<input type="button" value="회원 가입" onClick=""> &nbsp;
+			<input type="button" value="회원 가입" onClick="userCreate()"> &nbsp;
 			<input type="button" value="목록" onClick="userList('<c:url value='/user/list' />')">
 			</td>
 		  </tr>

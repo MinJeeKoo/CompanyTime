@@ -14,7 +14,7 @@ public class DepartmentDAOImpl implements DepartmentDAO{
 	public DepartmentDAOImpl(){
 		jdbcUtil = new JDBCUtil();
 	}
-	/*È¸»ç¸¶´Ù DEPARTMENT¸¦ ¸¸µå´Â °ÍÀÎ°¡,,,,?ÀÌ»óÇÏ´Ù..
+	/*È¸ï¿½ç¸¶ï¿½ï¿½ DEPARTMENTï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î°ï¿½,,,,?ï¿½Ì»ï¿½ï¿½Ï´ï¿½..
 	 private Integer CFD_NUM = null;
 	private Integer CF_NUM = null;
 	private String CFD_NAME = null;
@@ -23,7 +23,7 @@ public class DepartmentDAOImpl implements DepartmentDAO{
 	
 	@Override
 	public List<DepartmentDTO> getDepartmentList() {
-		String query = " SELECT CFD_NUM, CF_NUM, CFD_NAME FROM DEPARTMENT; ";
+		String query = "SELECT CFD_NUM, CF_NUM, CFD_NAME FROM DEPARTMENT; ";
 		jdbcUtil.setSqlAndParameters(query, null);
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();
@@ -45,51 +45,54 @@ public class DepartmentDAOImpl implements DepartmentDAO{
 	}
 	
 	@Override
-	public Integer getCFD_NUMByCFD_NAME(String cfd_name) {
-		Integer cfd_num = null;//Integer Å¸ÀÔÀÌ¶ó null·Î ÃÊ±âÈ­ÇÔ.
-		String query = "SELECT CFD_NUM"
-				+ "FROM DEPARTMENT"
-				+ "WHERE CFD_NAME = ?;" ;
+	public Integer getCFD_NUMByCFD_NAME(String cfd_name) throws SQLException{
+		Integer cfd_num = null;//Integer Å¸ï¿½ï¿½ï¿½Ì¶ï¿½ nullï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½ï¿½.
+		String query = "SELECT CFD_NUM "
+				+ "FROM DEPARTMENT "
+				+ "WHERE CFD_NAME = ?" ;
 		
-		Object[] param = new Object[] {cfd_num};
+		Object[] param = new Object[] {cfd_name};
 		jdbcUtil.setSqlAndParameters(query, param);
 		
 		try {
 			ResultSet result = jdbcUtil.executeQuery();
-			cfd_num = result.getInt("CFD_NUM");
+			while (result.next()) {
+				cfd_num = result.getInt("CFD_NUM");
+			}
+			return cfd_num;
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}finally{
 			jdbcUtil.close();
 		}
-		return cfd_num;
+		return null;
 	}
 
-	//±¸ÇöÇÏ±â
-	public List<String> findDepartmentListByCf_name(String cf_name) {
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
+	public List<String> findDepartmentListByCf_name(String cf_name) throws SQLException {
 		String query = "SELECT cfd_name FROM department WHERE cf_num = ? ";
 		
-		DAOFactory factory = new DAOFactory();		// ÃëÁØ»ýÁ¤º¸¿Í cf(ÇÊµå)Á¤º¸¸¦ ¾Ë¾Æ¿À±â À§ÇØ DAO °´Ã¼¸¦ »ý¼ºÇÏ´Â factory °´Ã¼ »ý¼º
+		DAOFactory factory = new DAOFactory();		// ï¿½ï¿½ï¿½Ø»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ cf(ï¿½Êµï¿½)ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë¾Æ¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ DAO ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ factory ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
 //		
-		// JobSeekerDAO °´Ã¼¸¦ »ý¼ºÇÏ¿© ÃëÁØ»ý ¿¡ Æ÷ÇÔµÇ¾î ÀÖ´Â fieldÀÇ cf_numÀ» ¾Ë¾Æ¿È
-		//***********CfDAO -> ÀÌ¸§ È®ÀÎ ÇÊ¿ä, getCfById¸Þ¼Òµå Á¸ÀçÇÏ´ÂÁö È®ÀÎ ÇÊ¿ä
+		// JobSeekerDAO ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½Ø»ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ÔµÇ¾ï¿½ ï¿½Ö´ï¿½ fieldï¿½ï¿½ cf_numï¿½ï¿½ ï¿½Ë¾Æ¿ï¿½
+		//***********CfDAO -> ï¿½Ì¸ï¿½ È®ï¿½ï¿½ ï¿½Ê¿ï¿½, getCfByIdï¿½Þ¼Òµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ï¿½ï¿½ È®ï¿½ï¿½ ï¿½Ê¿ï¿½
 		FieldDAO cfDAO = factory.getFieldDAO();		
-		Integer cf_num = cfDAO.getCF_NUMByCF_NAME(cf_name);	//¹ÎÁö²¨¶û¸ÂÃß±â	// cf_numÀ» ¼³Á¤
+		Integer cf_num = cfDAO.getCF_NUMByCF_NAME(cf_name);	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß±ï¿½	// cf_numï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		
 		Object[] param = new Object[] {cf_num};
 		jdbcUtil.setSqlAndParameters(query, param);
 		
 		try { 
-			ResultSet rs = jdbcUtil.executeQuery();		// query ¹® ½ÇÇà			
-			List<String> list = new ArrayList<String>();		// JobSeekerDTO °´Ã¼µéÀ» ´ã±âÀ§ÇÑ list °´Ã¼
+			ResultSet rs = jdbcUtil.executeQuery();		// query ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½			
+			List<String> list = new ArrayList<String>();		// JobSeekerDTO ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ list ï¿½ï¿½Ã¼
 			while (rs.next()) {	
-				list.add(rs.getString("cfd_name"));		// list °´Ã¼¿¡ Á¤º¸¸¦ ¼³Á¤ÇÑ JobSeekerDTO °´Ã¼ ÀúÀå
+				list.add(rs.getString("cfd_name"));		// list ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ JobSeekerDTO ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
 			}
-			return list;		// ÃëÁØ»ýÁ¤º¸¸¦ ÀúÀåÇÑ dto µéÀÇ ¸ñ·ÏÀ» ¹ÝÈ¯
+			return list;		// ï¿½ï¿½ï¿½Ø»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ dto ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {
-			jdbcUtil.close();		// ResultSet, PreparedStatement, Connection ¹ÝÈ¯
+			jdbcUtil.close();		// ResultSet, PreparedStatement, Connection ï¿½ï¿½È¯
 		}		
 		return null;	
 	}

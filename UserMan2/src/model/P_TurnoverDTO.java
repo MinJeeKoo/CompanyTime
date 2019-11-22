@@ -3,26 +3,30 @@ package model;
 public class P_TurnoverDTO {
 	private String p_id = null;			// id
 	private String pw = null; 			// pw
-	private String name = null;			// ÀÌ¸§
-	private Integer emp_num;		// »ç¿ø¹øÈ£
-	private String company_email = null;	// »ç³»ÀÌ¸ÞÀÏ
-	private Integer matching_result; //¸àÅä¸µ ¸ÅÄª°á°ú
-	private Integer c_num;		//È¸»çÁ¤º¸
-	private Integer cf_num;		//ÇÊµåÁ¤º¸(¸ÅÄª ¿øÇÏ´Â ºÐ¾ßÀÇ Á¤º¸)
-	private Integer cfd_num;		//ºÎ¼­Á¤º¸
+	private String name = null;			// ï¿½Ì¸ï¿½
+	private String company_email = null;	// ï¿½ç³»ï¿½Ì¸ï¿½ï¿½ï¿½
+	private Integer matching_result; //ï¿½ï¿½ï¿½ä¸µ ï¿½ï¿½Äªï¿½ï¿½ï¿½
+	private Integer c_num;		//È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	private Integer cf_num;		//ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½Äª ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ð¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
+	private Integer cfd_num;		//ï¿½Î¼ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	
 	public P_TurnoverDTO() {};
 	
-	public P_TurnoverDTO(String p_id, Integer c_num, String name, String company_email, String pw) {
+	public P_TurnoverDTO(String p_id, String pw, String name,
+			 Integer c_num, Integer cf_num, Integer cfd_num,
+			 String company_email, Integer matching_result) {
 		this.p_id = p_id;
 		this.c_num = c_num;
+		this.cf_num = cf_num;
+		this.cfd_num = cfd_num;
 		this.name = name;
 		this.company_email = company_email;
 		this.pw = pw;
+		this.matching_result = matching_result;
 	};
 	
-	/* ºñ¹Ð¹øÈ£ °Ë»ç */
+	/* ï¿½ï¿½Ð¹ï¿½È£ ï¿½Ë»ï¿½ */
 	public boolean matchPassword(String password) {
 		if (password == null) {
 			return false;
@@ -54,12 +58,6 @@ public class P_TurnoverDTO {
 	}
 	public void setName(String name) {
 		this.name = name;
-	}
-	public Integer getEmp_num() {
-		return emp_num;
-	}
-	public void setEmp_num(int emp_num) {
-		this.emp_num = emp_num;
 	}
 	public String getCompany_email() {
 		return company_email;

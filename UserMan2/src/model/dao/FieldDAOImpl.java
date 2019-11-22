@@ -18,19 +18,19 @@ public class FieldDAOImpl implements FieldDAO{
 		jdbcUtil = new JDBCUtil();
 	}
 	
-	public Integer getCF_NUMByCF_NAME(String cf_name) {
+	public Integer getCF_NUMByCF_NAME(String cf_name) throws SQLException {
+		Integer cf_num = null;//Integer Ÿ���̶� null�� �ʱ�ȭ��.
 		String query = "SELECT CF_NUM "
 				+ "FROM FIELD "
-				+ "WHERE CF_NAME = ?";
+				+ "WHERE CF_NAME = ?" ;
 		
 		Object[] param = new Object[] {cf_name};
 		jdbcUtil.setSqlAndParameters(query, param);
 		
 		try {
 			ResultSet result = jdbcUtil.executeQuery();
-			Integer cf_num = null;
 			while (result.next()) {
-				cf_num = result.getInt("CF_NUM");
+				cf_num = result.getInt("Cf_NUM");
 			}
 			return cf_num;
 		}catch(Exception ex) {

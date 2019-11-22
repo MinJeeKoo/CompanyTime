@@ -5,11 +5,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import model.dao.*;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import controller.DispatcherServlet;
 
 public class P_TurnoverDAOImpl implements P_TurnoverDAO {
-	private JDBCUtil jdbcUtil = null;		// JDBCUtil °´Ã¼¸¦ ÁöÁ¤ÇÏ±â À§ÇÑ º¯¼ö
-	// P_Turnover ÀÇ ±âº» Á¤º¸¸¦ Æ÷ÇÔÇÏ´Â query ¹®
+	private final static Logger logger = LoggerFactory.getLogger(DispatcherServlet.class);
+	
+	private JDBCUtil jdbcUtil = null;		// JDBCUtil ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	// P_Turnover ï¿½ï¿½ ï¿½âº» ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ query ï¿½ï¿½
 	private static String query = "SELECT "  +
 								         "p_id AS id, " +
 								         "pw AS pw, " +
@@ -18,44 +24,44 @@ public class P_TurnoverDAOImpl implements P_TurnoverDAO {
 								         "company_email AS company_email " +
 								         "matching_result AS matching_result ";		
 		
-	// P_TurnoverDAOImpl »ý¼ºÀÚ
+	// P_TurnoverDAOImpl ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public P_TurnoverDAOImpl() {			
-		jdbcUtil = new JDBCUtil();		// P_TurnoverDAOImpl °´Ã¼ »ý¼º ½Ã JDBCUtil °´Ã¼ »ý¼º
+		jdbcUtil = new JDBCUtil();		// P_TurnoverDAOImpl ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ JDBCUtil ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
 	}	
 	/**
-	 * »ç¿ëÀÚ °ü¸® Å×ÀÌºí¿¡ »õ·Î¿î »ç¿ëÀÚ »ý¼º.
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	 */
 	public int create(P_TurnoverDTO user) throws SQLException {
-		String sql = "INSERT INTO preparation_for_turnover (p_id, c_num, name, company_email, pw) "
-					+ "VALUES (?, ?, ?, ?, ?)";		
-		Object[] param = new Object[] {user.getP_id(), user.getC_num(), user.getName(), 
-				user.getCompany_email(), user.getPw()};				
-		jdbcUtil.setSqlAndParameters(sql, param);	// JDBCUtil ¿¡ insert¹®°ú ¸Å°³ º¯¼ö ¼³Á¤
+		String sql = "INSERT INTO preparation_for_turnover "
+					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";		
+		Object[] param = new Object[] {user.getC_num(), user.getCfd_num(), user.getP_id(), user.getName(), user.getCompany_email(),
+										user.getPw(), user.getCf_num(), user.getMatching_result()};				
+		jdbcUtil.setSqlAndParameters(sql, param);	// JDBCUtil ï¿½ï¿½ insertï¿½ï¿½ï¿½ï¿½ ï¿½Å°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 						
 		try {				
-			int result = jdbcUtil.executeUpdate();	// insert ¹® ½ÇÇà
+			int result = jdbcUtil.executeUpdate();	// insert ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			return result;
 		} catch (Exception ex) {
 			jdbcUtil.rollback();
 			ex.printStackTrace();
 		} finally {		
 			jdbcUtil.commit();
-			jdbcUtil.close();	// resource ¹ÝÈ¯
+			jdbcUtil.close();	// resource ï¿½ï¿½È¯
 		}		
 		return 0;			
 	}
 	/**
-	 * ±âÁ¸ÀÇ »ç¿ëÀÚ Á¤º¸¸¦ ¼öÁ¤.
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	 */
 	public int update(P_TurnoverDTO user) throws SQLException {
 		String sql = "UPDATE preparation_for_turnover "
 					+ "SET c_num=?, name=?, company_email=?, pw=?";
 		Object[] param = new Object[] {user.getC_num(), user.getName(), user.getCompany_email(), 
 				user.getPw()};				
-		jdbcUtil.setSqlAndParameters(sql, param);	// JDBCUtil¿¡ update¹®°ú ¸Å°³ º¯¼ö ¼³Á¤
+		jdbcUtil.setSqlAndParameters(sql, param);	// JDBCUtilï¿½ï¿½ updateï¿½ï¿½ï¿½ï¿½ ï¿½Å°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			
 		try {				
-			int result = jdbcUtil.executeUpdate();	// update ¹® ½ÇÇà
+			int result = jdbcUtil.executeUpdate();	// update ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			return result;
 		} catch (Exception ex) {
 			jdbcUtil.rollback();
@@ -63,20 +69,20 @@ public class P_TurnoverDAOImpl implements P_TurnoverDAO {
 		}
 		finally {
 			jdbcUtil.commit();
-			jdbcUtil.close();	// resource ¹ÝÈ¯
+			jdbcUtil.close();	// resource ï¿½ï¿½È¯
 		}		
 		return 0;
 	}
 
 	/**
-	 * »ç¿ëÀÚ ID¿¡ ÇØ´çÇÏ´Â »ç¿ëÀÚ¸¦ »èÁ¦.
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ IDï¿½ï¿½ ï¿½Ø´ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½Ú¸ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	 */
 	public int remove(String userId) throws SQLException {
 		String sql = "DELETE FROM USERINFO WHERE userid=?";		
-		jdbcUtil.setSqlAndParameters(sql, new Object[] {userId});	// JDBCUtil¿¡ delete¹®°ú ¸Å°³ º¯¼ö ¼³Á¤
+		jdbcUtil.setSqlAndParameters(sql, new Object[] {userId});	// JDBCUtilï¿½ï¿½ deleteï¿½ï¿½ï¿½ï¿½ ï¿½Å°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 		try {				
-			int result = jdbcUtil.executeUpdate();	// delete ¹® ½ÇÇà
+			int result = jdbcUtil.executeUpdate();	// delete ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			return result;
 		} catch (Exception ex) {
 			jdbcUtil.rollback();
@@ -84,112 +90,117 @@ public class P_TurnoverDAOImpl implements P_TurnoverDAO {
 		}
 		finally {
 			jdbcUtil.commit();
-			jdbcUtil.close();	// resource ¹ÝÈ¯
+			jdbcUtil.close();	// resource ï¿½ï¿½È¯
 		}		
 		return 0;
 	}
 
 
 	
-	// ÀüÃ¼ ÀÌÁ÷ÁØºñÀÚ Á¤º¸¸¦ È¹µæ
+	// ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½Øºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¹ï¿½ï¿½
 	public List<P_TurnoverDTO> getP_TurnoverList(){
 		String allQuery = query + ", " + "c_num AS c_num  " + 
 				"cf_num AS cf_num " +
 				"cfd_num AS cfd_num " +
 		    "FROM Preparation_for_Turnover ";	
 		
-	jdbcUtil.setSql(allQuery);		// JDBCUtil ¿¡ query ¼³Á¤
+	jdbcUtil.setSql(allQuery);		// JDBCUtil ï¿½ï¿½ query ï¿½ï¿½ï¿½ï¿½
 	
 	try { 
-		ResultSet rs = jdbcUtil.executeQuery();		// query ¹® ½ÇÇà			
-		List<P_TurnoverDTO> list = new ArrayList<P_TurnoverDTO>();		// P_TurnoverDTO °´Ã¼µéÀ» ´ã±âÀ§ÇÑ list °´Ã¼
+		ResultSet rs = jdbcUtil.executeQuery();		// query ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½			
+		List<P_TurnoverDTO> list = new ArrayList<P_TurnoverDTO>();		// P_TurnoverDTO ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ list ï¿½ï¿½Ã¼
 		while (rs.next()) {	
-			P_TurnoverDTO dto = new P_TurnoverDTO();		// ÇÏ³ªÀÇ P_TurnoverDTO °´Ã¼ »ý¼º ÈÄ Á¤º¸ ¼³Á¤
+			P_TurnoverDTO dto = new P_TurnoverDTO();		// ï¿½Ï³ï¿½ï¿½ï¿½ P_TurnoverDTO ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			dto.setP_id(rs.getString("id"));
 			dto.setPw(rs.getString("pw"));
 			dto.setName(rs.getString("name"));
-			dto.setEmp_num(rs.getInt("emp_num"));
 			dto.setCompany_email(rs.getString("company_email"));
 			dto.setMatching_result(rs.getInt("matching_result"));
 			dto.setC_num(rs.getInt("c_num"));
 			dto.setCf_num(rs.getInt("cf_num"));
 			dto.setCfd_num(rs.getInt("cfd_num"));
 		
-			list.add(dto);		// list °´Ã¼¿¡ Á¤º¸¸¦ ¼³Á¤ÇÑ P_TurnoverDTO °´Ã¼ ÀúÀå
+			list.add(dto);		// list ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ P_TurnoverDTO ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
 		}
-			return list;		// ÀÌÁ÷ÁØºñÀÚ Á¤º¸¸¦ ÀúÀåÇÑ dto µéÀÇ ¸ñ·ÏÀ» ¹ÝÈ¯
+			return list;		// ï¿½ï¿½ï¿½ï¿½ï¿½Øºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ dto ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
 	} catch (Exception ex) {
 		ex.printStackTrace();
 	} finally {
-		jdbcUtil.close();		// ResultSet, PreparedStatement, Connection ¹ÝÈ¯
+		jdbcUtil.close();		// ResultSet, PreparedStatement, Connection ï¿½ï¿½È¯
 	}		
 		return null;	
 	}
 	
-//	// ÀÌÁ÷ÀÚÁ¤º¸¸¦ Ãß°¡
-//	public int insertP_Turnover(P_TurnoverDTO pt, String c_name, String cf_name, String cfd_name) {
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
+//	public int create(P_TurnoverDTO pt, String c_name, String cf_name, String cfd_name) throws SQLException {
 //		int result = 0;
-//		//c_num, c_name µÑ ´Ù ÇÊ¿ä
-//		//c_num¸¸ fkÀÓ
-//		//c_nameÀº c_numÀ» ºñ±³ÇÏ±â À§ÇÑ stringº¯¼ö
-//		//companyÅ×ÀÌºí¿¡ ÀÔ·ÂÇÑ c_nameÀÌ ¾øÀ¸¸é c_numÀ» sequence·Î Áõ°¡ÇÏ°í, c_nameÁ¤º¸ Ãß°¡
-//		//companyÅ×ÀÌºí¿¡ ÀÔ·ÂÇÑ c_nameÀÌ ÀÖÀ¸¸é c_numÀ» °¡Á®¿Í pt¿¡ ÀÔ·Â
-//		//c_num¸¸ ÀÔ·Â¹ÞÀ¸¸é ÃÖÃÊ·Î ÀÔ·Â ¹ÞÀº c_numÀÇ Á¤º¸¸¦ µî·ÏÇÒ ¶§, ¾î¶² È¸»çÀÌ¸§ÀÎÁö µî·ÏÇÒ ¼ö°¡ ¾øÀ½.
-//		//companyfield´Â c_num¸¸ primarykey·Î
 //		
-//		String insertQuery = "INSERT INTO Preparation_for_Turnover (p_id, pw, name, emp_num, company_email, matching_result,"
+//		String insertQuery = "INSERT INTO Preparation_for_Turnover (p_id, pw, name, company_email, matching_result, "
 //							+ "c_num, cf_num, cfd_num) " +
-//							 "?, ?, ?, ?, ?, ?, 0, ?, ?, ?) ";
+//							 "VALUES (?, ?, ?, ?, 0, ?, ?, ?)";		
+//		DAOFactory factory = new DAOFactory();		// È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë¾Æ¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ DAO ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ factory ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
 //		
-//		DAOFactory factory = new DAOFactory();		// È¸»çÁ¤º¸¿Í ÇÊµåÁ¤º¸¿Í ºÎ¼­Á¤º¸¸¦ ¾Ë¾Æ¿À±â À§ÇØ DAO °´Ã¼¸¦ »ý¼ºÇÏ´Â factory °´Ã¼ »ý¼º
-//		
-//		// CompanyDAO °´Ã¼¸¦ »ý¼ºÇÏ¿© ÀÌÁ÷ÁØºñÀÚ Á¤º¸¿¡ Æ÷ÇÔµÇ¾î ÀÖ´Â È¸»çÀÇ c_numÀ» ¾Ë¾Æ¿È
-//		CompanyDAO companyDAO = factory.getCompanyDAO();		// factory ¸¦ ÅëÇØ È¸»ç¿¡ ´ëÇÑ DAO È¹µæ
-//		Integer c_num = companyDAO.getC_numByC_name(c_name);		// È¸»ç DAO ÀÇ ÀÌ¸§À» »ç¿ëÇÏ¿© ±³¼öÄÚµå¸¦ ¾ò¾î¿À´Â ¸Þ¼Òµå »ç¿ë	// È¸»ç¹øÈ£¸¦ ¼³Á¤
+//		// CompanyDAO ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Øºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ÔµÇ¾ï¿½ ï¿½Ö´ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ c_numï¿½ï¿½ ï¿½Ë¾Æ¿ï¿½
+//		CompanyDAO companyDAO = factory.getCompanyDAO();		// factory ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ç¿¡ ï¿½ï¿½ï¿½ï¿½ DAO È¹ï¿½ï¿½
+//		Integer c_num = companyDAO.getC_NUMByC_NAME(c_name);
+//		// È¸ï¿½ï¿½ DAO ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Úµå¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½ ï¿½ï¿½ï¿½	// È¸ï¿½ï¿½ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 //		if (c_num == null) {
 //			CompanyDTO newCompany = new CompanyDTO(null, c_name, null);
 //			companyDAO.insertCompany(newCompany);
-//			return 0;
-//		} //¹ÎÁö¶û ¸ÂÃß±â
-//		
-//		// FieldDAO °´Ã¼¸¦ »ý¼ºÇÏ¿© ÀÌÁ÷ÁØºñÀÚ Á¤º¸¿¡ Æ÷ÇÔµÇ¾î ÀÖ´Â fieldÀÇ cf_numÀ» ¾Ë¾Æ¿È
-//		// Field´Â ÀÌÁ÷ÇÏ°íÀÚ ÇÏ´Â ºÐ¾ß¸¦ ¶æÇÔ
-//		FieldDAO fieldDAO = factory.getFieldDAO();		// factory ¸¦ ÅëÇØ ÇÊµå¿¡ ´ëÇÑ DAO È¹µæ
-//		Integer cf_num = fieldDAO.getCF_NUMByCF_NAME(cf_name); // ÇÊµå DAO ÀÇ ÇÊµå¸íÀ» »ç¿ëÇÏ¿© cf_numÀ» ¾ò¾î¿À´Â ¸Þ¼Òµå »ç¿ë			// cf_numÀ» ¼³Á¤
+//			return result;
+//		} //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ß±ï¿½
+//		logger.debug(c_num.toString());
+//		// FieldDAO ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Øºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ÔµÇ¾ï¿½ ï¿½Ö´ï¿½ fieldï¿½ï¿½ cf_numï¿½ï¿½ ï¿½Ë¾Æ¿ï¿½
+//		// Fieldï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ ï¿½Ð¾ß¸ï¿½ ï¿½ï¿½ï¿½ï¿½
+//		FieldDAO fieldDAO = factory.getFieldDAO();		// factory ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Êµå¿¡ ï¿½ï¿½ï¿½ï¿½ DAO È¹ï¿½ï¿½
+//		Integer cf_num = fieldDAO.getCF_NUMByCF_NAME(cf_name); // ï¿½Êµï¿½ DAO ï¿½ï¿½ ï¿½Êµï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ cf_numï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½ ï¿½ï¿½ï¿½			// cf_numï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 //		if (cf_num == null) {
-//			return ;
+//			logger.debug("cf_num is null");
+////			return result;
 //		}
-		
-//		// DepartmentDAO °´Ã¼¸¦ »ý¼ºÇÏ¿© ÀÌÁ÷ÁØºñÀÚ Á¤º¸¿¡ Æ÷ÇÔµÇ¾î ÀÖ´Â ºÎ¼­ÀÇ cfd_numÀ» ¾Ë¾Æ¿È
-//		DepartmentDAO departmentDAO = factory.getDepartmentDAO();		// factory ¸¦ ÅëÇØ ºÎ¼­¿¡ ´ëÇÑ DAO È¹µæ
-//		Integer cfd_num = departmentDAO.getCFD_NUMByCFD_NAME(cfd_name);	// departmentDAO ÀÇ ÀÌ¸§À» »ç¿ëÇÏ¿© cfd¸¦ ¾ò¾î¿À´Â ¸Þ¼Òµå »ç¿ë		// ºÎ¼­¹øÈ£¸¦ ¼³Á¤
+////		logger.debug(cf_num.toString());
+//		// DepartmentDAO ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Øºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ÔµÇ¾ï¿½ ï¿½Ö´ï¿½ ï¿½Î¼ï¿½ï¿½ï¿½ cfd_numï¿½ï¿½ ï¿½Ë¾Æ¿ï¿½
+//		DepartmentDAO departmentDAO = factory.getDepartmentDAO();		// factory ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Î¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ DAO È¹ï¿½ï¿½
+//		Integer cfd_num = departmentDAO.getCFD_NUMByCFD_NAME(cfd_name);	// departmentDAO ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ cfdï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½ ï¿½ï¿½ï¿½		// ï¿½Î¼ï¿½ï¿½ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 //		if (cfd_num == null) {
-//			return 0;
+//			logger.debug("cfd_num is null");
+////			return result;
 //		}
-//		
-//		// query ¹®¿¡ »ç¿ëÇÒ ¸Å°³º¯¼ö °ªÀ» °®´Â ¸Å°³º¯¼ö ¹è¿­ »ý¼º
+////		logger.debug(cfd_num.toString());
+//		// query ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Å°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Å°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½è¿­ ï¿½ï¿½ï¿½ï¿½
 //		Object[] param = new Object[] {pt.getP_id(), pt.getPw(), pt.getName(), 
-//				pt.getEmp_num(), pt.getCompany_email(), c_num, cf_num, cfd_num};		
-//		jdbcUtil.setSql(insertQuery);			// JDBCUtil ¿¡ insert ¹® ¼³Á¤
-//		jdbcUtil.setParameters(param);			// JDBCUtil ¿¡ ¸Å°³º¯¼ö ¼³Á¤
+//				pt.getCompany_email(), c_num, cf_num, cfd_num};		
+//		jdbcUtil.setSqlAndParameters(insertQuery, param);			// JDBCUtil ï¿½ï¿½ insert ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½	// JDBCUtil ï¿½ï¿½ ï¿½Å°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 //				
+////		try {				
+////			result = jdbcUtil.executeUpdate();		// insert ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+////		} catch (SQLException ex) {
+////			System.out.println("ï¿½Ô·Â¿ï¿½ï¿½ï¿½ ï¿½ß»ï¿½!!!");
+////			if (ex.getErrorCode() == 1)
+////				System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Øºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½."); 
+////		} catch (Exception ex) {
+////			jdbcUtil.rollback();
+////			ex.printStackTrace();
+////		} finally {		
+////			jdbcUtil.commit();
+////			jdbcUtil.close();		// ResultSet, PreparedStatement, Connection ï¿½ï¿½È¯
+////		}		
+////		return result;		// insert ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ý¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Úµï¿½ ï¿½ï¿½ ï¿½ï¿½È¯	
 //		try {				
-//			result = jdbcUtil.executeUpdate();		// insert ¹® ½ÇÇà
-//		} catch (SQLException ex) {
-//			System.out.println("ÀÔ·Â¿À·ù ¹ß»ý!!!");
-//			if (ex.getErrorCode() == 1)
-//				System.out.println("µ¿ÀÏÇÑ ÀÌÁ÷ÁØºñÀÚÁ¤º¸°¡ ÀÌ¹Ì Á¸ÀçÇÕ´Ï´Ù."); 
+//			result = jdbcUtil.executeUpdate();	// update ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+//			return result;
 //		} catch (Exception ex) {
 //			jdbcUtil.rollback();
 //			ex.printStackTrace();
-//		} finally {		
+//		}
+//		finally {
 //			jdbcUtil.commit();
-//			jdbcUtil.close();		// ResultSet, PreparedStatement, Connection ¹ÝÈ¯
+//			jdbcUtil.close();	// resource ï¿½ï¿½È¯
 //		}		
-//		return result;		// insert ¿¡ ÀÇÇØ ¹Ý¿µµÈ ·¹ÄÚµå ¼ö ¹ÝÈ¯	
+//		return 0;
 //	}
 
-	// ÀÌÁ÷ÀÚÁ¤º¸¸¦ ¼öÁ¤
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	public int updateP_Turnover(P_TurnoverDTO pt) {
 		String updateQuery = "UPDATE Preparation_For_Turnover SET "
 				+ "c_num = ?, cfd_num = ?, name = ?, company_email = ?, pw = ?, "
@@ -198,127 +209,125 @@ public class P_TurnoverDAOImpl implements P_TurnoverDAO {
 		Object[] param = new Object[] {pt.getC_num(), pt.getCfd_num(),
 									pt.getName(), pt.getCompany_email(), pt.getPw(), 
 									pt.getCf_num(), pt.getMatching_result(), pt.getP_id()};
-		// update ¹®¿¡ »ç¿ëÇÒ ¸Å°³º¯¼ö¸¦ ÀúÀåÇÒ ¼ö ÀÖ´Â ÀÓ½Ã ¹è¿­
+		// update ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Å°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½Ó½ï¿½ ï¿½è¿­
 		jdbcUtil.setSql(updateQuery);
 		jdbcUtil.setParameters(param);
 
 		try {
-			int result = jdbcUtil.executeUpdate();		// update ¹® ½ÇÇà
-			return result;			// update ¿¡ ÀÇÇØ ¹Ý¿µµÈ ·¹ÄÚµå ¼ö ¹ÝÈ¯
+			int result = jdbcUtil.executeUpdate();		// update ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			return result;			// update ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ý¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Úµï¿½ ï¿½ï¿½ ï¿½ï¿½È¯
 		} catch (Exception ex) {
 			jdbcUtil.rollback();
 			ex.printStackTrace();
 		}
 		finally {
 			jdbcUtil.commit();
-			jdbcUtil.close();		// ResultSet, PreparedStatement, Connection ¹ÝÈ¯
+			jdbcUtil.close();		// ResultSet, PreparedStatement, Connection ï¿½ï¿½È¯
 		}		
 		return 0;
 	}
 	
-	// ÀÌÁ÷ÀÚÁ¤º¸¸¦ »èÁ¦
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	public int deleteP_Turnover(int p_id) {
 		String deleteQuery = "DELETE FROM P_Turnover WHERE P_ID = ?";
-		jdbcUtil.setSql(deleteQuery);			// JDBCUtil ¿¡ query ¹® ¼³Á¤
+		jdbcUtil.setSql(deleteQuery);			// JDBCUtil ï¿½ï¿½ query ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		Object[] param = new Object[] {p_id};
-		jdbcUtil.setParameters(param);			// JDBCUtil ¿¡ ¸Å°³º¯¼ö ¼³Á¤
+		jdbcUtil.setParameters(param);			// JDBCUtil ï¿½ï¿½ ï¿½Å°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		
 		try {
-			int result = jdbcUtil.executeUpdate();		// delete ¹® ½ÇÇà
-			return result;						// delete ¿¡ ÀÇÇØ ¹Ý¿µµÈ ·¹ÄÚµå ¼ö ¹ÝÈ¯
+			int result = jdbcUtil.executeUpdate();		// delete ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			return result;						// delete ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ý¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Úµï¿½ ï¿½ï¿½ ï¿½ï¿½È¯
 		} catch (Exception ex) {
 			jdbcUtil.rollback();
 			ex.printStackTrace();		
 		} finally {
 			jdbcUtil.commit();
-			jdbcUtil.close();		// ResultSet, PreparedStatement, Connection ¹ÝÈ¯
+			jdbcUtil.close();		// ResultSet, PreparedStatement, Connection ï¿½ï¿½È¯
 		}
 		return 0;
 	}
-	// ÀÌÁ÷ÀÚÁ¤º¸¸¦ ÀÌ¸§À¸·Î Ã£À½
-	// µ¿¸íÀÌÀÎ Ã³¸®!
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½!
 	
 	public P_TurnoverDTO getP_TurnoverByName(String name) {
-		// ±âº» Äõ¸®¿Í ÇÕÃÄÁ® È¸»çÅ×ÀÌºí¿¡¼­ È¸»ç¸í, ÇÊµåÅ×ÀÌºí¿¡¼­ ÇÊµå¸í, ºÎ¼­Å×ÀÌºí¿¡¼­ ºÎ¼­¸íÀ» °¡Á®¿À´Â Å×ÀÌºí
+		// ï¿½âº» ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ È¸ï¿½ï¿½ï¿½, ï¿½Êµï¿½ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½Êµï¿½ï¿½, ï¿½Î¼ï¿½ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½Î¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½
 		String searchQuery = query + ", " + "c_num AS c_num, " +
 				  							"cf_num AS cf_num, " +
 				  							"cfd_num AS cfd_num " + 
 				  							"FROM preparation_for_turnover " +
 				  							"WHERE name = ? "; 
 //				  							
-		jdbcUtil.setSql(searchQuery);				// JDBCUtil ¿¡ query ¹® ¼³Á¤
-		Object[] param = new Object[] { name };		// ÀÌÁ÷ÀÚ¸¦ Ã£±â À§ÇÑ Á¶°ÇÀ¸·Î ÀÌ¸§À» ¼³Á¤
-		jdbcUtil.setParameters(param);				// JDBCUtil ¿¡ query ¹®ÀÇ ¸Å°³º¯¼ö °ªÀ¸·Î »ç¿ëÇÒ ¸Å°³º¯¼ö ¼³Á¤
+		jdbcUtil.setSql(searchQuery);				// JDBCUtil ï¿½ï¿½ query ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		Object[] param = new Object[] { name };		// ï¿½ï¿½ï¿½ï¿½ï¿½Ú¸ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		jdbcUtil.setParameters(param);				// JDBCUtil ï¿½ï¿½ query ï¿½ï¿½ï¿½ï¿½ ï¿½Å°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Å°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				
 				try {
-					ResultSet rs = jdbcUtil.executeQuery();		// query ¹® ½ÇÇà
+					ResultSet rs = jdbcUtil.executeQuery();		// query ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 					P_TurnoverDTO pt = null;
-					if (rs.next()) {						// Ã£Àº ÀÌÁ÷ÀÚÀÇ Á¤º¸¸¦ StudentDTO °´Ã¼¿¡ ¼³Á¤
+					if (rs.next()) {						// Ã£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ StudentDTO ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 						pt = new P_TurnoverDTO();
 						pt.setP_id(rs.getString("id"));
 						pt.setPw(rs.getString("pw"));
 						pt.setName(rs.getString("name"));
-						pt.setEmp_num(rs.getInt("emp_num"));
 						pt.setCompany_email(rs.getString("company_email"));
 						pt.setMatching_result(rs.getInt("matching_result"));
 						pt.setC_num(rs.getInt("c_num"));
 						pt.setCf_num(rs.getInt("cf_num"));
 						pt.setCfd_num(rs.getInt("cfd_num"));
 					}
-					return pt;				// Ã£Àº ÀÌÁ÷ÀÚÀÇ Á¤º¸¸¦ ´ã°í ÀÖ´Â P_TurnoverDTO °´Ã¼ ¹ÝÈ¯
+					return pt;				// Ã£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ P_TurnoverDTO ï¿½ï¿½Ã¼ ï¿½ï¿½È¯
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				} finally {
-					jdbcUtil.close();		// ResultSet, PreparedStatement, Connection ¹ÝÈ¯
+					jdbcUtil.close();		// ResultSet, PreparedStatement, Connection ï¿½ï¿½È¯
 				}
 				return null;
 	}
 	
-	// ÀÌÁ÷ÀÚÁ¤º¸¸¦ id·Î Ã£À½
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ idï¿½ï¿½ Ã£ï¿½ï¿½
 	public P_TurnoverDTO getP_TurnoverById(String p_id) {
-		// ±âº» Äõ¸®¿Í ÇÕÃÄÁ® È¸»çÅ×ÀÌºí¿¡¼­ È¸»ç¸í, ÇÊµåÅ×ÀÌºí¿¡¼­ ÇÊµå¸í, ºÎ¼­Å×ÀÌºí¿¡¼­ ºÎ¼­¸íÀ» °¡Á®¿À´Â Å×ÀÌºí
+		// ï¿½âº» ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ È¸ï¿½ï¿½ï¿½, ï¿½Êµï¿½ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½Êµï¿½ï¿½, ï¿½Î¼ï¿½ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½Î¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½
 				String searchQuery = query + ", " + "c_num AS c_num, " +
 						  							"cf_num AS cf_num, " +
 						  							"cfd_num AS cfd_num " + 
 						  							"FROM preparation_for_turnover " +
 						  							"WHERE id = ? ";
-				jdbcUtil.setSql(searchQuery);				// JDBCUtil ¿¡ query ¹® ¼³Á¤
-				Object[] param = new Object[] { p_id };		// ÀÌÁ÷ÀÚÁ¤º¸¸¦ Ã£±â À§ÇÑ Á¶°ÇÀ¸·Î idÀ» ¼³Á¤
-				jdbcUtil.setParameters(param);				// JDBCUtil ¿¡ query ¹®ÀÇ ¸Å°³º¯¼ö °ªÀ¸·Î »ç¿ëÇÒ ¸Å°³º¯¼ö ¼³Á¤
+				jdbcUtil.setSql(searchQuery);				// JDBCUtil ï¿½ï¿½ query ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+				Object[] param = new Object[] { p_id };		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ idï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+				jdbcUtil.setParameters(param);				// JDBCUtil ï¿½ï¿½ query ï¿½ï¿½ï¿½ï¿½ ï¿½Å°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Å°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 						
 						try {
-							ResultSet rs = jdbcUtil.executeQuery();		// query ¹® ½ÇÇà
+							ResultSet rs = jdbcUtil.executeQuery();		// query ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 							P_TurnoverDTO pt = null;
-							if (rs.next()) {						// Ã£Àº ÀÌÁ÷ÀÚÁ¤º¸¸¦ P_TurnoverDTO °´Ã¼¿¡ ¼³Á¤
+							if (rs.next()) {						// Ã£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ P_TurnoverDTO ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 								pt = new P_TurnoverDTO();
 								pt.setP_id(rs.getString("id"));
 								pt.setPw(rs.getString("pw"));
 								pt.setName(rs.getString("name"));
-								pt.setEmp_num(rs.getInt("emp_num"));
 								pt.setCompany_email(rs.getString("company_email"));
 								pt.setMatching_result(rs.getInt("matching_result"));
 								pt.setC_num(rs.getInt("c_num"));
 								pt.setCf_num(rs.getInt("cf_num"));
 								pt.setCfd_num(rs.getInt("cfd_num"));
 							}
-							return pt;				// Ã£Àº ÀÌÁ÷ÀÚÀÇ Á¤º¸¸¦ ´ã°í ÀÖ´Â P_TurnoverDTO °´Ã¼ ¹ÝÈ¯
+							return pt;				// Ã£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ P_TurnoverDTO ï¿½ï¿½Ã¼ ï¿½ï¿½È¯
 						} catch (Exception ex) {
 							ex.printStackTrace();
 						} finally {
-							jdbcUtil.close();		// ResultSet, PreparedStatement, Connection ¹ÝÈ¯
+							jdbcUtil.close();		// ResultSet, PreparedStatement, Connection ï¿½ï¿½È¯
 						}
 				return null;
 	}
 	
 	/**
-	 * ÁÖ¾îÁø »ç¿ëÀÚ ID¿¡ ÇØ´çÇÏ´Â »ç¿ëÀÚ°¡ Á¸ÀçÇÏ´ÂÁö °Ë»ç 
+	 * ï¿½Ö¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ IDï¿½ï¿½ ï¿½Ø´ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ 
 	 */
 	public boolean existingUser(String userId) throws SQLException {
 		String sql = "SELECT count(*) FROM preparation_for_turnover WHERE p_id=?";      
-		jdbcUtil.setSqlAndParameters(sql, new Object[] {userId});	// JDBCUtil¿¡ query¹®°ú ¸Å°³ º¯¼ö ¼³Á¤
+		jdbcUtil.setSqlAndParameters(sql, new Object[] {userId});	// JDBCUtilï¿½ï¿½ queryï¿½ï¿½ï¿½ï¿½ ï¿½Å°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 		try {
-			ResultSet rs = jdbcUtil.executeQuery();		// query ½ÇÇà
+			ResultSet rs = jdbcUtil.executeQuery();		// query ï¿½ï¿½ï¿½ï¿½
 			if (rs.next()) {
 				int count = rs.getInt(1);
 				return (count == 1 ? true : false);
@@ -326,108 +335,114 @@ public class P_TurnoverDAOImpl implements P_TurnoverDAO {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {
-			jdbcUtil.close();		// resource ¹ÝÈ¯
+			jdbcUtil.close();		// resource ï¿½ï¿½È¯
 		}
 		return false;
 	}
 	/**
-	 * ÀüÃ¼ »ç¿ëÀÚ Á¤º¸¸¦ °Ë»öÇÏ¿© List¿¡ ÀúÀå ¹× ¹ÝÈ¯
+	 * ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½Ï¿ï¿½ Listï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½È¯
 	 */
 	public List<P_TurnoverDTO> findUserList() throws SQLException {
-        String sql = "SELECT p_id, c_num, name, company_email, pw " 
+        String sql = "SELECT p_id, pw, name, c_num, cf_num, cfd_num, company_email, matching_result " 
      		   + "FROM preparation_for_turnover "
      		   + "ORDER BY p_id";
-		jdbcUtil.setSqlAndParameters(sql, null);		// JDBCUtil¿¡ query¹® ¼³Á¤
+		jdbcUtil.setSqlAndParameters(sql, null);		// JDBCUtilï¿½ï¿½ queryï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 					
 		try {
-			ResultSet rs = jdbcUtil.executeQuery();			// query ½ÇÇà			
-			List<P_TurnoverDTO> userList = new ArrayList<P_TurnoverDTO>();	// UserµéÀÇ ¸®½ºÆ® »ý¼º
+			ResultSet rs = jdbcUtil.executeQuery();			// query ï¿½ï¿½ï¿½ï¿½			
+			List<P_TurnoverDTO> userList = new ArrayList<P_TurnoverDTO>();	// Userï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 			while (rs.next()) {
-				P_TurnoverDTO user = new P_TurnoverDTO(			// User °´Ã¼¸¦ »ý¼ºÇÏ¿© ÇöÀç ÇàÀÇ Á¤º¸¸¦ ÀúÀå
+				P_TurnoverDTO user = new P_TurnoverDTO(			// User ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 						rs.getString("p_id"),
-						rs.getInt("c_num"),
+						rs.getString("pw"),
 						rs.getString("name"),
+						rs.getInt("c_num"),
+						rs.getInt("cf_num"),
+						rs.getInt("cfd_num"),
 						rs.getString("company_email"),
-						rs.getString("pw"));	
-				userList.add(user);				// List¿¡ User °´Ã¼ ÀúÀå
+						Integer.valueOf(0)
+						);	
+				userList.add(user);				// Listï¿½ï¿½ User ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
 			}
 			return userList;					
 			
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {
-			jdbcUtil.close();		// resource ¹ÝÈ¯
+			jdbcUtil.close();		// resource ï¿½ï¿½È¯
 		}
 		return null;
 	}
 	
 	/**
-	 * ÀüÃ¼ »ç¿ëÀÚ Á¤º¸¸¦ °Ë»öÇÑ ÈÄ ÇöÀç ÆäÀÌÁö¿Í ÆäÀÌÁö´ç Ãâ·ÂÇÒ »ç¿ëÀÚ ¼ö¸¦ ÀÌ¿ëÇÏ¿©
-	 * ÇØ´çÇÏ´Â »ç¿ëÀÚ Á¤º¸¸¸À» List¿¡ ÀúÀåÇÏ¿© ¹ÝÈ¯.
+	 * ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½Ï¿ï¿½
+	 * ï¿½Ø´ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Listï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½È¯.
 	 */
 	public List<P_TurnoverDTO> findUserList(int currentPage, int countPerPage) throws SQLException {
-        String sql = "SELECT p_id, c_num, name, company_email, pw " 
+        String sql = "SELECT p_id, pw, name, c_num, cf_num, cfd_num, company_email, matching_result " 
         		   + "FROM preparation_for_turnover "
         		   + "ORDER BY p_id";
-		jdbcUtil.setSqlAndParameters(sql, null,					// JDBCUtil¿¡ query¹® ¼³Á¤
-				ResultSet.TYPE_SCROLL_INSENSITIVE,				// cursor scroll °¡´É
+		jdbcUtil.setSqlAndParameters(sql, null,					// JDBCUtilï¿½ï¿½ queryï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+				ResultSet.TYPE_SCROLL_INSENSITIVE,				// cursor scroll ï¿½ï¿½ï¿½ï¿½
 				ResultSet.CONCUR_READ_ONLY);						
 		
 		try {
-			ResultSet rs = jdbcUtil.executeQuery();				// query ½ÇÇà			
-			int start = ((currentPage-1) * countPerPage) + 1;	// Ãâ·ÂÀ» ½ÃÀÛÇÒ Çà ¹øÈ£ °è»ê
-			if ((start >= 0) && rs.absolute(start)) {			// Ä¿¼­¸¦ ½ÃÀÛ ÇàÀ¸·Î ÀÌµ¿
-				List<P_TurnoverDTO> userList = new ArrayList<P_TurnoverDTO>();	// UserµéÀÇ ¸®½ºÆ® »ý¼º
+			ResultSet rs = jdbcUtil.executeQuery();				// query ï¿½ï¿½ï¿½ï¿½			
+			int start = ((currentPage-1) * countPerPage) + 1;	// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½È£ ï¿½ï¿½ï¿½
+			if ((start >= 0) && rs.absolute(start)) {			// Ä¿ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
+				List<P_TurnoverDTO> userList = new ArrayList<P_TurnoverDTO>();	// Userï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 				do {
-					P_TurnoverDTO user = new P_TurnoverDTO(		// User °´Ã¼¸¦ »ý¼ºÇÏ¿© ÇöÀç ÇàÀÇ Á¤º¸¸¦ ÀúÀå
+					P_TurnoverDTO user = new P_TurnoverDTO(		// User ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 						rs.getString("p_id"),
-						rs.getInt("c_num"),
+						rs.getString("pw"),
 						rs.getString("name"),
+						rs.getInt("c_num"),
+						rs.getInt("cf_num"),
+						rs.getInt("cfd_num"),
 						rs.getString("company_email"),
-						rs.getString("pw"));	
-					userList.add(user);							// ¸®½ºÆ®¿¡ User °´Ã¼ ÀúÀå
+						rs.getInt("matching_result")
+						);	
+					userList.add(user);							// ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ User ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
 				} while ((rs.next()) && (--countPerPage > 0));		
 				return userList;							
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {
-			jdbcUtil.close();		// resource ¹ÝÈ¯
+			jdbcUtil.close();		// resource ï¿½ï¿½È¯
 		}
 		return null;
 	}
 	/**
-	 * ÁÖ¾îÁø »ç¿ëÀÚ ID¿¡ ÇØ´çÇÏ´Â »ç¿ëÀÚ Á¤º¸¸¦ µ¥ÀÌÅÍº£ÀÌ½º¿¡¼­ Ã£¾Æ User µµ¸ÞÀÎ Å¬·¡½º¿¡ 
-	 * ÀúÀåÇÏ¿© ¹ÝÈ¯.
+	 * ï¿½Ö¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ IDï¿½ï¿½ ï¿½Ø´ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½Ì½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½ User ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½È¯.
 	 */
 	public P_TurnoverDTO findUser(String p_id) throws SQLException {
-        String sql = "SELECT p_id, c_num, name, company_email, pw "
+        String sql = "SELECT p_id, c_num, cf_num, cfd_num, name, company_email, pw, matching_result "
         			+ "FROM preparation_for_turnover "
         			+ "WHERE p_id=? ";
-		jdbcUtil.setSqlAndParameters(sql, new Object[] {p_id});	// JDBCUtil¿¡ query¹®°ú ¸Å°³ º¯¼ö ¼³Á¤
+		jdbcUtil.setSqlAndParameters(sql, new Object[] {p_id});	// JDBCUtilï¿½ï¿½ queryï¿½ï¿½ï¿½ï¿½ ï¿½Å°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 		try {
-			ResultSet rs = jdbcUtil.executeQuery();		// query ½ÇÇà
-			if (rs.next()) {						// ÇÐ»ý Á¤º¸ ¹ß°ß
-				P_TurnoverDTO user = new P_TurnoverDTO(		// User °´Ã¼¸¦ »ý¼ºÇÏ¿© ÇÐ»ý Á¤º¸¸¦ ÀúÀå
-						p_id,
-					rs.getInt("c_num"),
-					rs.getString("name"),
-					rs.getString("company_email"),
-					rs.getString("pw"));
+			ResultSet rs = jdbcUtil.executeQuery();		// query ï¿½ï¿½ï¿½ï¿½
+			if (rs.next()) {						// ï¿½Ð»ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
+				P_TurnoverDTO user = new P_TurnoverDTO(		// User ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½Ð»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+						rs.getString("p_id"),
+						rs.getString("pw"),
+						rs.getString("name"),
+						rs.getInt("c_num"),
+						rs.getInt("cf_num"),
+						rs.getInt("cfd_num"),
+						rs.getString("company_email"),
+						rs.getInt("matching_result")
+				);
 				return user;
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {
-			jdbcUtil.close();		// resource ¹ÝÈ¯
+			jdbcUtil.close();		// resource ï¿½ï¿½È¯
 		}
 		return null;
 	}
-	@Override
-	public int insertP_Turnover(P_TurnoverDTO pt) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
 }

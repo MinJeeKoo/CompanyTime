@@ -1,34 +1,33 @@
 package model;
 
 public class InfoDTO {
-	   private Integer iNo = null;			// »ç¿ëÀÚ ÀÔ·Â Á¤º¸PK
-	   private Integer pId = null;			// ÀÌÁ÷ÀÚ FK
-	   private Integer wId = null;			// ÇöÁ÷ÀÚ FK
-	   private Integer cfdNo = null;			// department ¹øÈ£
-	   private Integer annual_Income = null;		// ¿¬ºÀ
-	   private Integer InfoMood = null;		// ºÎ¼­ ºÐÀ§±â
+	   private Integer iNo = null;			// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ ï¿½ï¿½ï¿½ï¿½PK
+	   private String pId = null;			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ FK
+	   private String wId = null;			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ FK
+	   private Integer cfdNo = null;			// department ï¿½ï¿½È£
+	   private Integer annual_Income = null;		// ï¿½ï¿½ï¿½ï¿½
+	   private Integer InfoMood = null;		// ï¿½Î¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	   private Integer jobSat_R = null;
-	   private String jobSat_H = null;// Á÷¾÷ ¸¸Á·µµ
-	   private Integer cafeteria = null;			// Á÷¿ø ½Ä´ç
-	   private Integer trafficConven = null;		// ±³ÅëÆíÀÇ¼º
-	   private String empWellfare = null;		// Á÷¿øº¹Áö
-	
-	   public Integer getiNo() {
+	   private String jobSat_H = null;// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	   private Integer cafeteria = null;			// ï¿½ï¿½ï¿½ï¿½ ï¿½Ä´ï¿½
+	   private Integer trafficConven = null;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¼ï¿½
+	   private String empWellfare = null;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	public Integer getiNo() {
 		return iNo;
 	}
 	public void setiNo(Integer iNo) {
 		this.iNo = iNo;
 	}
-	public Integer getpId() {
+	public String getpId() {
 		return pId;
 	}
-	public void setpId(Integer pId) {
+	public void setpId(String pId) {
 		this.pId = pId;
 	}
-	public Integer getwId() {
+	public String getwId() {
 		return wId;
 	}
-	public void setwId(Integer wId) {
+	public void setwId(String wId) {
 		this.wId = wId;
 	}
 	public Integer getCfdNo() {
@@ -79,6 +78,7 @@ public class InfoDTO {
 	public void setEmpWellfare(String empWellfare) {
 		this.empWellfare = empWellfare;
 	}
+	
 	   
 	   
 }

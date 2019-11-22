@@ -9,11 +9,12 @@ public class DAOFactory {
 		return new FieldDAOImpl();
 	}
 	
-//	public CompanyDAO getCompanyDAO() {
-//		return new CompanyDAOImpl();
-//	}
-	
-	public DepartmentDAO getDeparmentDAO() {
+	public DepartmentDAO getDepartmentDAO() {
 		return new DepartmentDAOImpl();
+	}
+
+	public CompanyDAO getCompanyDAO() {
+		// TODO Auto-generated method stub
+		return new CompanyDAOImpl();
 	}
 }

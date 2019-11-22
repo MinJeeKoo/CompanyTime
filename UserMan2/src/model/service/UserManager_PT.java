@@ -5,7 +5,7 @@ import java.util.List;
 
 import model.P_TurnoverDTO;
 import model.dao.P_TurnoverDAOImpl;
-//pt(ÀÌÁ÷ÀÚ)°¡ ·Î±×ÀÎÇÒ¶§ ÇÊ¿äÇÑ manager
+//pt(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ manager
 public class UserManager_PT {
 	private static UserManager_PT userMan = new UserManager_PT();
 	private P_TurnoverDAOImpl userDAO;
@@ -24,11 +24,11 @@ public class UserManager_PT {
 		return userMan;
 	}
 	
-	public int create(P_TurnoverDTO user) throws SQLException, ExistingUserException {
-		if (userDAO.existingUser(user.getP_id()) == true) {
-			throw new ExistingUserException(user.getP_id() + "´Â Á¸ÀçÇÏ´Â ¾ÆÀÌµðÀÔ´Ï´Ù.");
+	public int create(P_TurnoverDTO pt) throws SQLException, ExistingUserException {
+		if (userDAO.existingUser(pt.getP_id()) == true) {
+			throw new ExistingUserException(pt.getP_id() + "ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ï¿½Ô´Ï´ï¿½.");
 		}
-		return userDAO.create(user);
+		return userDAO.create(pt);
 	}
 
 	public int update(P_TurnoverDTO user) throws SQLException {
@@ -44,7 +44,7 @@ public class UserManager_PT {
 		P_TurnoverDTO user = userDAO.findUser(userId);
 		
 		if (user == null) {
-			throw new UserNotFoundException(userId + "´Â Á¸ÀçÇÏÁö ¾Ê´Â ¾ÆÀÌµðÀÔ´Ï´Ù.");
+			throw new UserNotFoundException(userId + "ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ï¿½Ô´Ï´ï¿½.");
 		}		
 		return user;
 	}
@@ -63,7 +63,7 @@ public class UserManager_PT {
 		P_TurnoverDTO user = findUser(userId);
 
 		if (!user.matchPassword(password)) {
-			throw new PasswordMismatchException("ºñ¹Ð¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.");
+			throw new PasswordMismatchException("ï¿½ï¿½Ð¹ï¿½È£ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ ï¿½Ê½ï¿½ï¿½Ï´ï¿½.");
 		}
 		return true;
 	}
