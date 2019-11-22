@@ -5,7 +5,7 @@ import java.util.List;
 
 import model.P_TurnoverDTO;
 import model.dao.P_TurnoverDAOImpl;
-
+//pt(이직자)가 로그인할때 필요한 manager
 public class UserManager_PT {
 	private static UserManager_PT userMan = new UserManager_PT();
 	private P_TurnoverDAOImpl userDAO;

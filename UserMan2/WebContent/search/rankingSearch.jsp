@@ -19,7 +19,6 @@ $(document).ready(function() {
 			cache: false,
 			dataType: "json",
 			success: function(departmentList) {
-				alert("hello");
 				
 				var f = document.form;
 				var len = departmentList.length;
@@ -39,7 +38,7 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-<h3>랭킹 검색</h3>
+<center><h3>랭킹 검색</h3></center>
 <form action="" id="form" name="form">
 <div id="cat">
 	<h5>카테고리</h5>
