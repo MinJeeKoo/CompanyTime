@@ -1,0 +1,2 @@
+1.departmentDAO에서 분야별로 department이름 리스트 반환 
+->findDepartmentListByCf_num()
