@@ -65,14 +65,12 @@
 <table style="width:100%">
 	<tr>
 		<td>
-	  		<form action="<c:url value='/user/view_pt'>
-				<c:param name='userId' value='${user.userId}'/>
-					</c:url>">
-			<button type="submit" style="font-size:2em; border-radius:0.5em; padding:5px 20px">
-			회원정보
-			</button>
-		</form>
-		
+	  		<form action="<c:url value='/user/main/form' />">
+				<button type="submit" style="font-size:2em; border-radius:0.5em; padding:5px 20px">
+
+				회원정보
+				</button>
+			</form>
 		</td>
 		
 		<td>

@@ -281,7 +281,7 @@ function itemChange(f){
 		  <tr>
 			<td align="left">
 			<input type="button" value="회원 가입" onClick="userCreate()"> &nbsp;
-			<input type="button" value="목록" onClick="userList('<c:url value='/user/list' />')">
+			<input type="button" value="홈화면" onClick="userList('<c:url value='/user/main/form' />')">
 			</td>
 		  </tr>
 	    </table>

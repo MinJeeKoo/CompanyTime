@@ -2,11 +2,11 @@
 <%@page import="model.P_TurnoverDTO" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
-P_TurnoverDTO user = (P_TurnoverDTO)request.getAttribute("user");
+	P_TurnoverDTO user = (P_TurnoverDTO)request.getAttribute("user");
 %>
 <html>
 <head>
-<title>사용자 정보</title>
+<title>내 정보</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel=stylesheet href="<c:url value='/css/user.css' />" type="text/css">
 <script>

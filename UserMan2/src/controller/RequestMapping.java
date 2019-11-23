@@ -11,11 +11,11 @@ import controller.search.*;
 public class RequestMapping {
     private static final Logger logger = LoggerFactory.getLogger(DispatcherServlet.class);
     
-    // �� ��û uri�� ���� controller ��ü�� ������ HashMap ����
+    // 占쏙옙 占쏙옙청 uri占쏙옙 占쏙옙占쏙옙 controller 占쏙옙체占쏙옙 占쏙옙占쏙옙占쏙옙 HashMap 占쏙옙占쏙옙
     private Map<String, Controller> mappings = new HashMap<String, Controller>();
 
     public void initMapping() {
-    	// �� uri�� �����Ǵ� controller ��ü�� ���� �� ����
+    	// 占쏙옙 uri占쏙옙 占쏙옙占쏙옙占실댐옙 controller 占쏙옙체占쏙옙 占쏙옙占쏙옙 占쏙옙 占쏙옙占쏙옙
         mappings.put("/", new ForwardController("index.jsp"));
         mappings.put("/user/login/form", new ForwardController("/user/loginForm.jsp"));
         mappings.put("/user/login", new LoginController());
@@ -25,7 +25,7 @@ public class RequestMapping {
         mappings.put("/user/view", new ViewUserController());
         mappings.put("/user/view_pt", new ViewPTController());
         mappings.put("/user/main/form", new ForwardController("/user/main.jsp"));
-//        mappings.put("/user/main_login/form", new ForwardController("/user/main_afterLogin.jsp"));
+        mappings.put("/user/main_login", new ForwardController("/user/main_afterLogin.jsp"));
         mappings.put("/user/main_login/form", new MainLoginController());
         mappings.put("/user/registerW/form", new ForwardController("/user/registerForm_Worker.jsp"));
         mappings.put("/user/registerPT/form", new ForwardController("/user/registerForm_PreparationForTurnover.jsp"));
@@ -39,14 +39,14 @@ public class RequestMapping {
         mappings.put("/search/rankingSearch", new ForwardController("/search/rankingSearch.jsp"));
     	mappings.put("/search/rankingSearch/json", new ListDepartmentJSONController());
         
-    	//민지랑 연결하면 바꾸기
+    	//誘쇱��� �곌껐��硫� 諛�袁멸린
     	mappings.put("/temp", new tempController());
     	
         logger.info("Initialized Request Mapping!");
     }
 
     public Controller findController(String uri) {	
-    	// �־��� uri�� �����Ǵ� controller ��ü�� ã�� ��ȯ
+    	// 占쌍억옙占쏙옙 uri占쏙옙 占쏙옙占쏙옙占실댐옙 controller 占쏙옙체占쏙옙 찾占쏙옙 占쏙옙환
         return mappings.get(uri);
     }
 }
