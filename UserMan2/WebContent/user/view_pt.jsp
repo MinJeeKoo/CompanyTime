@@ -35,9 +35,33 @@ function userRemove() {
 			</td>
 		  </tr>
 		  <tr>
+			<td width="120" align="center" bgcolor="E6ECDE" height="22">패스워드</td>
+			<td width="470" bgcolor="ffffff" style="padding-left: 10">
+				<%=user.getPw()%>
+			</td>
+		  </tr>
+		  <tr>
 			<td width="120" align="center" bgcolor="E6ECDE" height="22">이름</td>
 			<td width="470" bgcolor="ffffff" style="padding-left: 10">
 				<%=user.getName()%>
+			</td>
+		  </tr>
+		  <tr>
+			<td width="120" align="center" bgcolor="E6ECDE" height="22">회사번호</td>
+			<td width="470" bgcolor="ffffff" style="padding-left: 10">
+				<%=user.getC_num()%>
+			</td>
+		  </tr>
+		  <tr>
+			<td width="120" align="center" bgcolor="E6ECDE" height="22">희망매칭분야(field)</td>
+			<td width="470" bgcolor="ffffff" style="padding-left: 10">
+				<%=user.getCf_num()%>
+			</td>
+		  </tr>
+		  <tr>
+			<td width="120" align="center" bgcolor="E6ECDE" height="22">부서번호</td>
+			<td width="470" bgcolor="ffffff" style="padding-left: 10">
+				<%=user.getCfd_num()%>
 			</td>
 		  </tr>
 		  <tr>
@@ -45,16 +69,10 @@ function userRemove() {
 			<td width="470" bgcolor="ffffff" style="padding-left: 10">
 				${user.company_email} <%-- <%=user.getCompany_email()%> --%>
 			</td>
-		  </tr>		  
-		  <tr>
-			<td width="120" align="center" bgcolor="E6ECDE" height="22">회사번호</td>
-			<td width="470" bgcolor="ffffff" style="padding-left: 10">
-				<%=user.getC_num()%>
-			</td>
-		  </tr>	
+		  </tr>		
 	 	</table>
 	    <br>
-	    <a href="<c:url value='/user/update/form'>
+	    <a href="<c:url value='/user/updatePT/form'>
 	     		   <c:param name='userId' value='<%=user.getP_id()%>'/>
 			 	 </c:url>">수정</a> &nbsp;
  	    <%--<a href="<c:url value='/user/delete'>
