@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import controller.Controller;
 import model.P_TurnoverDTO;
 import model.service.UserManager_PT;
+import controller.user.UpdateUser_PTController;
 
 public class UpdatePTFormController implements Controller {
 	private static final Logger log = LoggerFactory.getLogger(UpdateUser_PTController.class);
@@ -22,22 +23,22 @@ public class UpdatePTFormController implements Controller {
 		log.debug("UpdateForm Request : {}", updateId);
 
 		UserManager_PT manager = UserManager_PT.getInstance();
-		P_TurnoverDTO user = manager.findUser(updateId);	// »ç¿ëÀÚ Á¤º¸ °Ë»ö
+		P_TurnoverDTO user = manager.findUser(updateId);	// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½
 		request.setAttribute("user", user);						
 		
 		HttpSession session = request.getSession();
 		if (UserSessionUtils.isLoginUser(updateId, session) ||
 			UserSessionUtils.isLoginUser("admin", session)) {
-			// ÇöÀç ·Î±×ÀÎÇÑ »ç¿ëÀÚ°¡ ¼öÁ¤ ´ë»ó »ç¿ëÀÚÀÌ°Å³ª °ü¸®ÀÚÀÎ °æ¿ì -> ¼öÁ¤ °¡´É
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì°Å³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ -> ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			
-			return "/user/updateForm_PT.jsp";   // °Ë»öÇÑ »ç¿ëÀÚ Á¤º¸¸¦ update formÀ¸·Î Àü¼Û     
+			return "/user/updateForm_PT.jsp";   // ï¿½Ë»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ update formï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½     
 		}
 		
-		// else (¼öÁ¤ ºÒ°¡´ÉÇÑ °æ¿ì) »ç¿ëÀÚ º¸±â È­¸éÀ¸·Î ¿À·ù ¸Ş¼¼Áö¸¦ Àü´Ş
+		// else (ï¿½ï¿½ï¿½ï¿½ ï¿½Ò°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ş¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		request.setAttribute("updateFailed", true);
 		request.setAttribute("exception", 
-			new IllegalStateException("Å¸ÀÎÀÇ Á¤º¸´Â ¼öÁ¤ÇÒ ¼ö ¾ø½À´Ï´Ù."));            
-		return "/user/view_pt.jsp";	// »ç¿ëÀÚ º¸±â È­¸éÀ¸·Î ÀÌµ¿ (forwarding)
+			new IllegalStateException("íƒ€ì¸ì˜ ì •ë³´ëŠ” ìˆ˜ì •í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."));            
+		return "/user/view_pt.jsp";	// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ (forwarding)
     }
 
 }

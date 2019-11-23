@@ -2,5 +2,4 @@ eclipse.preferences.version=1
 encoding//WebContent/user/list.jsp=UTF-8
 encoding//src/controller/RequestMapping.java=UTF-8
 encoding//src/model/P_TurnoverDTO.java=UTF-8
-encoding//src/model/dao/P_TurnoverDAOImpl.java=UTF-8
 encoding/<project>=UTF-8

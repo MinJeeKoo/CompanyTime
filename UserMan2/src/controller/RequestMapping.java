@@ -32,22 +32,17 @@ public class RequestMapping {
         mappings.put("/user/registerJS/form", new ForwardController("/user/registerForm_JobSeeker.jsp"));
         mappings.put("/user/register", new RegisterUserController());
         mappings.put("/user/register_pt", new RegisterPTController());
-        
-        //수정버튼 클릭시 수정화면으로 넘어가는 것--수정1
         mappings.put("/user/update/form", new UpdateUserFormController());
         mappings.put("/user/updatePT/form", new UpdatePTFormController());
-        
-        //update(db로 연결)--수정2
         mappings.put("/user/update", new UpdateUser_JobSeekerController());
         mappings.put("/user/updatePT", new UpdateUser_PTController());
-        
         mappings.put("/user/delete", new DeleteUserController());
         mappings.put("/user/selectType/form", new ForwardController("/user/selectTypeForm.jsp"));
         mappings.put("/search/rankingSearch", new ForwardController("/search/rankingSearch.jsp"));
     	mappings.put("/search/rankingSearch/json", new ListDepartmentJSONController());
         
     	//誘쇱��� �곌껐��硫� 諛�袁멸린
-    	mappings.put("/temp", new tempController());
+    	mappings.put("/search/rankingSearchResult", new RankingSearchController());
     	
         logger.info("Initialized Request Mapping!");
     }
