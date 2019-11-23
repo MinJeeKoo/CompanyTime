@@ -12,13 +12,13 @@
  function keyword_check(){
 
   if(document.search.keyword.value==''){ //검색어가 없을 경우  
-
-  alert('검색어를 입력하세요'); //경고창 띄움 
-
-  document.sear
-  ch.keyword.focus(); //다시 검색창으로 돌아감 
-
-  return false; 
+	
+	  alert('검색어를 입력하세요'); //경고창 띄움 
+	
+	  document.sear
+	  ch.keyword.focus(); //다시 검색창으로 돌아감 
+	
+	  return false; 
 
   }
 
@@ -65,12 +65,8 @@
 <table style="width:100%">
 	<tr>
 		<td>
-	  		<form action="<c:url value='/user/main/form' />">
-				<button type="submit" style="font-size:2em; border-radius:0.5em; padding:5px 20px">
-
-				회원정보
-				</button>
-			</form>
+			<input type="submit" style="font-size:2em; border-radius:0.5em; padding:5px 20px" value='회원정보' 
+			onclick="alert('로그인이 필요한 서비스입니다!!')" />	
 		</td>
 		
 		<td>

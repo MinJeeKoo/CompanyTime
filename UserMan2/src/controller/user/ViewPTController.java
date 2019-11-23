@@ -16,7 +16,6 @@ public class ViewPTController implements Controller {
 	
 		UserManager_PT manager = UserManager_PT.getInstance();
 		String userId = request.getParameter("userId");
-		
 		P_TurnoverDTO user = null;
 		try {
 			user = manager.findUser(userId);	// 사용자 정보 검색

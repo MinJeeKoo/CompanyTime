@@ -64,13 +64,12 @@
 	<tr>
 		<td>
 		<!-- 로그인한 회원의 정보 보여주기 -->
-		<form action="<c:url value='/user/view_pt'>
-				<c:param name='userId' value='${curUserId}'/>
-					</c:url>">
-			<button type="submit" style="font-size:2em; border-radius:0.5em; padding:5px 20px" onclick = "">
+		<form action="<c:url value='/user/view_pt' />">
+			<button type="submit" style="font-size:2em; border-radius:0.5em; padding:5px 20px" name="userId" value='${curUserId}'>
 			회원정보
 			</button>
 		</form>
+			  
 		</td>
 		
 		<td>

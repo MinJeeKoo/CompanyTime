@@ -7,8 +7,6 @@
 <link rel=stylesheet href="<c:url value='/css/user.css' />" type="text/css">
 <script>
 function userCreate() {
-	alert("ha");
-	console.log('ha');
 	if (form.userId.value == "") {
 		alert("사용자 ID를 입력하십시오.");
 		form.userId.focus();

@@ -23,13 +23,13 @@ function userRemove() {
 	  <td>
 	    <table>
 		  <tr>
-			<td bgcolor="f4f4f4" height="22">&nbsp;&nbsp;<b>사용자 정보 보기</b>&nbsp;&nbsp;</td>
+			<td bgcolor="f4f4f4" height="22">&nbsp;&nbsp;<b>내 정보 보기</b>&nbsp;&nbsp;</td>
 		  </tr>
 	    </table>  
 	    <br>	  	    
 	  	<table style="background-color: YellowGreen">
 	  	  <tr>
-			<td width="120" align="center" bgcolor="E6ECDE" height="22">사용자 ID</td>
+			<td width="120" align="center" bgcolor="E6ECDE" height="22">ID</td>
 			<td width="470" bgcolor="ffffff" style="padding-left: 10">
 				<%=user.getP_id()%>
 			</td>
@@ -54,16 +54,18 @@ function userRemove() {
 		  </tr>	
 	 	</table>
 	    <br>
-	   <!-- <a href="<c:url value='/user/update/form'>
-	     		   <c:param name='userId' value='<%=user.getUserId()%>'/>
+	    <a href="<c:url value='/user/update/form'>
+	     		   <c:param name='userId' value='<%=user.getP_id()%>'/>
 			 	 </c:url>">수정</a> &nbsp;
- 	    <a href="<c:url value='/user/delete'>
+ 	    <%--<a href="<c:url value='/user/delete'>
 				   <c:param name='userId' value='<%=user.getUserId()%>'/>
-			 	 </c:url>" onclick="return userRemove();">삭제</a> &nbsp;  -->
- 	    <a href="<c:url value='/user/login/form' />">목록</a> 	    
+			 	 </c:url>" onclick="return userRemove();">삭제</a> &nbsp;  --%>
+ 	    <a href="<c:url value='/user/main_login/form'>
+ 	    		<c:param name='userId' value='<%=user.getP_id()%>'/> 
+ 	    		</c:url>">홈화면</a> 	    
  	    <br><br>	   
  	    
- 	    <!-- 수정 또는 삭제가  실패한 경우 exception 객체에 저장된 오류 메시지를 출력 -->
+ 	    <%-- 수정 또는 삭제가  실패한 경우 exception 객체에 저장된 오류 메시지를 출력--%>
         <c:if test="${updateFailed || deleteFailed}">
 	      <font color="red"><c:out value="${exception.getMessage()}" /></font>
 	    </c:if>    
