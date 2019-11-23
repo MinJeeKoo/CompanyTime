@@ -1,0 +1,5 @@
+package model.service;
+
+public class UserManager_search_rs {
+
+}
