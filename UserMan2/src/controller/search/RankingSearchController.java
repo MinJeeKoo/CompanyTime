@@ -11,7 +11,7 @@ import controller.DispatcherServlet;
 import model.service.UserManager_search_rs;
 import model.*;
 
-public class tempController implements Controller {
+public class RankingSearchController implements Controller {
 	private final static Logger logger = LoggerFactory.getLogger(DispatcherServlet.class);
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -33,7 +33,7 @@ public class tempController implements Controller {
 		
 		request.setAttribute("getSearchList", getSearchList);
 		
-		return "/search/temp.jsp";
+		return "/search/rankingSearchResult.jsp";
 	}
 
 }

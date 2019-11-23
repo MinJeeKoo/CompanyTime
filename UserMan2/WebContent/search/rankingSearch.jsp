@@ -43,10 +43,11 @@ function search() {
 </head>
 <body>
 <center><h3>랭킹 검색</h3></center>
-<form action="<c:url value='/temp' />" id="form" name="form">
+<form action="<c:url value='/search/rankingSearchResult' />" id="form" name="form">
 <div id="cat">
    <h5>카테고리</h5>
    <select id="category" name="category">
+	  <option value="카테고리 선택">카테고리 선택</option>
       <option value="annual_income">연봉</option>
       <option value="department_mood">부서 분위기</option>
       <option value="job_satisfaction_r">직업 만족도</option>
@@ -58,6 +59,7 @@ function search() {
 <div id="fld">
    <h5>분야</h5>
    <select id="field" name="cf_name">
+	  <option value="분야 선택">분야 선택</option> 		
       <option value="경영/사무">경영/사무</option>
       <option value="영업/고객상담">영업/고객상담</option>
       <option value="IT/인터넷">IT/인터넷</option>

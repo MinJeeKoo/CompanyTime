@@ -42,7 +42,7 @@ public class RequestMapping {
     	mappings.put("/search/rankingSearch/json", new ListDepartmentJSONController());
         
     	//誘쇱��� �곌껐��硫� 諛�袁멸린
-    	mappings.put("/temp", new tempController());
+    	mappings.put("/search/rankingSearchResult", new RankingSearchController());
     	
         logger.info("Initialized Request Mapping!");
     }

@@ -29,7 +29,7 @@
 		<tr>
 		  <td width="190" align="center" bgcolor="E6ECDE" height="22">회사명</td>
 		  <td width="200" align="center" bgcolor="E6ECDE">부서명</td>
-		  <td width="200" align="center" bgcolor="E6ECDE">결과</td>
+		  <td width="200" align="center" bgcolor="E6ECDE">평균점수</td>
 		</tr>
 <%-- 
 	if (userList != null) {	

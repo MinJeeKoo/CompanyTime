@@ -395,7 +395,7 @@ public class InfoDAOImpl implements InfoDAO {
 	@Override
 	public List<ForSearchList> getSearchList(String cfd_name, String category) throws SQLException{
 		if(category.equals("annual_income")){
-			String query = "SELECT C_NAME, CFD_NAME, ANNUAL_INCOME FROM INFO WHERE CFD_NAME = ? ORDER BY ANNUAL_INCOME DESC";
+			String query = "SELECT C_NAME, CFD_NAME, avg(ANNUAL_INCOME) AS INCOME FROM INFO WHERE CFD_NAME = ? GROUP BY C_NAME, CFD_NAME ORDER BY INCOME DESC";
 			Object[] param = new Object[] {cfd_name};
 			jdbcUtil.setSqlAndParameters(query, param);
 			try {
@@ -405,7 +405,7 @@ public class InfoDAOImpl implements InfoDAO {
 					ForSearchList search_list = new ForSearchList(
 							rs.getString("C_NAME"), 
 							rs.getString("CFD_NAME"),
-							rs.getInt("ANNUAL_INCOME"));
+							rs.getInt("INCOME"));
 					logger.debug("search_list : {}", search_list);
 					return_list.add(search_list);
 				}
