@@ -5,7 +5,6 @@
 <%
    @SuppressWarnings("unchecked") 
    List<ForSearchList> searchList = (List<ForSearchList>)request.getAttribute("getSearchList");
-   P_TurnoverDTO pt = (P_TurnoverDTO)request.getAttribute("user");
 %>
 <html>
 <head>
@@ -75,8 +74,7 @@
   </tr>
 </table> 
 <br>
-     <a href="<c:url value='/user/main_login/form'>
-              <c:param name='userId' value='<%=pt.getP_id()%>'/> 
-              </c:url>">홈화면으로</a>
+     <a href="<c:url value='/user/main/form' />">홈화면으로</a>
+     </td> 
 </body>
 </html>
