@@ -5,7 +5,8 @@
 <title>사용자 관리</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel=stylesheet href="<c:url value='/css/user.css' />" type="text/css">
-<script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
 function userCreate() {
 	if (form.userId.value == "") {
 		alert("사용자 ID를 입력하십시오.");
@@ -35,48 +36,48 @@ function userCreate() {
 	}
 	if (form.company.value == "") {
 		alert("회사를 입력하십시오.");
-		form.empno.focus();
+		form.company.focus();
 		return false;
 	}
-	if (form.dept.value == "") {
+	if (form.cf_name_hope.value == "") {
 		alert("희망 분야를 입력하십시오.");
-		form.empno.focus();
+		form.cf_name_hope.focus();
 		return false;
 	}
-	if (form.field.value == "") {
+	if (form.cfd_name.value == "") {
 		alert("부서를 입력하십시오.");
-		form.empno.focus();
+		form.cfd_name.focus();
 		return false;
 	}
 	
 	if (form.annual_income.value == "") {
 		alert("연봉을 입력하십시오.");
-		form.empno.focus();
+		form.annual_income.focus();
 		return false;
 	}
 	if (form.department_mood.value == "") {
 		alert("부서분위기를 입력하십시오.");
-		form.empno.focus();
+		form.department_mood.focus();
 		return false;
 	}
 	if (form.job_satisfaction.value == "") {
 		alert("직업만족도를 입력하십시오.");
-		form.empno.focus();
+		form.job_satisfaction.focus();
 		return false;
 	}
 	if (form.cafeteria.value == "") {
 		alert("구내식당에 대한 점수를 입력하십시오..");
-		form.empno.focus();
+		form.cafeteria.focus();
 		return false;
 	}
 	if (form.traffic_convenience.value == "") {
 		alert("교통편의성에 대한 점수를 입력하십시오.");
-		form.empno.focus();
+		form.traffic_convenience.focus();
 		return false;
 	}
 	if (form.employee_wellfare.value == "") {
 		alert("직원복지에 대한 점수를 입력하십시오.");
-		form.empno.focus();
+		form.employee_wellfare.focus();
 		return false;
 	}
 	form.submit();
@@ -87,38 +88,37 @@ function userList(targetUri) {
 	form.submit();
 }
 
-<!--
-var field_box = new Array('it', '디자인');
-var dept_box = new Array();
-dept_box[0] = new Array('웹개발', '안드로이드개발');
-dept_box[1] = new Array('웹디자인', '제품디자인');
+$(document).ready(function() {
+    $("#field").on("change", function() {
+       $.ajax({
+          type: "GET",
+          url: "<c:url value='/search/rankingSearch/json' />" + "?cf_name=" + $("#field option:selected").text(),
+          cache: false,
+          dataType: "json",
+          success: function(departmentList) {
+             
+             var f = document.form;
+             var len = departmentList.length;
+             var opt = $("#field option").length;
+             
+             for (var i = 0; i < opt; i++) {
+                f.department.options[0] = null;
+             }
+             
+             for (var i = 0; i < len; i++) {
+                f.department.options[i] = new Option(departmentList[i], departmentList[i]);
+             }
+          }
+       });
+    });
+ });
 
-function init(f){
-	var f_box = f.first;
-	var d_box = f.second;
-	
-	f_box.options[0] = new Option("선택", "");
-	d_box.options[0] = new Option("선택", "");
-	
-	for(var i = 0; i < f_box.length; i++){
-		f_box.options[i+1] = new Option(f_box[i], f_box[i]);
-	}
-}
-
-function itemChange(f){
-	var f_box = f.first;
-	var d_box = f.second;
-	
-	var box = f_box.selectedIndex;
-	
-}
--->
 </script>
 </head>
 <body bgcolor=#FFFFFF text=#000000 leftmargin=0 topmargin=0 marginwidth=0 marginheight=0>
 <br>
 <!-- registration form  -->
-<form name="form" action="<c:url value='/user/register_pt' />">
+<form name="form" method="POST" action="<c:url value='/user/register_pt' />">
   <table style="width: 100%">
     <tr>
       <td width="20"></td>
@@ -179,23 +179,64 @@ function itemChange(f){
 			</td>
 		  </tr>	
 				  
-		  <tr height="40">
-			<td width="150" align="center" bgcolor="E6ECDE">희망분야</td>
-			<td width="250" bgcolor="ffffff" style="padding-left: 10">
-				<input type="text" style="width: 240" name="field" >
-				<c:if test="${registerFailed}">value="${user.field}"</c:if>
-		
-			</td>
-		  </tr>	
-		  	  
-		  <tr height="40">
-			<td width="150" align="center" bgcolor="E6ECDE">부서</td>
-			<td width="250" bgcolor="ffffff" style="padding-left: 10">
-				<input type="text" style="width: 240" name="dept" >
-				<c:if test="${registerFailed}">value="${user.dept}"</c:if>
-		
-			</td>
-		  </tr>	
+		   <tr height="40">
+         <td width="150" align="center" bgcolor="E6ECDE">희망분야</td>
+         <td width="250" bgcolor="ffffff" style="padding-left: 10">
+            <c:if test="${registerFailed}">value="${user.field}"</c:if>
+            
+            <div id="fld_hope">
+               <select id="field_hope" name="cf_name_hope">
+               	  <option value="분야 선택">분야 선택</option>
+                  <option value="경영/사무">경영/사무</option>
+                  <option value="영업/고객상담">영업/고객상담</option>
+                  <option value="IT/인터넷">IT/인터넷</option>
+                  <option value="디자인">디자인</option>
+                  <option value="서비스">서비스</option>
+                  <option value="전문직">전문직</option>
+                  <option value="의료">의료</option>
+                  <option value="생산/제조">생산/제조</option>
+                  <option value="건설">건설</option>
+                  <option value="유통/무역">유통/무역</option>
+                  <option value="미디어">미디어</option>
+                  <option value="교육">교육</option>
+                  <option value="특수계층/공공">특수계층/공공</option>
+               </select>
+            </div>
+             
+         </td>
+        </tr>   
+             
+        <tr height="40">
+         <td width="150" align="center" bgcolor="E6ECDE">부서</td>
+         <td width="250" bgcolor="ffffff" style="padding-left: 10">
+            <c:if test="${registerFailed}">value="${user.dept}"</c:if>
+            
+             <div id="fld">
+               <select id="field" name="cf_name">
+               	  <option value="분야 선택">분야 선택</option>
+                  <option value="경영/사무">경영/사무</option>
+                  <option value="영업/고객상담">영업/고객상담</option>
+                  <option value="IT/인터넷">IT/인터넷</option>
+                  <option value="디자인">디자인</option>
+                  <option value="서비스">서비스</option>
+                  <option value="전문직">전문직</option>
+                  <option value="의료">의료</option>
+                  <option value="생산/제조">생산/제조</option>
+                  <option value="건설">건설</option>
+                  <option value="유통/무역">유통/무역</option>
+                  <option value="미디어">미디어</option>
+                  <option value="교육">교육</option>
+                  <option value="특수계층/공공">특수계층/공공</option>
+               </select>
+            </div>
+            <div id="dept">
+               <select id="department" name="cfd_name">
+                  <option value="">부서 선택</option>
+               </select>
+            </div>
+         </td>
+        </tr>   
+		  
 		  
 		  
 		  <!-- Info 정보 -->

@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import controller.Controller;
 import controller.DispatcherServlet;
+import model.CompanyDTO;
 import model.InfoDTO;
 import model.P_TurnoverDTO;
 import model.service.ExistingUserException;
@@ -23,8 +24,8 @@ public class RegisterPTController implements Controller {
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
 		String cName = request.getParameter("company");
-		String cfName = request.getParameter("field");
-		String cfdName = request.getParameter("dept");
+		String cfName = request.getParameter("cf_name_hope");
+		String cfdName = request.getParameter("cfd_name");
 		
 		String income = request.getParameter("annual_income");
 		String mood = request.getParameter("department_mood");
@@ -41,6 +42,13 @@ public class RegisterPTController implements Controller {
 		Integer c_num = smanager.getC_NUMByC_NAME(cName);
 		Integer cf_num = smanager.getCF_NUMByCF_NAME(cfName);
 		Integer cfd_num = smanager.getCFD_NUMByCFD_NAME(cfdName);
+		
+		if (c_num == null) {
+			CompanyDTO comp = new CompanyDTO(null, cName, null);
+			smanager.insertCompany(comp);
+			c_num = smanager.getC_NUMByC_NAME(cName);
+		}
+		logger.debug("c_num :  " + c_num.toString());
 		
 		Integer annual_income = Integer.parseInt(income);
 		Integer department_mood = Integer.parseInt(mood);

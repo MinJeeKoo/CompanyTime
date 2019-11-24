@@ -16,27 +16,26 @@ public class CompanyDAOImpl implements CompanyDAO{
 		
 		
 
-	public int insertCompany(CompanyDTO comp){
-		
-		int result = 0;
-		String insertQuery = "INSERT INTO COMPANY(C_NUM, C_NAME, ADDRESS)" + 
-				"VALUES(Sequence_COMPANY.NEXTVAL, ��?��, ��?��);";
+	public int insertCompany(CompanyDTO comp) throws SQLException {
+		String insertQuery = "INSERT INTO COMPANY " + 
+				"VALUES (sequence_company.NEXTVAL, ?, ?)";
 		String compName = comp.getC_NAME();
 		String compAddress = comp.getADDRESS();
 		
 		Object[] param = new Object[] {compName, compAddress};
-		jdbcUtil.setSql(insertQuery);
-		jdbcUtil.setParameters(param);
+		jdbcUtil.setSqlAndParameters(insertQuery, param);
 		
 		try {
-			result =jdbcUtil.executeUpdate();
-			result = 1;//������ ��� 1
+			int result =jdbcUtil.executeUpdate();
+			return result;//������ ��� 1
 		}catch(Exception ex) {
+			jdbcUtil.rollback();
 			ex.printStackTrace();
 		}finally{
+			jdbcUtil.commit();
 			jdbcUtil.close();
 		}
-		return result;
+		return 0;
 		
 	}
 	

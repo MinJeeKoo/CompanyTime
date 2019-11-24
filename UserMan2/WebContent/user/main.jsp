@@ -14,22 +14,19 @@
   if(document.search.keyword.value==''){ //검색어가 없을 경우  
 	
 	  alert('검색어를 입력하세요'); //경고창 띄움 
-	
+	  
 	  document.sear
-	  ch.keyword.focus(); //다시 검색창으로 돌아감 
-	
+	  ch.keyword.focus(); //다시 검색창으로 돌아감
+	  
 	  return false; 
-
   }
-
   else return true;
-
  }
  
  function userList(targetUri) {
 		form.action = targetUri;
 		form.submit();
-	}
+}
 </script>
 
 
