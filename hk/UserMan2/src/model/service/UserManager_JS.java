@@ -16,12 +16,12 @@ import model.dao.JobSeekerDAOImpl;
 public class UserManager_JS {
 	private static UserManager_JS userMan = new UserManager_JS();
 	private JobSeekerDAOImpl userDAO;
-	private UserAnalysis userAanlysis;
+	private UserAnalysis_JS userAanlysis;
 
 	private UserManager_JS() {
 		try {
 			userDAO = new JobSeekerDAOImpl();
-			userAanlysis = new UserAnalysis(userDAO);
+			userAanlysis = new UserAnalysis_JS(userDAO);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}			

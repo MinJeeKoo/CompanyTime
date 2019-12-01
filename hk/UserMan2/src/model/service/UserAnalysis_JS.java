@@ -8,12 +8,12 @@ import model.JobSeekerDTO;
 import model.dao.JobSeekerDAOImpl;
 
 // an example business class
-public class UserAnalysis {
+public class UserAnalysis_JS {
 	private JobSeekerDAOImpl dao;
 	
-	public UserAnalysis() {}
+	public UserAnalysis_JS() {}
 	
-	public UserAnalysis(JobSeekerDAOImpl dao) {
+	public UserAnalysis_JS(JobSeekerDAOImpl dao) {
 		super();
 		this.dao = dao;
 	}
