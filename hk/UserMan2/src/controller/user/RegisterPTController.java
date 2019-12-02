@@ -44,7 +44,7 @@ public class RegisterPTController implements Controller {
 		Integer cfd_num = smanager.getCFD_NUMByCFD_NAME(cfdName);
 		
 		if (c_num == null) {
-			CompanyDTO comp = new CompanyDTO(null, cName, null);
+			CompanyDTO comp = new CompanyDTO(null, cName);
 			smanager.insertCompany(comp);
 			c_num = smanager.getC_NUMByC_NAME(cName);
 		}
