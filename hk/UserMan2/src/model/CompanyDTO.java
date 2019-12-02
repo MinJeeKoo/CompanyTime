@@ -4,12 +4,10 @@ public class CompanyDTO {
 
 	private Integer C_NUM = null;
 	private String C_NAME = null;
-	private String ADDRESS = null;
-	
-	public CompanyDTO (Integer c_num, String c_name, String address) {
+
+	public CompanyDTO (Integer c_num, String c_name) {
 		C_NUM = c_num;
 		C_NAME = c_name;
-		ADDRESS = address;
 	}
 	
 	public Integer getC_NUM() {
@@ -27,10 +25,4 @@ public class CompanyDTO {
 		this.C_NAME = C_NAME;
 	}
 	
-	public String getADDRESS() {
-		return ADDRESS;
-	}
-	public void setADDRESS(String ADDRESS) {
-		this.ADDRESS = ADDRESS;
-	}
 }

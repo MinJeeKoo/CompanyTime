@@ -18,11 +18,11 @@ public class CompanyDAOImpl implements CompanyDAO{
 
 	public int insertCompany(CompanyDTO comp) throws SQLException {
 		String insertQuery = "INSERT INTO COMPANY " + 
-				"VALUES (sequence_company.NEXTVAL, ?, ?)";
+				"VALUES (sequence_company.NEXTVAL, ?)";
 		String compName = comp.getC_NAME();
-		String compAddress = comp.getADDRESS();
+
 		
-		Object[] param = new Object[] {compName, compAddress};
+		Object[] param = new Object[] {compName};
 		jdbcUtil.setSqlAndParameters(insertQuery, param);
 		
 		try {
@@ -69,7 +69,7 @@ public class CompanyDAOImpl implements CompanyDAO{
 	}
 	public List<CompanyDTO> getCompanyList(){
 		
-		String query = " SELECT C_NUM, C_NAME, C_ADDRESS FROM COMPANY; ";
+		String query = " SELECT C_NUM, C_NAME FROM COMPANY; ";
 		jdbcUtil.setSql(query);
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();
@@ -77,8 +77,7 @@ public class CompanyDAOImpl implements CompanyDAO{
 			while(rs.next()) {
 				CompanyDTO dto = new CompanyDTO(
 						rs.getInt("C_NUM"),
-						rs.getString("C_NAME"),
-						rs.getString("C_ADDRESS")
+						rs.getString("C_NAME")
 				);
 				list.add(dto);
 			}
