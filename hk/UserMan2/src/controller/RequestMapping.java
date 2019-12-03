@@ -6,16 +6,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import controller.user.*;
+import controller.matching.*;
 import controller.search.*;
 
 public class RequestMapping {
     private static final Logger logger = LoggerFactory.getLogger(DispatcherServlet.class);
     
-    // 占쏙옙 占쏙옙청 uri占쏙옙 占쏙옙占쏙옙 controller 占쏙옙체占쏙옙 占쏙옙占쏙옙占쏙옙 HashMap 占쏙옙占쏙옙
+ // 각 요청 uri에 대한 controller 객체를 저장할 HashMap 생성
     private Map<String, Controller> mappings = new HashMap<String, Controller>();
 
     public void initMapping() {
-    	// 占쏙옙 uri占쏙옙 占쏙옙占쏙옙占실댐옙 controller 占쏙옙체占쏙옙 占쏙옙占쏙옙 占쏙옙 占쏙옙占쏙옙
+    	// 각 uri에 대응되는 controller 객체를 생성 및 저장
         mappings.put("/", new ForwardController("index.jsp"));
         mappings.put("/user/login/form", new ForwardController("/user/loginForm.jsp"));
         mappings.put("/user/login", new LoginController());
@@ -24,23 +25,22 @@ public class RequestMapping {
         mappings.put("/user/list_w", new ListWController());
         mappings.put("/user/list_pt", new ListPTController());
         mappings.put("/user/list_js", new ListJSController());
-       
-        
         mappings.put("/user/view", new ViewUserController());
         mappings.put("/user/view_pt", new ViewPTController());
+
         mappings.put("/user/main/form", new ForwardController("/user/main.jsp"));
         mappings.put("/user/main_login", new ForwardController("/user/main_afterLogin.jsp"));
         mappings.put("/user/main_login/form", new MainLoginController());
-       
+        
         mappings.put("/user/registerW/form", new ForwardController("/user/registerForm_Worker.jsp"));
         mappings.put("/user/registerPT/form", new ForwardController("/user/registerForm_PreparationForTurnover.jsp"));
         mappings.put("/user/registerJS/form", new ForwardController("/user/registerForm_JobSeeker.jsp"));
-        
+       
         mappings.put("/user/register_w", new RegisterWController());
         mappings.put("/user/register_pt", new RegisterPTController());
         mappings.put("/user/register_js", new RegisterJSController());
 
-//      mappings.put("/user/update/form", new UpdateUserFormController());
+//        mappings.put("/user/update/form", new UpdateUserFormController());
         mappings.put("/user/updatePT/form", new UpdatePTFormController());
         mappings.put("/user/update", new UpdateUser_JobSeekerController());
         mappings.put("/user/updatePT", new UpdateUser_PTController());
@@ -52,11 +52,14 @@ public class RequestMapping {
     	//誘쇱��� �곌껐��硫� 諛�袁멸린
     	mappings.put("/search/rankingSearchResult", new RankingSearchController());
     	
+    	//matching controller
+    	mappings.put("/matching/Result", new MatchingController());
+    	
         logger.info("Initialized Request Mapping!");
     }
 
     public Controller findController(String uri) {	
-    	// 占쌍억옙占쏙옙 uri占쏙옙 占쏙옙占쏙옙占실댐옙 controller 占쏙옙체占쏙옙 찾占쏙옙 占쏙옙환
+    	// 주어진 uri에 대응되는 controller 객체를 찾아 반환
         return mappings.get(uri);
     }
 }

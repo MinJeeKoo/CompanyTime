@@ -23,7 +23,7 @@ public class JobSeekerDAOImpl {
 	public int create(JobSeekerDTO user) throws SQLException {
 		String sql = "INSERT INTO Job_Seeker (js_id, name, pw, school, major, personal_email, cf_num, matching_result) "
 					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";		
-		Object[] param = new Object[] {user.getUserId(), user.getName(), user.getPassword(),
+		Object[] param = new Object[] {user.getJs_id(), user.getName(), user.getPw(),
 				user.getSchool(), user.getMajor(), user.getEmail(), user.getCf_num(), user.getMatching_result()};				
 		jdbcUtil.setSqlAndParameters(sql, param);	// JDBCUtil �� insert���� �Ű� ���� ����
 						
@@ -47,8 +47,8 @@ public class JobSeekerDAOImpl {
 		String sql = "UPDATE Job_Seeker "
 					+ "SET js_id=?, pw=?, name=?, "
 					+ "school=?, major=?, personal_email=?, cf_num=?, matching_result=? "
-					+ "WHERE userid=?";
-		Object[] param = new Object[] {user.getUserId(), user.getPassword(), user.getName(), 
+					+ "WHERE js_id=?";
+		Object[] param = new Object[] {user.getJs_id(), user.getPw(), user.getName(), 
 				user.getSchool(), user.getMajor(), user.getEmail(), user.getCf_num(), user.getMatching_result()};				
 		jdbcUtil.setSqlAndParameters(sql, param);	// JDBCUtil�� update���� �Ű� ���� ����
 			

@@ -3,7 +3,6 @@ package controller.user;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.logging.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,7 +14,6 @@ import model.P_TurnoverDTO;
 import model.service.ExistingUserException;
 import model.service.InfoManager;
 import model.service.SearchManager;
-import model.service.UserManager_JS;
 import model.service.UserManager_PT;
 
 public class RegisterPTController implements Controller {
@@ -86,9 +84,9 @@ public class RegisterPTController implements Controller {
 			logger.debug("Create : PT created");
 			imanager.insertInfo(info);	// input data to Info Table
 			logger.debug("Create: INFO created");
-	        return "redirect:/user/list_pt";	// ���� �� ����� ����Ʈ ȭ������ redirect
+	        return "redirect:/user/list_pt";	// 성공 시 사용자 리스트 화면으로 redirect
 	        
-		} catch (ExistingUserException e) {		// ���� �߻� �� ȸ������ form���� forwarding
+		} catch (ExistingUserException e) {		// 예외 발생 시 회원가입 form으로 forwarding
             request.setAttribute("registerFailed", true);
 			request.setAttribute("exception", e);
 			request.setAttribute("pt", pt);

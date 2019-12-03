@@ -3,7 +3,6 @@ package controller.user;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.logging.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -83,9 +82,9 @@ public class RegisterWController implements Controller {
 			logger.debug("Create : W created");
 			imanager.insertInfo(info);	// input data to Info Table
 			logger.debug("Create: INFO created");
-	        return "redirect:/user/list_w";	// ���� �� ����� ����Ʈ ȭ������ redirect
+	        return "redirect:/user/list_w";	// 성공 시 사용자 리스트 화면으로 redirect
 	        
-		} catch (ExistingUserException e) {		// ���� �߻� �� ȸ������ form���� forwarding
+		} catch (ExistingUserException e) {		// 예외 발생 시 회원가입 form으로 forwarding
             request.setAttribute("registerFailed", true);
 			request.setAttribute("exception", e);
 			request.setAttribute("w", w);

@@ -5,16 +5,16 @@ import java.util.List;
 
 import model.P_TurnoverDTO;
 import model.dao.P_TurnoverDAOImpl;
-//pt(ÀÌÁ÷ÀÚ)°¡ ·Î±×ÀÎÇÒ¶§ ÇÊ¿äÇÑ manager
+//pt(ì´ì§ì)ê°€ ë¡œê·¸ì¸í• ë•Œ í•„ìš”í•œ manager
 public class UserManager_PT {
 	private static UserManager_PT userMan = new UserManager_PT();
 	private P_TurnoverDAOImpl userDAO;
-	private UserAnalysis_PT userAanlysis;
+	private UserAnalysis_PT userAnalysis;
 
 	private UserManager_PT() {
 		try {
 			userDAO = new P_TurnoverDAOImpl();
-			userAanlysis = new UserAnalysis_PT(userDAO);
+			userAnalysis = new UserAnalysis_PT(userDAO);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}			
@@ -26,7 +26,7 @@ public class UserManager_PT {
 	
 	public int create(P_TurnoverDTO pt) throws SQLException, ExistingUserException {
 		if (userDAO.existingUser(pt.getP_id()) == true) {
-			throw new ExistingUserException(pt.getP_id() + "´Â Á¸ÀçÇÏ´Â ¾ÆÀÌµğÀÔ´Ï´Ù.");
+			throw new ExistingUserException(pt.getP_id() + "ëŠ” ì¡´ì¬í•˜ëŠ” ì•„ì´ë””ì…ë‹ˆë‹¤.");
 		}
 		return userDAO.create(pt);
 	}
@@ -44,7 +44,7 @@ public class UserManager_PT {
 		P_TurnoverDTO user = userDAO.findUser(userId);
 		
 		if (user == null) {
-			throw new UserNotFoundException(userId + "´Â Á¸ÀçÇÏÁö ¾Ê´Â ¾ÆÀÌµğÀÔ´Ï´Ù.");
+			throw new UserNotFoundException(userId + "ëŠ” ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ì•„ì´ë””ì…ë‹ˆë‹¤.");
 		}		
 		return user;
 	}
@@ -63,7 +63,7 @@ public class UserManager_PT {
 		P_TurnoverDTO user = findUser(userId);
 
 		if (!user.matchPassword(password)) {
-			throw new PasswordMismatchException("ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.");
+			throw new PasswordMismatchException("ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 		}
 		return true;
 	}

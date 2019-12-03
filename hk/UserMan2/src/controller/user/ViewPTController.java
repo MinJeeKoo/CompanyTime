@@ -18,13 +18,13 @@ public class ViewPTController implements Controller {
 		String userId = request.getParameter("userId");
 		P_TurnoverDTO user = null;
 		try {
-			user = manager.findUser(userId);	// »ç¿ëÀÚ Á¤º¸ °Ë»ö
+			user = manager.findUser(userId);	// ì‚¬ìš©ì ì •ë³´ ê²€ìƒ‰
 		} catch (UserNotFoundException e) {				
 	        return "redirect:/user/main_login/form";
 		}	
 		
-		request.setAttribute("user", user);		// »ç¿ëÀÚ Á¤º¸ ÀúÀå				
-		return "/user/view_pt.jsp";				// »ç¿ëÀÚ º¸±â È­¸éÀ¸·Î ÀÌµ¿
+		request.setAttribute("user", user);		// ì‚¬ìš©ì ì •ë³´ ì €ì¥			
+		return "/user/view_pt.jsp";				// ì‚¬ìš©ì ë³´ê¸° í™”ë©´ìœ¼ë¡œ ì´ë™
 	}
 
 }

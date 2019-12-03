@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import controller.Controller;
 import model.service.UserManager_JS;
 import model.service.UserManager_PT;
+import model.service.UserManager_W;
 
 public class LoginController implements Controller {
     @Override
@@ -17,7 +18,7 @@ public class LoginController implements Controller {
 		String type = request.getParameter("user_type");
 		
 		try {
-			// �𵨿� �α��� ó���� ����
+			// 모델에 로그인 처리를 위임
 			
 			HttpSession session = request.getSession();
             session.setAttribute(UserSessionUtils.USER_SESSION_KEY, userId);
@@ -31,6 +32,8 @@ public class LoginController implements Controller {
 				manager_js.login(userId, password);
 				return "redirect:/user/list_js";
 			}else {
+				UserManager_W manager_w = UserManager_W.getInstance();
+				manager_w.login(userId, password);
 				return "redirect:/user/list_w";
 			}
 			
@@ -40,8 +43,8 @@ public class LoginController implements Controller {
             
             			
 		} catch (Exception e) {
-			/* UserNotFoundException�̳� PasswordMismatchException �߻� ��
-			 * �ٽ� login form�� ����ڿ��� �����ϰ� ���� �޼����� ���
+			/* UserNotFoundException이나 PasswordMismatchException 발생 시
+			 * 다시 login form을 사용자에게 전송하고 오류 메세지도 출력
 			 */
             request.setAttribute("loginFailed", true);
 			request.setAttribute("exception", e);

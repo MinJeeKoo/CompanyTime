@@ -460,7 +460,7 @@ public class InfoDAOImpl implements InfoDAO {
          }
       }
       else if(category.equals("traffic_convenience")) {
-         String query = "SELECT C_NAME ,CFD_NAME, agv(TRAFFIC_CONVENIENCE) AS TRAFFIC_CONVEN FROM INFO WHERE CFD_NAME = ? GROUP BY C_NAME, CFD_NAME ORDER BY TRAFFIC_CONVEN DESC";
+         String query = "SELECT C_NAME ,CFD_NAME, avg(TRAFFIC_CONVENIENCE) AS TRAFFIC_CONVEN FROM INFO WHERE CFD_NAME = ? GROUP BY C_NAME, CFD_NAME ORDER BY TRAFFIC_CONVEN DESC";
          Object[] param = new Object[] {cfd_name};
          jdbcUtil.setSqlAndParameters(query, param);
          try {

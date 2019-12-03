@@ -1,14 +1,6 @@
 package model.service;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
-import model.P_TurnoverDTO;
-import model.JobSeekerDTO;
-import model.dao.P_TurnoverDAOImpl;
 import model.dao.WorkerDAOImpl;
-import model.dao.JobSeekerDAOImpl;
 
 public class UserAnalysis_W {
 	private WorkerDAOImpl dao;

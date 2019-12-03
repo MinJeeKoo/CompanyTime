@@ -74,7 +74,7 @@ public class SpecDAOImpl implements SpecDAO {
 			result = jdbcUtil.executeUpdate();
 		} catch(SQLException e) {
 			if (e.getErrorCode() == 1) {
-				System.out.println("Áßº¹µÈ Á¤º¸");
+				System.out.println("ì¤‘ë³µëœ ì •ë³´");
 			}
 		} catch(Exception e) {
 			jdbcUtil.rollback();
@@ -87,7 +87,7 @@ public class SpecDAOImpl implements SpecDAO {
 		return result;
 	}
 
-	//¼ıÀÚ ³ÎÃ³¸® -1?
+	//ìˆ«ì ë„ì²˜ë¦¬ -1?
 	@Override
 	public int updateSpec(SpecDTO sp) {
 		// TODO Auto-generated method stub
@@ -99,26 +99,26 @@ public class SpecDAOImpl implements SpecDAO {
 		Object[] param = new Object[] {sp.getCertification(), sp.getGrade(), sp.getInternship(), sp.getToeic(), 
 									sp.getOpic(), sp.getContest(), sp.getAwards(), sp.getStudy_abroad(),
 									sp.getVolun(), sp.getSpec_num(), sp.getToeic_speaking(), sp.getSpec_num()};
-		// update ¹®¿¡ »ç¿ëÇÒ ¸Å°³º¯¼ö¸¦ ÀúÀåÇÒ ¼ö ÀÖ´Â ÀÓ½Ã ¹è¿­
+		// update ë¬¸ì— ì‚¬ìš©í•  ë§¤ê°œë³€ìˆ˜ë¥¼ ì €ì¥í•  ìˆ˜ ìˆëŠ” ì„ì‹œ ë°°ì—´
 		jdbcUtil.setSqlAndParameters(updateQuery, param);
 
 		try {
-			int result = jdbcUtil.executeUpdate();		// update ¹® ½ÇÇà
-			return result;			// update ¿¡ ÀÇÇØ ¹İ¿µµÈ ·¹ÄÚµå ¼ö ¹İÈ¯
+			int result = jdbcUtil.executeUpdate();		// update ë¬¸ ì‹¤í–‰
+			return result;			// update ì— ì˜í•´ ë°˜ì˜ëœ ë ˆì½”ë“œ ìˆ˜ ë°˜í™˜
 		} catch (Exception ex) {
 			jdbcUtil.rollback();
 			ex.printStackTrace();
 		}
 		finally {
 			jdbcUtil.commit();
-			jdbcUtil.close();		// ResultSet, PreparedStatement, Connection ¹İÈ¯
+			jdbcUtil.close();		// ResultSet, PreparedStatement, Connection ë°˜í™˜
 		}		
 		return 0;
 	}
 
 	@Override
 	public int deleteSpec(int spec_num) {
-		// TODO Au to-generated method stub
+		// TODO Auto-generated method stub
 		String query = "DELETE FROM spec WHERE spec_num = ?";
 		
 		Object[] param = new Object[] { spec_num };
@@ -138,6 +138,7 @@ public class SpecDAOImpl implements SpecDAO {
 		return 0;
 	}
 	
+	//primarykey(p_id/w_id/js_id)ë¡œ ìŠ¤í™ì‘ì„±ì—¬ë¶€ í™•ì¸
 	public int getSpecNumByP_num(String pNum) {
 		String query = "SELECT spec_num AS spec_num "
 				+ "FROM spec WHERE p_Id = ? ";
@@ -182,7 +183,7 @@ public class SpecDAOImpl implements SpecDAO {
 	
 	public int getSpecNumByJS_num(String jsId) {
 		String query = "SELECT spec_num AS spec_num"
-				+ "FROM spec WHERE pId = ? ";
+				+ "FROM spec WHERE js_Id = ? ";
 		
 		Object[] param = new Object[] { jsId };
 		jdbcUtil.setSqlAndParameters(query, param);

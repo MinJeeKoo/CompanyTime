@@ -20,17 +20,16 @@ public class MainLoginController implements Controller {
 			currentPage = Integer.parseInt(currentPageStr);
 		}		
     	
-    	
 		UserManager_PT manager = UserManager_PT.getInstance();
 		List<P_TurnoverDTO> userList = manager.findUserList();
 //		List<P_TurnoverDTO> userList = manager.findUserList(currentPage, countPerPage);
 
-		// userList °´Ã¼¿Í ÇöÀç ·Î±×ÀÎÇÑ »ç¿ëÀÚ ID¸¦ request¿¡ ÀúÀåÇÏ¿© Àü´Ş
+		// userList ê°ì²´ì™€ í˜„ì¬ ë¡œê·¸ì¸í•œ ì‚¬ìš©ì IDë¥¼ requestì— ì €ì¥í•˜ì—¬ ì „ë‹¬
 		request.setAttribute("userList", userList);				
 		request.setAttribute("curUserId", 
 				UserSessionUtils.getLoginUserId(request.getSession()));		
 
-		// »ç¿ëÀÚ ¸®½ºÆ® È­¸éÀ¸·Î ÀÌµ¿(forwarding)
+		// ì‚¬ìš©ì ë¦¬ìŠ¤íŠ¸ í™”ë©´ìœ¼ë¡œ ì´ë™(forwarding)
 		return "/user/main_afterLogin.jsp";
 	}
 

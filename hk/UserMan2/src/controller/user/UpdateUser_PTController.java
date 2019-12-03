@@ -14,7 +14,7 @@ public class UpdateUser_PTController implements Controller {
    private static final Logger log = LoggerFactory.getLogger(UpdateUser_PTController.class);
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response)   throws Exception {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
        P_TurnoverDTO updateUser = new P_TurnoverDTO(
           request.getParameter("userId"),
           request.getParameter("password"),

@@ -10,7 +10,6 @@ import model.JobSeekerDTO;
 import model.service.ExistingUserException;
 import model.service.SearchManager;
 import model.service.UserManager_JS;
-import model.service.UserManager_PT;
 
 public class RegisterJSController implements Controller {
     private static final Logger log = LoggerFactory.getLogger(RegisterJSController.class);
@@ -40,10 +39,10 @@ public class RegisterJSController implements Controller {
 		try {
 			UserManager_JS manager = UserManager_JS.getInstance();
 			manager.create(user);
-	        return "redirect:/user/list_js";		// ���� �� ����� ����Ʈ ȭ������ redirect
+	        return "redirect:/user/list_js";		// 성공 시 사용자 리스트 화면으로 redirect
 	        
-		} catch (ExistingUserException e) {		// ���� �߻� �� ȸ������ form���� forwarding
-            request.setAttribute("registerFailed", true);
+		} catch (ExistingUserException e) {		// 예외 발생 시 회원가입 form으로 forwarding
+	        request.setAttribute("registerFailed", true);
 			request.setAttribute("exception", e);
 			request.setAttribute("user", user);
 			return "/user/registerForm_JobSeeker.jsp";
