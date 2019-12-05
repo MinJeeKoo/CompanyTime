@@ -1,7 +1,0 @@
-package persistence.dao.impl;
-
-import persistence.dao.TrustDAO;
-
-public class TrustDAOImpl implements TrustDAO{
-
-}

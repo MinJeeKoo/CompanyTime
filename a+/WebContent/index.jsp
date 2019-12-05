@@ -1,1 +1,0 @@
-<% response.sendRedirect(request.getContextPath() + "/search/rankingSearch"); %>

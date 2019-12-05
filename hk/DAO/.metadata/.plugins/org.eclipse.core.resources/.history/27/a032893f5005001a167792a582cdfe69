@@ -1,7 +1,0 @@
-package persistence.dao.impl;
-
-import persistence.dao.StatisticDAO;
-
-public class StatisticDAOImpl implements StatisticDAO{
-
-}
