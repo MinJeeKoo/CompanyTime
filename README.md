@@ -1,2 +1,0 @@
-# CompanyTime
-2019_Database_Programming_Project
