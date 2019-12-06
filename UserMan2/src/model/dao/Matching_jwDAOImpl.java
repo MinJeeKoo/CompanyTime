@@ -1,5 +1,7 @@
 package model.dao;
 
+import java.sql.ResultSet;
+
 import java.sql.SQLException;
 
 import org.slf4j.Logger;
@@ -23,12 +25,48 @@ public class Matching_jwDAOImpl implements Matching_jwDAO {
 	
 	@Override
 	public Matching_jwDTO getMatchingW_ByJS_ID(String js_id) {
-		// TODO Auto-generated method stub
+		String allQuery = query + "FROM RECOMMEND_MATCHING_JW WHERE JS_ID = ? ";
+		jdbcUtil.setSql(allQuery); // JDBCUtil 에 query 문 설정
+		Object[] param = new Object[] { js_id }; // 매칭결과를 찾기 위한 조건으로 이름을 설정
+		jdbcUtil.setParameters(param); // JDBCUtil 에 query 문의 매개변수 값으로 사용할 매개변수 설정
+
+		try {
+			ResultSet rs = jdbcUtil.executeQuery(); // query 문 실행
+			Matching_jwDTO jw = null;
+			if (rs.next()) { // 찾은 매칭결과를 Matching_twDTO 객체에 설정
+				jw = new Matching_jwDTO();
+				jw.setJS_ID(rs.getString("js_id"));
+				jw.setW_ID(rs.getString("w_id"));
+			}
+			return jw; // 찾은 이직자의 정보를 담고 있는 P_TurnoverDTO 객체 반환
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			jdbcUtil.close(); // ResultSet, PreparedStatement, Connection 반환
+		}
 		return null;
 	}
 	@Override
 	public Matching_jwDTO getMatchingP_ByW_ID(String w_id) {
-		// TODO Auto-generated method stub
+		String allQuery = query + "FROM RECOMMEND_MATCHING_JW WHERE W_ID = ? ";
+		jdbcUtil.setSql(allQuery); // JDBCUtil 에 query 문 설정
+		Object[] param = new Object[] { w_id }; // 매칭결과를 찾기 위한 조건으로 이름을 설정
+		jdbcUtil.setParameters(param); // JDBCUtil 에 query 문의 매개변수 값으로 사용할 매개변수 설정
+
+		try {
+			ResultSet rs = jdbcUtil.executeQuery(); // query 문 실행
+			Matching_jwDTO jw = null;
+			if (rs.next()) { // 찾은 매칭결과를 Matching_twDTO 객체에 설정
+				jw = new Matching_jwDTO();
+				jw.setJS_ID(rs.getString("js_id"));
+				jw.setW_ID(rs.getString("w_id"));
+			}
+			return jw; // 찾은 이직자의 정보를 담고 있는 P_TurnoverDTO 객체 반환
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			jdbcUtil.close(); // ResultSet, PreparedStatement, Connection 반환
+		}
 		return null;
 	}
 	/**
@@ -38,7 +76,7 @@ public class Matching_jwDAOImpl implements Matching_jwDAO {
 	public int insertMatchingJW(Matching_jwDTO jw) throws SQLException{
 		String sql = "INSERT INTO RECOMMEND_MATCHING_JW " 
 					+ "VALUES (?, ?)";
-		Object[] param = new Object[] {jw.getP_ID(), jw.getW_ID()};
+		Object[] param = new Object[] {jw.getJS_ID(), jw.getW_ID()};
 		
 		jdbcUtil.setSqlAndParameters(sql, param);	// JDBCUtil 에 insert문과 매개 변수 설정
 		
