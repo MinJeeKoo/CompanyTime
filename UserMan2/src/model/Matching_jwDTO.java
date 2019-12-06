@@ -1,20 +1,21 @@
 package model;
 
 public class Matching_jwDTO {
-	private String P_ID;
+	private String JS_ID;
 	private String W_ID;
 	
-	public Matching_jwDTO(String p_id, String w_id) {
-		P_ID = p_id;
+	public Matching_jwDTO() {}
+	public Matching_jwDTO(String js_id, String w_id) {
+		JS_ID = js_id;
 		W_ID = w_id;
 	}
 
-	public String getP_ID() {
-		return P_ID;
+	public String getJS_ID() {
+		return JS_ID;
 	}
 
-	public void setP_ID(String p_ID) {
-		P_ID = p_ID;
+	public void setJS_ID(String js_ID) {
+		JS_ID = js_ID;
 	}
 
 	public String getW_ID() {
