@@ -11,12 +11,16 @@ public class UserManager_PT {
 	private P_TurnoverDAOImpl userDAO;
 	private UserAnalysis_PT userAnalysis;
 	private SpecDAOImpl userSpec;
+	private Waiting_MenteeDAOImpl menteeDAO;
+	private Matching_twDAOImpl matchingDAO;
 
 	private UserManager_PT() {
 		try {
 			userDAO = new P_TurnoverDAOImpl();
 			userAnalysis = new UserAnalysis_PT(userDAO);
 			userSpec = new SpecDAOImpl();
+			menteeDAO = new Waiting_MenteeDAOImpl();
+			matchingDAO = new Matching_twDAOImpl();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}			
@@ -78,8 +82,29 @@ public class UserManager_PT {
 		return this.userDAO;
 	}
 	
+	//스펙 썼는지 안썼는지 검사
 	public int check_PId(String p_id) {
 		return userSpec.getSpecNumByP_num(p_id);
 	}
+	
+	//p_id 를 waiting_mentee에 넣기
+	public int createWaitingList(Waiting_MenteeDTO mt) throws SQLException {
+		if (menteeDAO.existingUserPT(mt.getP_id()) == true || 
+				matchingDAO.existingUserPT(mt.getP_id()) == true)  {
+			return 0;
+		}
+		return menteeDAO.createWaitingList(mt);
+	}
+	
+	//대기자 명단에 있는 사람들 중 분야가 같은 사람 matching 하기
+	public int insertMatchingTW() throws SQLException {
+		return matchingDAO.insertMatching();
+	}
+	
+	
+	
+	
+	
+	
 
 }

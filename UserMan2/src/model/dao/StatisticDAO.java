@@ -1,6 +1,5 @@
 package model.dao;
 
-import java.awt.List;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -19,23 +18,23 @@ public class StatisticDAO {
 	public int create(StatisticDTO st) throws SQLException {
 			
 		try {				
-			int result = jdbcUtil.executeUpdate();	// insert ¹® ½ÇÇà
+			int result = jdbcUtil.executeUpdate();	// insert ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			return result;
 		} catch (Exception ex) {
 			jdbcUtil.rollback();
 			ex.printStackTrace();
 		} finally {		
 			jdbcUtil.commit();
-			jdbcUtil.close();	// resource ¹ÝÈ¯
+			jdbcUtil.close();	// resource ï¿½ï¿½È¯
 		}		
 		return 0;			
 	}
 	
 	public StatisticDAO() {			
-		jdbcUtil = new JDBCUtil();	// JDBCUtil °´Ã¼ »ý¼º
+		jdbcUtil = new JDBCUtil();	// JDBCUtil ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
 	}
 	
-	//Åë°è ±âÁØ : ºÎ¼­º°(°°ÀºÈ¸»ç, ´Ù¸¥ ºÎ¼­)
+	//ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ : ï¿½Î¼ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½È¸ï¿½ï¿½, ï¿½Ù¸ï¿½ ï¿½Î¼ï¿½)
 	public StatisticDTO getStatisticByC_NUM(String C_NUM) {
 		String searchQuery = "SELECT ST_NUM, C_NUM, CFD_NUM, ANNUAL_INCOME, DEPARTMENT_MOOD, " 
 				+ "JOB_SATISFACTION, CAFETERIA, TRAFFIC_CONVENIENCE, EMPLOYEE_WELLFARE " 
@@ -70,7 +69,7 @@ public class StatisticDAO {
 		return null;
 	}
 
-	//È¸»çº°(´Ù¸¥ È¸»ç, °°Àº ºÎ¼­)
+	//È¸ï¿½çº°(ï¿½Ù¸ï¿½ È¸ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½Î¼ï¿½)
 	public StatisticDTO getStatisticByCFD_NUM(String CFD_NUM) {
 		String searchQuery = "SELECT ST_NUM, C_NUM, CFD_NUM, ANNUAL_INCOME, DEPARTMENT_MOOD, " 
 				+ "JOB_SATISFACTION, CAFETERIA, TRAFFIC_CONVENIENCE, EMPLOYEE_WELLFARE " 
