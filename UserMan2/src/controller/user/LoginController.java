@@ -39,7 +39,7 @@ public class LoginController implements Controller {
 			}
 			
 			// TODO: 위에 else if로 바꾸고 else 아래에 오류시 처리
-			// ���ǿ� ����� ���̵� ����
+			
 			
             
             			

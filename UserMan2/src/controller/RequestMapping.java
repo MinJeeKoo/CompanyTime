@@ -49,10 +49,12 @@ public class RequestMapping {
     	mappings.put("/search/rankingSearch/json", new ListDepartmentJSONController());
         
     	//랭킹출력
-    	mappings.put("/search/rankingSearchResult", new RankingSearchController());
+    	mappings.put("/search/rankingSearch", new RankingSearchController());
     	
     	//matching controller
-    	mappings.put("/matching/Result", new MatchingController());
+    	mappings.put("/matching/recommend", new MatchingController());
+    	mappings.put("/matching/recommend/Result", new MatchingResultController());
+    	mappings.put("/matching/register/form", new ForwardController("/matching/registerForm_Matching.jsp"));
     	
         logger.info("Initialized Request Mapping!");
     }

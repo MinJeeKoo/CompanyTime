@@ -69,30 +69,54 @@ public class Matching_jwDAOImpl implements Matching_jwDAO {
 		}
 		return null;
 	}
+//	/**
+//	 * Matching_jwDAOImpl 테이블에 새로운 매칭정보 추가.
+//	 */
+//	@Override
+//	public int insertMatchingJW(Matching_jwDTO jw) throws SQLException{
+//		String sql = "INSERT INTO RECOMMEND_MATCHING_JW " 
+//					+ "VALUES (?, ?)";
+//		Object[] param = new Object[] {jw.getJS_ID(), jw.getW_ID()};
+//		
+//		jdbcUtil.setSqlAndParameters(sql, param);	// JDBCUtil 에 insert문과 매개 변수 설정
+//		
+//		try {				
+//			int result = jdbcUtil.executeUpdate();	// insert 문 실행
+//			return result;
+//		} catch (Exception ex) {
+//			jdbcUtil.rollback();
+//			ex.printStackTrace();
+//		} finally {		
+//			jdbcUtil.commit();
+//			jdbcUtil.close();	// resource 반환
+//		}		
+//		return 0;
+//	}
 	/**
-	 * Matching_jwDAOImpl 테이블에 새로운 매칭정보 추가.
+	 * Matching_twDAOImpl 테이블에 새로운 매칭정보 추가.
 	 */
+	//cf_num이 같으면 랜덤 매칭
 	@Override
-	public int insertMatchingJW(Matching_jwDTO jw) throws SQLException{
-		String sql = "INSERT INTO RECOMMEND_MATCHING_JW " 
-					+ "VALUES (?, ?)";
-		Object[] param = new Object[] {jw.getJS_ID(), jw.getW_ID()};
-		
-		jdbcUtil.setSqlAndParameters(sql, param);	// JDBCUtil 에 insert문과 매개 변수 설정
-		
-		try {				
-			int result = jdbcUtil.executeUpdate();	// insert 문 실행
+	public int insertMatchingJW() throws SQLException {
+		String sql = "INSERT INTO RECOMMEND_MATCHING_TW VALUES (p_id, w_id) "
+				+ "SELECT DISTINCT mtee.p_id AS p_id, mto.w_id AS w_id "
+				+ "FROM waiting_mentee AS mtee, waiting_mento AS mto "
+				+ "WHERE mtee.cf_num = mto.cf_num";
+
+		jdbcUtil.setSql(sql); // JDBCUtil 에 insert문 설정
+
+		try {
+			int result = jdbcUtil.executeUpdate(); // insert 문 실행
 			return result;
 		} catch (Exception ex) {
 			jdbcUtil.rollback();
 			ex.printStackTrace();
-		} finally {		
+		} finally {
 			jdbcUtil.commit();
-			jdbcUtil.close();	// resource 반환
-		}		
+			jdbcUtil.close(); // resource 반환
+		}
 		return 0;
 	}
-
 	@Override
 	public int deleteMatchingJW_ByJS_ID(String js_id) throws SQLException {
 		String sql = "DELETE FROM RECOMMEND_MATCHING_JW WHERE JS_ID=?";
@@ -127,5 +151,40 @@ public class Matching_jwDAOImpl implements Matching_jwDAO {
 			jdbcUtil.close();	// resource 반환
 		}		
 		return 0;
+	}
+	public boolean existingUserJS(String js_id) throws SQLException {
+		String sql = "SELECT count(*) FROM recommend_matching_jw WHERE js_id=?";      
+		jdbcUtil.setSqlAndParameters(sql, new Object[] {js_id});	// JDBCUtil에 query문과 매개 변수 설정
+
+		try {
+			ResultSet rs = jdbcUtil.executeQuery();		// query문 실행
+			if (rs.next()) {
+				int count = rs.getInt(1);
+				return (count == 1 ? true : false);
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			jdbcUtil.close();		// resource 반환
+		}
+		return false;
+	}
+	
+	public boolean existingUserW(String w_id) throws SQLException {
+		String sql = "SELECT count(*) FROM recommend_matching_jw WHERE w_id=?";      
+		jdbcUtil.setSqlAndParameters(sql, new Object[] {w_id});	// JDBCUtil에 query문과 매개 변수 설정
+
+		try {
+			ResultSet rs = jdbcUtil.executeQuery();		// query문 실행
+			if (rs.next()) {
+				int count = rs.getInt(1);
+				return (count == 1 ? true : false);
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			jdbcUtil.close();		// resource 반환
+		}
+		return false;
 	}
 }

@@ -90,7 +90,7 @@
 			</form>
 		</td>
 		<td>
-			<form method="get" action="<c:url value='/matching/Result' />">
+			<form method="get" action="<c:url value='/matching/recommend' />">
 				<input type = "hidden" name="userType" value='${curUserType}'>
 				<button type="submit" style="font-size:2em; border-radius:0.5em; padding:5px 20px" name="userId" value='${curUserId}'>
 				매칭

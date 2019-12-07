@@ -4,8 +4,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 import model.JobSeekerDTO;
-import model.dao.JobSeekerDAOImpl;
-import model.dao.SpecDAOImpl;
+import model.Waiting_MenteeDTO;
+import model.dao.*;
 
 /**
  * 사용자 관리 API를 사용하는 개발자들이 직접 접근하게 되는 클래스.
@@ -14,11 +14,13 @@ import model.dao.SpecDAOImpl;
  * 비지니스 로직이 복잡한 경우에는 비지니스 로직만을 전담하는 클래스를 
  * 별도로 둘 수 있다.
  */
+//js(취업준비생) manager
 public class UserManager_JS {
 	private static UserManager_JS userMan = new UserManager_JS();
 	private JobSeekerDAOImpl userDAO;
 	private SpecDAOImpl userSpec;
-	
+	private Waiting_MenteeDAOImpl menteeDAO;
+	private Matching_jwDAOImpl matchingDAO;
 
 	private UserManager_JS() {
 		try {
@@ -86,8 +88,23 @@ public class UserManager_JS {
 		return this.userDAO;
 	}
 	
+	//스펙 썼는지 안썼는지 검사
 	public int check_JSId(String jsId) {
 		return userSpec.getSpecNumByJS_num(jsId);
+	}
+	
+	//p_id 를 waiting_mentee에 넣기
+	public int createWaitingList(Waiting_MenteeDTO mt) throws SQLException {
+		if (menteeDAO.existingUserJS(mt.getJs_id()) == true || 
+				matchingDAO.existingUserJS(mt.getJs_id()) == true)  {
+			return 0;
+		}
+		return menteeDAO.createWaitingList(mt);
+	}
+		
+	//대기자 명단에 있는 사람들 중 분야가 같은 사람 matching 하기
+	public int insertMatchingJW() throws SQLException {
+		return matchingDAO.insertMatchingJW();
 	}
 	
 	
