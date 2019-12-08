@@ -361,7 +361,7 @@ public class WorkerDAOImpl {
 						rs.getInt("cfd_num"),
 						rs.getString("company_email"),
 						Integer.valueOf(0),
-						rs.getString("empno")
+						rs.getString("emp_num")
 						);	
 				userList.add(user);				// List에 User 객체 저장
 			}
@@ -437,7 +437,7 @@ public class WorkerDAOImpl {
 						rs.getInt("cfd_num"),
 						rs.getString("company_email"),
 						Integer.valueOf(0),
-						rs.getString("empno")
+						rs.getString("emp_num")
 				);
 				return user;
 			}

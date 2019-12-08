@@ -182,8 +182,8 @@ public class SpecDAOImpl implements SpecDAO {
 	}
 	
 	public int getSpecNumByJS_num(String jsId) {
-		String query = "SELECT spec_num AS spec_num"
-				+ "FROM spec WHERE js_Id = ? ";
+		String query = "SELECT spec_num AS spec_num "
+				+ "FROM spec WHERE js_Id = ?";
 		
 		Object[] param = new Object[] { jsId };
 		jdbcUtil.setSqlAndParameters(query, param);

@@ -23,9 +23,9 @@ public class Waiting_MenteeDAOImpl implements Waiting_MenteeDAO{
 	 * spec을 새로 입력하면 waitinglist에 추가
 	 * */
 	@Override
-	public int createWaitingList(Waiting_MenteeDTO mt) {
+	public int createWaitingList(Waiting_MenteeDTO mt) throws SQLException {
 		String sql = "INSERT INTO waiting_mentee "
-				+ "VALUES (sequence_waiting_mentee.nextval(), ?, ?, ?, SYSDATE)";		
+				+ "VALUES (sequence_waiting_mentee.nextval, ?, ?, ?, SYSDATE)";		
 		Object[] param = new Object[] {mt.getP_id(), mt.getJs_id(), mt.getCf_num()};				
 		jdbcUtil.setSqlAndParameters(sql, param);	// JDBCUtil 에 insert문과 매개 변수 설정
 						
@@ -73,6 +73,7 @@ public class Waiting_MenteeDAOImpl implements Waiting_MenteeDAO{
 			ResultSet rs = jdbcUtil.executeQuery();		// query문 실행
 			if (rs.next()) {
 				int count = rs.getInt(1);
+				logger.debug("count: {}", count);
 				return (count == 1 ? true : false);
 			}
 		} catch (Exception ex) {

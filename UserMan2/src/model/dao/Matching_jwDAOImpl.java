@@ -15,8 +15,7 @@ public class Matching_jwDAOImpl implements Matching_jwDAO {
 	
 	private JDBCUtil jdbcUtil = null;		// JDBCUtil 객체를 지정하기 위한 변수
 	
-	private static String query = "SELECT W_ID AS '현직자ID', " +
-									"JS_ID AS '취준생ID' ";
+	private static String query = "SELECT W_ID, JS_ID ";
 	
 	//Matching_jwDAOImpl 생성자
 	public Matching_jwDAOImpl() {
@@ -25,10 +24,9 @@ public class Matching_jwDAOImpl implements Matching_jwDAO {
 	
 	@Override
 	public Matching_jwDTO getMatchingW_ByJS_ID(String js_id) {
-		String allQuery = query + "FROM RECOMMEND_MATCHING_JW WHERE JS_ID = ? ";
-		jdbcUtil.setSql(allQuery); // JDBCUtil 에 query 문 설정
+		String allQuery = query + "FROM RECOMMEND_MATCHING_JW WHERE JS_ID = ?";
 		Object[] param = new Object[] { js_id }; // 매칭결과를 찾기 위한 조건으로 이름을 설정
-		jdbcUtil.setParameters(param); // JDBCUtil 에 query 문의 매개변수 값으로 사용할 매개변수 설정
+		jdbcUtil.setSqlAndParameters(allQuery, param); // JDBCUtil 에 query 문의 매개변수 값으로 사용할 매개변수 설정
 
 		try {
 			ResultSet rs = jdbcUtil.executeQuery(); // query 문 실행
@@ -47,7 +45,7 @@ public class Matching_jwDAOImpl implements Matching_jwDAO {
 		return null;
 	}
 	@Override
-	public Matching_jwDTO getMatchingP_ByW_ID(String w_id) {
+	public Matching_jwDTO getMatchingJS_ByW_ID(String w_id) {
 		String allQuery = query + "FROM RECOMMEND_MATCHING_JW WHERE W_ID = ? ";
 		jdbcUtil.setSql(allQuery); // JDBCUtil 에 query 문 설정
 		Object[] param = new Object[] { w_id }; // 매칭결과를 찾기 위한 조건으로 이름을 설정
@@ -98,15 +96,16 @@ public class Matching_jwDAOImpl implements Matching_jwDAO {
 	//cf_num이 같으면 랜덤 매칭
 	@Override
 	public int insertMatchingJW() throws SQLException {
-		String sql = "INSERT INTO RECOMMEND_MATCHING_TW VALUES (p_id, w_id) "
-				+ "SELECT DISTINCT mtee.p_id AS p_id, mto.w_id AS w_id "
-				+ "FROM waiting_mentee AS mtee, waiting_mento AS mto "
+		String sql = "INSERT INTO RECOMMEND_MATCHING_JW "
+				+ "SELECT DISTINCT w_id, js_id "
+				+ "FROM waiting_mento mto, waiting_mentee mtee "
 				+ "WHERE mtee.cf_num = mto.cf_num";
 
 		jdbcUtil.setSql(sql); // JDBCUtil 에 insert문 설정
 
 		try {
 			int result = jdbcUtil.executeUpdate(); // insert 문 실행
+			logger.debug("result: {}", result);
 			return result;
 		} catch (Exception ex) {
 			jdbcUtil.rollback();
@@ -160,6 +159,7 @@ public class Matching_jwDAOImpl implements Matching_jwDAO {
 			ResultSet rs = jdbcUtil.executeQuery();		// query문 실행
 			if (rs.next()) {
 				int count = rs.getInt(1);
+				logger.debug("count: {}" + count);
 				return (count == 1 ? true : false);
 			}
 		} catch (Exception ex) {

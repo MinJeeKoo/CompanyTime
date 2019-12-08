@@ -27,6 +27,9 @@ public class UserManager_W {
 			userDAO = new WorkerDAOImpl();
 			userAnalysis = new UserAnalysis_W(userDAO);
 			userSpec = new SpecDAOImpl();
+			mentoDAO = new Waiting_MentoDAOImpl();
+			matchingTWDAO = new Matching_twDAOImpl();
+			matchingJWDAO = new Matching_jwDAOImpl();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -96,9 +99,7 @@ public class UserManager_W {
 		//Waiting_MentoDAOImpl(대기리스트)에 이미 있거나, 
 		//MatchingJW에 있거나
 		//MatchingTW에 있으면 (이미 매칭이 되어있으면 )return 0
-		if (mentoDAO.existingUserW(mt.getW_id()) == true 
-				|| matchingJWDAO.existingUserW(mt.getW_id()) == true
-				|| matchingTWDAO.existingUserW(mt.getW_id()) == true) {
+		if (mentoDAO.existingUserW(mt.getW_id()) || matchingJWDAO.existingUserW(mt.getW_id()) || matchingTWDAO.existingUserW(mt.getW_id())) {
 			return 0;
 		}
 		return mentoDAO.createWaitingList(mt);
