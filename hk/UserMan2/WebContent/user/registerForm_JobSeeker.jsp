@@ -51,12 +51,10 @@ function userCreate() {
 	
 	form.submit();
 }
-
 function userList(targetUri) {
 	form.action = targetUri;
 	form.submit();
 }
-
 </script>
 </head>
 <body bgcolor=#FFFFFF text=#000000 leftmargin=0 topmargin=0 marginwidth=0 marginheight=0>
@@ -69,7 +67,7 @@ function userList(targetUri) {
 	  <td>
 	    <table>
 		  <tr>
-		    <td bgcolor="f4f4f4" height="22">&nbsp;&nbsp;<b>사용자 관리 - 회원 가입</b>&nbsp;&nbsp;</td>
+		    <td bgcolor="f4f4f4" height="22">&nbsp;&nbsp;<b>회원 가입 - 취업준비생(취준생)</b>&nbsp;&nbsp;</td>
 		  </tr>
 	    </table>  
 	    <br>	 

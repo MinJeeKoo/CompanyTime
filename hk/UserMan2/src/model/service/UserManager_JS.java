@@ -3,8 +3,14 @@ package model.service;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import controller.DispatcherServlet;
 import model.JobSeekerDTO;
-import model.dao.JobSeekerDAOImpl;
+import model.Waiting_MenteeDTO;
+import model.dao.*;
+
 
 /**
  * 사용자 관리 API를 사용하는 개발자들이 직접 접근하게 되는 클래스.
@@ -13,15 +19,23 @@ import model.dao.JobSeekerDAOImpl;
  * 비지니스 로직이 복잡한 경우에는 비지니스 로직만을 전담하는 클래스를 
  * 별도로 둘 수 있다.
  */
+//js(취업준비생) manager
 public class UserManager_JS {
+	private final static Logger logger = LoggerFactory.getLogger(DispatcherServlet.class);
+	
 	private static UserManager_JS userMan = new UserManager_JS();
 	private JobSeekerDAOImpl userDAO;
-	private UserAnalysis_JS userAnalysis;
+	private SpecDAOImpl userSpec;
+	private Waiting_MenteeDAOImpl menteeDAO;
+	private Matching_jwDAOImpl matchingDAO;
 
 	private UserManager_JS() {
 		try {
 			userDAO = new JobSeekerDAOImpl();
-			userAnalysis = new UserAnalysis_JS(userDAO);
+			userSpec = new SpecDAOImpl();
+			menteeDAO = new Waiting_MenteeDAOImpl();
+			matchingDAO = new Matching_jwDAOImpl();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}			
@@ -32,8 +46,8 @@ public class UserManager_JS {
 	}
 	
 	public int create(JobSeekerDTO user) throws SQLException, ExistingUserException {
-		if (userDAO.existingUser(user.getJs_id()) == true) {
-			throw new ExistingUserException(user.getJs_id() + "는 존재하는 아이디입니다.");
+		if (userDAO.existingUser(user.getUserId()) == true) {
+			throw new ExistingUserException(user.getUserId() + "는 존재하는 아이디입니다.");
 		}
 		return userDAO.create(user);
 	}
@@ -69,7 +83,7 @@ public class UserManager_JS {
 		throws SQLException, UserNotFoundException, PasswordMismatchException {
 		JobSeekerDTO user = findUser(userId);
 
-		if (!user.matchPw(password)) {
+		if (!user.matchPassword(password)) {
 			throw new PasswordMismatchException("비밀번호가 일치하지 않습니다.");
 		}
 		return true;
@@ -82,4 +96,26 @@ public class UserManager_JS {
 	public JobSeekerDAOImpl getUserDAO() {
 		return this.userDAO;
 	}
+	
+	//스펙 썼는지 안썼는지 검사
+	public int check_JSId(String jsId) {
+		return userSpec.getSpecNumByJS_num(jsId);
+	}
+	
+	//p_id 를 waiting_mentee에 넣기
+	public int createWaitingList(Waiting_MenteeDTO mt) throws SQLException {
+		logger.debug("js_id: " + mt.getJs_id());
+		if (menteeDAO.existingUserJS(mt.getJs_id()) || matchingDAO.existingUserJS(mt.getJs_id()))  {
+			return 0;
+		}
+		return menteeDAO.createWaitingList(mt);
+	}
+		
+	//대기자 명단에 있는 사람들 중 분야가 같은 사람 matching 하기
+	public int insertMatchingJW() throws SQLException {
+		return matchingDAO.insertMatchingJW();
+	}
+	
+	
+	
 }

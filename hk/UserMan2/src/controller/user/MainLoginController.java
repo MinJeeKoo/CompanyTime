@@ -20,6 +20,7 @@ public class MainLoginController implements Controller {
 			currentPage = Integer.parseInt(currentPageStr);
 		}		
     	
+    	
 		UserManager_PT manager = UserManager_PT.getInstance();
 		List<P_TurnoverDTO> userList = manager.findUserList();
 //		List<P_TurnoverDTO> userList = manager.findUserList(currentPage, countPerPage);
@@ -27,7 +28,12 @@ public class MainLoginController implements Controller {
 		// userList 객체와 현재 로그인한 사용자 ID를 request에 저장하여 전달
 		request.setAttribute("userList", userList);				
 		request.setAttribute("curUserId", 
-				UserSessionUtils.getLoginUserId(request.getSession()));		
+				UserSessionUtils.getLoginUserId(request.getSession()));	
+		
+		// 로그인한 사용자 type을 request에 저장하여 전달
+		request.setAttribute("curUserType", 
+				UserSessionUtils.getLoginUserType(request.getSession()));
+		
 
 		// 사용자 리스트 화면으로 이동(forwarding)
 		return "/user/main_afterLogin.jsp";

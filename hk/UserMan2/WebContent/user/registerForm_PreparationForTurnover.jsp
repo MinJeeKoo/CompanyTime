@@ -125,7 +125,7 @@ $(document).ready(function() {
 	  <td>
 	    <table>
 		  <tr>
-		    <td bgcolor="f4f4f4" height="22">&nbsp;&nbsp;<b>사용자 관리 - 회원 가입</b>&nbsp;&nbsp;</td>
+		    <td bgcolor="f4f4f4" height="22">&nbsp;&nbsp;<b>회원 가입 - 이직준비자</b>&nbsp;&nbsp;</td>
 		  </tr>
 	    </table>  
 	    <br>	 
@@ -179,31 +179,31 @@ $(document).ready(function() {
 			</td>
 		  </tr>	
 				  
-		 <tr height="40">
-	         <td width="150" align="center" bgcolor="E6ECDE">희망분야</td>
-	         <td width="250" bgcolor="ffffff" style="padding-left: 10">
-	            <c:if test="${registerFailed}">value="${user.field}"</c:if>
-	            
-	            <div id="fld_hope">
-	               <select id="field_hope" name="cf_name_hope">
-	               	  <option value="분야 선택">분야 선택</option>
-	                  <option value="경영/사무">경영/사무</option>
-	                  <option value="영업/고객상담">영업/고객상담</option>
-	                  <option value="IT/인터넷">IT/인터넷</option>
-	                  <option value="디자인">디자인</option>
-	                  <option value="서비스">서비스</option>
-	                  <option value="전문직">전문직</option>
-	                  <option value="의료">의료</option>
-	                  <option value="생산/제조">생산/제조</option>
-	                  <option value="건설">건설</option>
-	                  <option value="유통/무역">유통/무역</option>
-	                  <option value="미디어">미디어</option>
-	                  <option value="교육">교육</option>
-	                  <option value="특수계층/공공">특수계층/공공</option>
-	               </select>
-	            </div>
-	             
-	         </td>
+		   <tr height="40">
+         <td width="150" align="center" bgcolor="E6ECDE">희망분야</td>
+         <td width="250" bgcolor="ffffff" style="padding-left: 10">
+            <c:if test="${registerFailed}">value="${user.field}"</c:if>
+            
+            <div id="fld_hope">
+               <select id="field_hope" name="cf_name_hope">
+               	  <option value="분야 선택">분야 선택</option>
+                  <option value="경영/사무">경영/사무</option>
+                  <option value="영업/고객상담">영업/고객상담</option>
+                  <option value="IT/인터넷">IT/인터넷</option>
+                  <option value="디자인">디자인</option>
+                  <option value="서비스">서비스</option>
+                  <option value="전문직">전문직</option>
+                  <option value="의료">의료</option>
+                  <option value="생산/제조">생산/제조</option>
+                  <option value="건설">건설</option>
+                  <option value="유통/무역">유통/무역</option>
+                  <option value="미디어">미디어</option>
+                  <option value="교육">교육</option>
+                  <option value="특수계층/공공">특수계층/공공</option>
+               </select>
+            </div>
+             
+         </td>
         </tr>   
              
         <tr height="40">

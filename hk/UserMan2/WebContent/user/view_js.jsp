@@ -2,7 +2,7 @@
 <%@page import="model.JobSeekerDTO" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
-	JobSeekerDTO user = (JobSeekerDTO)request.getAttribute("user");
+   JobSeekerDTO user = (JobSeekerDTO)request.getAttribute("user");
 %>
 <html>
 <head>
@@ -31,13 +31,13 @@ function userRemove() {
           <tr>
          <td width="120" align="center" bgcolor="E6ECDE" height="22">ID</td>
          <td width="470" bgcolor="ffffff" style="padding-left: 10">
-            <%=user.getJs_id()%>
+            <%=user.getUserId()%>
          </td>
         </tr>
         <tr>
          <td width="120" align="center" bgcolor="E6ECDE" height="22">패스워드</td>
          <td width="470" bgcolor="ffffff" style="padding-left: 10">
-            <%=user.getPw()%>
+            <%=user.getPassword()%>
          </td>
         </tr>
         <tr>
@@ -62,13 +62,13 @@ function userRemove() {
        </table>
        <br>
        <a href="<c:url value='/user/updatePT/form'>
-                 <c:param name='userId' value='<%=user.getJs_id()%>'/>
+                 <c:param name='userId' value='<%=user.getUserId()%>'/>
               </c:url>">수정</a> &nbsp;
         <%--<a href="<c:url value='/user/delete'>
                <c:param name='userId' value='<%=user.getUserId()%>'/>
               </c:url>" onclick="return userRemove();">삭제</a> &nbsp;  --%>
         <a href="<c:url value='/user/main_login/form'>
-              <c:param name='userId' value='<%=user.getJs_id()%>'/> 
+              <c:param name='userId' value='<%=user.getUserId()%>'/> 
               </c:url>">홈화면</a>        
         <br><br>      
         

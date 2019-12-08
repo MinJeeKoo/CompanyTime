@@ -47,14 +47,13 @@
 	  <c:forEach var="user" items="${userList}">  			  	
   		<tr>
 		  <td width="190" align="center" bgcolor="ffffff" height="20">
-		  	${user.js_id}       
+		  	${user.userId}       
 		  </td>
 <%-- 		   <td width="200" bgcolor="ffffff" style="padding-left: 10">
 			<a href="<c:url value='/user/view_pt'>
 					   <c:param name='userId' value='${user.userId}'/>
 			 		 </c:url>">
 			  ${user.name}</a>	 
-
 		  </td> 
 --%>
 		  <td width="190" align="center" bgcolor="ffffff" height="20">

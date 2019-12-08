@@ -19,7 +19,7 @@ public class ListWController implements Controller {
         }
     	
     	
-    	String currentPageStr = request.getParameter("currentPage");	
+    	String currentPageStr = request.getParameter("currentPage");
 		int currentPage = 1;
 		if (currentPageStr != null && !currentPageStr.equals("")) {
 			currentPage = Integer.parseInt(currentPageStr);
@@ -34,7 +34,11 @@ public class ListWController implements Controller {
 		request.setAttribute("userList", userList);				
 		request.setAttribute("curUserId", 
 				UserSessionUtils.getLoginUserId(request.getSession()));		
-
+		
+		// 로그인한 사용자 type을 request에 저장하여 전달
+		request.setAttribute("curUserType", 
+				UserSessionUtils.getLoginUserType(request.getSession()));
+				
 		// 사용자 리스트 화면으로 이동(forwarding)
 		return "/user/list_w.jsp";
     }

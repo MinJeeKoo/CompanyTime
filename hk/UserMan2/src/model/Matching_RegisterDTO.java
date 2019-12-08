@@ -1,6 +1,6 @@
 package model;
 
-public class P_TurnoverDTO {
+public class Matching_RegisterDTO {
 	private String p_id = null;			// id
 	private String pw = null; 			// pw
 	private String name = null;			// 이름
@@ -11,9 +11,9 @@ public class P_TurnoverDTO {
 	private Integer cfd_num;		//부서번호
 
 	
-	public P_TurnoverDTO() {};
+	public Matching_RegisterDTO() {};
 	
-	public P_TurnoverDTO(String p_id, String pw, String name,
+	public Matching_RegisterDTO(String p_id, String pw, String name,
 			 Integer c_num, Integer cf_num, Integer cfd_num,
 			 String company_email, Integer matching_result) {
 		this.p_id = p_id;
@@ -26,7 +26,7 @@ public class P_TurnoverDTO {
 		this.matching_result = matching_result;
 	}
 	
-	public P_TurnoverDTO(String p_id, String pw, String name,
+	public Matching_RegisterDTO(String p_id, String pw, String name,
 			 Integer c_num, Integer cf_num, Integer cfd_num,
 			 String company_email) {
 		this.p_id = p_id;
@@ -39,7 +39,7 @@ public class P_TurnoverDTO {
 	}
 	
 	
-	public void update(P_TurnoverDTO updateUser) {
+	public void update(Matching_RegisterDTO updateUser) {
         this.pw = updateUser.pw;
         this.name = updateUser.name;
         this.company_email = updateUser.company_email;

@@ -87,12 +87,10 @@ function userCreate() {
 	}
 	form.submit();
 }
-
 function userList(targetUri) {
 	form.action = targetUri;
 	form.submit();
 }
-
 $(document).ready(function() {
     $("#field").on("change", function() {
        $.ajax({
@@ -117,7 +115,6 @@ $(document).ready(function() {
        });
     });
  });
-
 </script>
 </head>
 <body bgcolor=#FFFFFF text=#000000 leftmargin=0 topmargin=0 marginwidth=0 marginheight=0>
@@ -130,7 +127,7 @@ $(document).ready(function() {
 	  <td>
 	    <table>
 		  <tr>
-		    <td bgcolor="f4f4f4" height="22">&nbsp;&nbsp;<b>사용자 관리 - 회원 가입</b>&nbsp;&nbsp;</td>
+		    <td bgcolor="f4f4f4" height="22">&nbsp;&nbsp;<b>회원 가입 - 현직자</b>&nbsp;&nbsp;</td>
 		  </tr>
 	    </table>  
 	    <br>	 

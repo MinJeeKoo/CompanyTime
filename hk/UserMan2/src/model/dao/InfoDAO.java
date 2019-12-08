@@ -12,7 +12,7 @@ public interface InfoDAO {
 	public InfoDTO getInfoByName(String iName);
 	public InfoDTO getInfoByP_id(String p_id);
 	public InfoDTO getInfoByW_id(String w_id);
-	public Integer getI_numByP_id(String p_id);
+	public Integer getI_numByP_id(String p_id) throws SQLException;
 	public Integer getI_numByW_id(String w_id);
 	public List<ForSearchList> getSearchList(String cfd_name, String category) throws SQLException;
 }

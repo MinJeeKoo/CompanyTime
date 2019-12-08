@@ -2,9 +2,9 @@ package model;
 
 public class SpecDTO {
 	private Integer spec_num;
-	private Integer p_num;
-	private Integer w_num;
-	private Integer js_num;
+	private String p_id;
+	private String w_id;
+	private String js_id;
 	private String certification;
 	private Float grade;
 	private String internship;
@@ -14,30 +14,51 @@ public class SpecDTO {
 	private String awards;
 	private String study_abroad;
 	private String volun;
-	private Integer toeic_speaking;
+	private String toeic_speaking;
+	
+	public SpecDTO() {}
+	public SpecDTO(String p_id, String w_id, String js_id, 
+			String certification, Float grade, String internship, Integer toeic, 
+			String toeic_speaking, String opic, String contest, String awards,
+			String study_abroad, String volun) {
+		this.p_id = p_id;
+		this.w_id = w_id;
+		this.js_id = js_id;
+		this.certification = certification;
+		this.grade = grade;
+		this.internship = internship;
+		this.toeic = toeic;
+		this.toeic_speaking = toeic_speaking;
+		this.opic = opic;
+		this.contest = contest;
+		this.awards = awards;
+		this.study_abroad = study_abroad;
+		this.volun = volun;
+	}
+	
 	public Integer getSpec_num() {
 		return spec_num;
 	}
 	public void setSpec_num(Integer spec_num) {
 		this.spec_num = spec_num;
 	}
-	public Integer getP_num() {
-		return p_num;
+	public String getP_id() {
+		return p_id;
 	}
-	public void setP_num(Integer p_num) {
-		this.p_num = p_num;
+	public void setP_id(String p_id) {
+		this.p_id = p_id;
 	}
-	public Integer getW_num() {
-		return w_num;
+	public String getW_id() {
+		return w_id;
 	}
-	public void setW_num(Integer w_num) {
-		this.w_num = w_num;
+	public void setW_id(String w_id) {
+		this.w_id = w_id;
 	}
-	public Integer getJs_num() {
-		return js_num;
+	public String getJs_id() {
+		return js_id;
 	}
-	public void setJs_num(Integer js_num) {
-		this.js_num = js_num;
+	public void setJs_id(String js_id) {
+		this.js_id = js_id;
 	}
 	public String getCertification() {
 		return certification;
@@ -93,10 +114,10 @@ public class SpecDTO {
 	public void setVolun(String volun) {
 		this.volun = volun;
 	}
-	public Integer getToeic_speaking() {
+	public String getToeic_speaking() {
 		return toeic_speaking;
 	}
-	public void setToeic_speaking(Integer toeic_speaking) {
+	public void setToeic_speaking(String toeic_speaking) {
 		this.toeic_speaking = toeic_speaking;
 	}
 	

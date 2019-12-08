@@ -5,6 +5,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import controller.Controller;
 import model.service.UserManager_JS;
+import model.P_TurnoverDTO;
+import model.service.UserManager_PT;
+import model.WorkerDTO;
+import model.service.UserManager_W;
 import model.service.UserNotFoundException;
 import model.JobSeekerDTO;
 
@@ -15,18 +19,39 @@ public class ViewUserController implements Controller {
     	if (!UserSessionUtils.hasLogined(request.getSession())) {
             return "redirect:/user/login/form";		// login form 요청으로 redirect
         }
-    	
-		UserManager_JS manager = UserManager_JS.getInstance();
+	
 		String userId = request.getParameter("userId");
+		String userType = request.getParameter("userType");
 		
-    	JobSeekerDTO user = null;
+		UserManager_W w_manager = UserManager_W.getInstance();
+    	WorkerDTO w_user = null;
+    	UserManager_PT pt_manager = UserManager_PT.getInstance();
+    	P_TurnoverDTO pt_user = null;
+    	UserManager_JS js_manager = UserManager_JS.getInstance();
+    	JobSeekerDTO js_user = null;
 		try {
-			user = manager.findUser(userId);	// 사용자 정보 검색
+			if(userType.equals("w")) {
+				w_user = w_manager.findUser(userId);
+			}else if(userType.equals("pt")) {
+				pt_user = pt_manager.findUser(userId);
+			}else {
+				js_user = js_manager.findUser(userId);
+			}
+				// 사용자 정보 검색
 		} catch (UserNotFoundException e) {				
 	        return "redirect:/user/list";
 		}	
-		
-		request.setAttribute("user", user);		// 사용자 정보 저장		
-		return "/user/view.jsp";				// 사용자 보기 화면으로 이동
+		if(userType.equals("w")) {
+			request.setAttribute("user", w_user);	
+			return "/user/view_w.jsp";
+		}else if(userType.equals("pt")) {
+			request.setAttribute("user", pt_user);	
+			return "/user/view_pt.jsp";
+		}else {
+			request.setAttribute("user", js_user);	
+			return "/user/view_js.jsp";
+		}
+			// 사용자 정보 저장		
+						// 사용자 보기 화면으로 이동
     }
 }

@@ -3,12 +3,12 @@ package model;
 public class WorkerDTO {
 	private String w_id = null;			// id
 	private String pw = null; 			// pw
-	private String name = null;			// 占싱몌옙
-	private String company_email = null;	// 占썹내占싱몌옙占쏙옙
-	private Integer matching_result; //占쏙옙占썰링 占쏙옙칭占쏙옙占�
-	private Integer c_num;		//회占쏙옙占쏙옙占쏙옙
-	private Integer cf_num;		//占십듸옙占쏙옙占쏙옙(占쏙옙칭 占쏙옙占싹댐옙 占싻억옙占쏙옙 占쏙옙占쏙옙)
-	private Integer cfd_num;		//占싸쇽옙占쏙옙占쏙옙
+	private String name = null;			// 이름
+	private String company_email = null;	// 회사이메일주소
+	private Integer matching_result; //추천매칭여부(0-매칭안됨, 1-매칭됨)
+	private Integer c_num;		//회사번호
+	private Integer cf_num;		//분야번호(현재 재직중인 회사의 분야)
+	private Integer cfd_num;		//부서번호
 	private String empno;
 	
 	public WorkerDTO() {};

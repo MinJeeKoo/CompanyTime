@@ -1,6 +1,7 @@
 package model.dao;
 
 import model.*;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -105,30 +106,30 @@ public class P_TurnoverDAOImpl implements P_TurnoverDAO {
 				"cfd_num AS cfd_num " +
 		    "FROM Preparation_for_Turnover ";	
 		
-	jdbcUtil.setSql(allQuery);		// JDBCUtil 에 query 설정
-	
-	try { 
-		ResultSet rs = jdbcUtil.executeQuery();		// query 문 실행	
-		List<P_TurnoverDTO> list = new ArrayList<P_TurnoverDTO>();		// P_TurnoverDTO 객체들을 담기위한 list 객체
-		while (rs.next()) {	
-			P_TurnoverDTO dto = new P_TurnoverDTO();		// 하나의 P_TurnoverDTO 객체 생성 후 정보 설정
-			dto.setP_id(rs.getString("id"));
-			dto.setPw(rs.getString("pw"));
-			dto.setName(rs.getString("name"));
-			dto.setCompany_email(rs.getString("company_email"));
-			dto.setMatching_result(rs.getInt("matching_result"));
-			dto.setC_num(rs.getInt("c_num"));
-			dto.setCf_num(rs.getInt("cf_num"));
-			dto.setCfd_num(rs.getInt("cfd_num"));
+		jdbcUtil.setSql(allQuery);		// JDBCUtil 에 query 설정
 		
-			list.add(dto);		// list 객체에 정보를 설정한 P_TurnoverDTO 객체 저장
-		}
-			return list;		// 이직준비자 정보를 저장한 dto 들의 목록을 반환
-	} catch (Exception ex) {
-		ex.printStackTrace();
-	} finally {
-		jdbcUtil.close();		// ResultSet, PreparedStatement, Connection 반환
-	}		
+		try { 
+			ResultSet rs = jdbcUtil.executeQuery();		// query 문 실행	
+			List<P_TurnoverDTO> list = new ArrayList<P_TurnoverDTO>();		// P_TurnoverDTO 객체들을 담기위한 list 객체
+			while (rs.next()) {	
+				P_TurnoverDTO dto = new P_TurnoverDTO();		// 하나의 P_TurnoverDTO 객체 생성 후 정보 설정
+				dto.setP_id(rs.getString("id"));
+				dto.setPw(rs.getString("pw"));
+				dto.setName(rs.getString("name"));
+				dto.setCompany_email(rs.getString("company_email"));
+				dto.setMatching_result(rs.getInt("matching_result"));
+				dto.setC_num(rs.getInt("c_num"));
+				dto.setCf_num(rs.getInt("cf_num"));
+				dto.setCfd_num(rs.getInt("cfd_num"));
+			
+				list.add(dto);		// list 객체에 정보를 설정한 P_TurnoverDTO 객체 저장
+			}
+				return list;		// 이직준비자 정보를 저장한 dto 들의 목록을 반환
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			jdbcUtil.close();		// ResultSet, PreparedStatement, Connection 반환
+		}		
 		return null;	
 	}
 	
@@ -260,7 +261,7 @@ public class P_TurnoverDAOImpl implements P_TurnoverDAO {
 				try {
 					ResultSet rs = jdbcUtil.executeQuery();		// query 문 실행
 					P_TurnoverDTO pt = null;
-					if (rs.next()) {						// 찾은 이직자의 정보를 StudentDTO 객체에 설정
+					if (rs.next()) {						// 찾은 이직자의 정보를 P_TurnoverDTO 객체에 설정
 						pt = new P_TurnoverDTO();
 						pt.setP_id(rs.getString("id"));
 						pt.setPw(rs.getString("pw"));
@@ -318,12 +319,13 @@ public class P_TurnoverDAOImpl implements P_TurnoverDAO {
 	/**
 	 * 주어진 사용자 ID에 해당하는 사용자가 존재하는지 검사 
 	 */
+	
 	public boolean existingUser(String userId) throws SQLException {
 		String sql = "SELECT count(*) FROM preparation_for_turnover WHERE p_id=?";      
 		jdbcUtil.setSqlAndParameters(sql, new Object[] {userId});	// JDBCUtil에 query문과 매개 변수 설정
 
 		try {
-			ResultSet rs = jdbcUtil.executeQuery();		// query ����
+			ResultSet rs = jdbcUtil.executeQuery();		// query문 실행
 			if (rs.next()) {
 				int count = rs.getInt(1);
 				return (count == 1 ? true : false);
@@ -331,10 +333,11 @@ public class P_TurnoverDAOImpl implements P_TurnoverDAO {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {
-			jdbcUtil.close();		// resource ��ȯ
+			jdbcUtil.close();		// resource 반환
 		}
 		return false;
 	}
+	
 	/**
 	 * 전체 사용자 정보를 검색하여 List에 저장 및 반환
 	 */
@@ -346,9 +349,9 @@ public class P_TurnoverDAOImpl implements P_TurnoverDAO {
 					
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();			// query 실행			
-			List<P_TurnoverDTO> userList = new ArrayList<P_TurnoverDTO>();	// User들의 리스트 생성
+			List<P_TurnoverDTO> userList = new ArrayList<P_TurnoverDTO>();	// P_Turnover들의 리스트 생성
 			while (rs.next()) {
-				P_TurnoverDTO user = new P_TurnoverDTO(			// User 객체를 생성하여 현재 행의 정보를 저장
+				P_TurnoverDTO user = new P_TurnoverDTO(			// P_Turnover 객체를 생성하여 현재 행의 정보를 저장
 						rs.getString("p_id"),
 						rs.getString("pw"),
 						rs.getString("name"),
@@ -388,7 +391,7 @@ public class P_TurnoverDAOImpl implements P_TurnoverDAO {
 			if ((start >= 0) && rs.absolute(start)) {			// 커서를 시작 행으로 이동
 				List<P_TurnoverDTO> userList = new ArrayList<P_TurnoverDTO>();	// User들의 리스트 생성
 				do {
-					P_TurnoverDTO user = new P_TurnoverDTO(		// User 객체를 생성하여 현재 행의 정보를 저장
+					P_TurnoverDTO user = new P_TurnoverDTO(		// P_Turnover 객체를 생성하여 현재 행의 정보를 저장
 						rs.getString("p_id"),
 						rs.getString("pw"),
 						rs.getString("name"),
@@ -421,8 +424,8 @@ public class P_TurnoverDAOImpl implements P_TurnoverDAO {
 
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();		// query 실행
-			if (rs.next()) {						// 학생 정보 발견
-				P_TurnoverDTO user = new P_TurnoverDTO(		// User 객체를 생성하여 학생 정보를 저장
+			if (rs.next()) {						// 이직자 정보 발견
+				P_TurnoverDTO user = new P_TurnoverDTO(		// P_Turnover 객체를 생성하여 학생 정보를 저장
 						rs.getString("p_id"),
 						rs.getString("pw"),
 						rs.getString("name"),

@@ -1,33 +1,30 @@
 package model;
 
-/**
- * ����� ������ ���� �ʿ��� ������ Ŭ����. USERINFO ���̺�� ������
- */
 public class JobSeekerDTO {
-	private String js_id;
-	private String pw;
+	private String userId;
+	private String password;
 	private String name;
 	private String school;
 	private String major;
 	private String email;
-	private Integer cf_num;
+	private Integer cf_num; //추천매칭 희망하는 분야
 	private Integer matching_result;
 
-	public JobSeekerDTO() { }		// �⺻ ������
-	public JobSeekerDTO(String js_id, String pw, String name, String school, 
+	public JobSeekerDTO() { }		// 매개변수 없는 생성자
+	public JobSeekerDTO(String userId, String password, String name, String school, 
 			String major, String email, Integer cf_num) {
-		this.js_id = js_id;
-		this.pw = pw;
+		this.userId = userId;
+		this.password = password;
 		this.name = name;
 		this.school = school;
 		this.major = major;
 		this.email = email;
 		this.cf_num = cf_num;
 	}
-	public JobSeekerDTO(String js_id, String pw, String name, String school, 
+	public JobSeekerDTO(String userId, String password, String name, String school, 
 			String major, String email, Integer cf_num, Integer matching_result) {
-		this.js_id = js_id;
-		this.pw = pw;
+		this.userId = userId;
+		this.password = password;
 		this.name = name;
 		this.school = school;
 		this.major = major;
@@ -37,7 +34,7 @@ public class JobSeekerDTO {
 	}
 
 	public void update(JobSeekerDTO updateUser) {
-        this.pw = updateUser.pw;
+        this.password = updateUser.password;
         this.name = updateUser.name;
         this.school = updateUser.school;
         this.major = updateUser.major;
@@ -46,20 +43,20 @@ public class JobSeekerDTO {
 		this.matching_result = matching_result;
     }
 	
-	public String getJs_id() {
-		return js_id;
+	public String getUserId() {
+		return userId;
 	}
 
-	public void setJs_id(String js_id) {
-		this.js_id = js_id;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
-	public String getPw() {
-		return pw;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setPw(String pw) {
-		this.pw = pw;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public String getName() {
@@ -111,20 +108,20 @@ public class JobSeekerDTO {
 	}
 
 
-	/* ��й�ȣ �˻� */
-	public boolean matchPw(String pw) {
-		if (pw == null) {
+	/*비밀번호 일치여부 검사 */
+	public boolean matchPassword(String password) {
+		if (password == null) {
 			return false;
 		}
-		return this.pw.equals(pw);
+		return this.password.equals(password);
 	}
 	
-	public boolean isSameUser(String js_id) {
-        return this.js_id.equals(js_id);
+	public boolean isSameUser(String userid) {
+        return this.userId.equals(userid);
     }
 
 	@Override
 	public String toString() {
-		return "User [Js_id=" + js_id + ", password=" + pw + ", name=" + name + ", school=" + school + ", major=" + major + ", email=" + email + "]";
+		return "User [userId=" + userId + ", password=" + password + ", name=" + name + ", school=" + school + ", major=" + major + ", email=" + email + "]";
 	}	
 }

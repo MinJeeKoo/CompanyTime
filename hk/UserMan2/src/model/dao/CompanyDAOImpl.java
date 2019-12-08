@@ -27,7 +27,7 @@ public class CompanyDAOImpl implements CompanyDAO{
 		
 		try {
 			int result =jdbcUtil.executeUpdate();
-			return result;//������ ��� 1
+			return result;
 		}catch(Exception ex) {
 			jdbcUtil.rollback();
 			ex.printStackTrace();
@@ -46,7 +46,7 @@ public class CompanyDAOImpl implements CompanyDAO{
 	 */
 	public Integer getC_NUMByC_NAME(String c_name) {
 		
-		Integer c_num = null;//Integer Ÿ���̶� null�� �ʱ�ȭ��.
+		Integer c_num = null;
 		String query = "SELECT C_NUM "
 				+ "FROM COMPANY "
 				+ "WHERE C_NAME = ?" ;

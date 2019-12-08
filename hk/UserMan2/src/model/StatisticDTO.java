@@ -1,15 +1,15 @@
 package model;
 
 public class StatisticDTO {
-	   private Integer stNo = null;			// Åë°èPK
+	   private Integer stNo = null;			// í†µê³„PK
 	   private Integer cNo = null;			// company FK
 	   private Integer cfdNo = null;			// department FK
-	   private Integer annual_Income = null;		// ¿¬ºÀ
-	   private Integer InfoMood = null;		// ºÎ¼­ ºĞÀ§±â
-	   private Integer jobSat = null;			// Á÷¾÷ ¸¸Á·µµ
-	   private Integer cafeteria = null;			// Á÷¿ø ½Ä´ç
-	   private Integer trafficConven = null;		// ±³ÅëÆíÀÇ¼º
-	   private Integer empWellfare = null;		// Á÷¿øº¹Áö
+	   private Integer annual_Income = null;		// ì—°ë´‰
+	   private Integer InfoMood = null;		// ë¶€ì„œ ë¶„ìœ„ê¸°
+	   private Integer jobSat = null;			// ì§ì—… ë§Œì¡±ë„
+	   private Integer cafeteria = null;			// ì§ì› ì‹ë‹¹
+	   private Integer trafficConven = null;		// êµí†µí¸ì˜ì„±
+	   private Integer empWellfare = null;		// ì§ì›ë³µì§€
 	   
 	   public Integer getStNo() 
 	   {	return stNo;   }

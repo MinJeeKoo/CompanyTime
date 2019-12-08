@@ -6,7 +6,7 @@
 %>
 <html>
 <head>
-<title>사용자 관리</title>
+<title>내 정보 수정(취업준비생)</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel=stylesheet href="<c:url value='/css/user.css' />" type="text/css">
 <script>
@@ -58,7 +58,7 @@ function userList(targetUri) {
 	  <td>
 	    <table>
 		  <tr>
-			<td bgcolor="f4f4f4" height="22">&nbsp;&nbsp;<b>사용자 관리 - 사용자 수정</b>&nbsp;&nbsp;</td>
+			<td bgcolor="f4f4f4" height="22">&nbsp;&nbsp;<b>내 정보 수정(취업준비생)</b>&nbsp;&nbsp;</td>
 		  </tr>
 	    </table>  
 	    <br>	  

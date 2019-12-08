@@ -96,7 +96,7 @@ public class InfoDAOImpl implements InfoDAO {
          return result;
       }//3
 
-   //�����ؾ���
+   
    @Override
    public InfoDTO getInfoByName(String iName) {
       // TODO Auto-generated method stub
@@ -210,8 +210,9 @@ public class InfoDAOImpl implements InfoDAO {
 //   }
 
    @Override
-   public Integer getI_numByP_id(String p_id) {
+   public Integer getI_numByP_id(String p_id) throws SQLException {
       // TODO Auto-generated method stub
+	  Integer i_num = null;
       String query = "SELECT i_num AS i_num, "
             + "FROM info "
             + "WHERE p_id = ? ";
@@ -220,41 +221,43 @@ public class InfoDAOImpl implements InfoDAO {
       jdbcUtil.setSqlAndParameters(query, param);
       
       try {
-         ResultSet rs = jdbcUtil.executeQuery();
-         if (rs.next()) {
-            return rs.getInt("i_num");
-         }
-      } catch (Exception ex) {
-         ex.printStackTrace();
-      } finally {
-         jdbcUtil.close();
-      }
-      
+          ResultSet rs = jdbcUtil.executeQuery();
+          while (rs.next()) {
+             i_num = rs.getInt("i_num");
+          }
+          return i_num;
+       } catch (Exception ex) {
+          ex.printStackTrace();
+       } finally {
+          jdbcUtil.close();
+       }
       return null;
    }
 
    @Override
    public Integer getI_numByW_id(String w_id) {
       // TODO Auto-generated method stub
-      String query = "SELECT i_num AS i_num, "
-            + "FROM info "
-            + "WHERE w_id = ? ";
-      
-      Object[] param = new Object[] { w_id };
-      jdbcUtil.setSqlAndParameters(query, param);
-      
-      try {
-         ResultSet rs = jdbcUtil.executeQuery();
-         if (rs.next()) {
-            return rs.getInt("i_num");
-         }
-      } catch (Exception ex) {
-         ex.printStackTrace();
-      } finally {
-         jdbcUtil.close();
-      }
-      
-      return null;
+	   Integer i_num = null;
+	   String query = "SELECT i_num AS i_num "
+			   + "FROM info "
+			   + "WHERE w_id = ?";
+
+	   Object[] param = new Object[] { w_id };
+	   jdbcUtil.setSqlAndParameters(query, param);
+
+	   try {
+		   ResultSet rs = jdbcUtil.executeQuery();
+		   while (rs.next()) {
+			   i_num = rs.getInt("i_num");
+		   }
+		   return i_num;
+	   } catch (Exception ex) {
+		   ex.printStackTrace();
+	   } finally {
+		   jdbcUtil.close();
+	   }
+
+	   return null;
    }
    
     public boolean existingInfo(Integer infoId) throws SQLException {

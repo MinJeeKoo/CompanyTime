@@ -2,7 +2,7 @@
 <%@page import="model.WorkerDTO" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
-WorkerDTO user = (WorkerDTO)request.getAttribute("user");
+   WorkerDTO user = (WorkerDTO)request.getAttribute("user");
 %>
 <html>
 <head>

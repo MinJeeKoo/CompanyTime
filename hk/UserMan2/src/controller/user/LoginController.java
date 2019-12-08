@@ -22,6 +22,7 @@ public class LoginController implements Controller {
 			
 			HttpSession session = request.getSession();
             session.setAttribute(UserSessionUtils.USER_SESSION_KEY, userId);
+            session.setAttribute(UserSessionUtils.USER_SESSION_TYPE, type);
             
 			if(type.equals("pt")) {
 				UserManager_PT manager_pt = UserManager_PT.getInstance();
@@ -38,7 +39,7 @@ public class LoginController implements Controller {
 			}
 			
 			// TODO: 위에 else if로 바꾸고 else 아래에 오류시 처리
-			// ���ǿ� ����� ���̵� ����
+			
 			
             
             			

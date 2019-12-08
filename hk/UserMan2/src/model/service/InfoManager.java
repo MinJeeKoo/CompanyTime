@@ -46,6 +46,10 @@ public class InfoManager {
 	public int deleteInfo(Integer infoId) throws SQLException {
 		return infoDAOImpl.deleteInfo(infoId);
 	}
+	
+	public Integer getI_numByP_id(String p_id) throws SQLException {
+		return infoDAOImpl.getI_numByP_id(p_id);
+	}
 	/* TODO: change */
 //
 //	public InfoDAO findUser(String userId)
@@ -84,4 +88,10 @@ public class InfoManager {
 	public InfoDAO getUserDAO() {
 		return this.infoDAOImpl;
 	}
+
+	public Integer getI_numByW_id(String w_id) throws SQLException {
+		// TODO Auto-generated method stub
+		return infoDAOImpl.getI_numByW_id(w_id);
+	}
+
 }

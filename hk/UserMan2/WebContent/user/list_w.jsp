@@ -54,7 +54,6 @@
 					   <c:param name='userId' value='${user.userId}'/>
 			 		 </c:url>">
 			  ${user.name}</a>	 
-
 		  </td> 
 --%>
 		  <td width="190" align="center" bgcolor="ffffff" height="20">
