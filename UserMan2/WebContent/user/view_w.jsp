@@ -31,37 +31,37 @@ function userRemove() {
           <tr>
          <td width="120" align="center" bgcolor="E6ECDE" height="22">ID</td>
          <td width="470" bgcolor="ffffff" style="padding-left: 10">
-            <%=user.getW_id()%>
+            ${user.w_id}
          </td>
         </tr>
         <tr>
          <td width="120" align="center" bgcolor="E6ECDE" height="22">패스워드</td>
          <td width="470" bgcolor="ffffff" style="padding-left: 10">
-            <%=user.getPw()%>
+           ${user.pw}
          </td>
         </tr>
         <tr>
          <td width="120" align="center" bgcolor="E6ECDE" height="22">이름</td>
          <td width="470" bgcolor="ffffff" style="padding-left: 10">
-            <%=user.getName()%>
+           ${user.name}
          </td>
         </tr>
         <tr>
-         <td width="120" align="center" bgcolor="E6ECDE" height="22">회사번호</td>
+         <td width="120" align="center" bgcolor="E6ECDE" height="22">회사</td>
          <td width="470" bgcolor="ffffff" style="padding-left: 10">
-            <%=user.getC_num()%>
+            ${c_name}
          </td>
         </tr>
         <tr>
          <td width="120" align="center" bgcolor="E6ECDE" height="22">희망매칭분야(field)</td>
          <td width="470" bgcolor="ffffff" style="padding-left: 10">
-            <%=user.getCf_num()%>
+            ${cf_name}
          </td>
         </tr>
         <tr>
-         <td width="120" align="center" bgcolor="E6ECDE" height="22">부서번호</td>
+         <td width="120" align="center" bgcolor="E6ECDE" height="22">부서</td>
          <td width="470" bgcolor="ffffff" style="padding-left: 10">
-            <%=user.getCfd_num()%>
+            ${cfd_name}
          </td>
         </tr>
         <tr>

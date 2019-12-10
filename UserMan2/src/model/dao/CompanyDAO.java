@@ -7,7 +7,8 @@ public interface CompanyDAO {
 
 	public int insertCompany(CompanyDTO comp) throws SQLException;
 	public Integer getC_NUMByC_NAME(String c_name);
-	
+	public String getC_NAMEByC_NUM(Integer c_num);
 	public List<CompanyDTO> getCompanyList();
+	
 	
 }

@@ -40,7 +40,29 @@ public class FieldDAOImpl implements FieldDAO{
 		}
 		return null;
 	}
-
+	public String getCF_NAMEByCF_NUM(Integer cf_num) {
+		
+		String cf_name = null;
+		String query = "SELECT CF_NAME "
+				+ "FROM FIELD "
+				+ "WHERE CF_NUM = ?" ;
+		
+		Object[] param = new Object[] {cf_num};
+		jdbcUtil.setSqlAndParameters(query, param);
+		
+		try {
+			ResultSet result = jdbcUtil.executeQuery();
+			while (result.next()) {
+				cf_name = result.getString("CF_NAME");
+			}
+			return cf_name;
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally{
+			jdbcUtil.close();
+		}
+		return null;
+	}
 	@Override
 	public List<FieldDTO> getFieldList() throws SQLException {
 		String query = "SELECT cf_num, cf_name FROM field";

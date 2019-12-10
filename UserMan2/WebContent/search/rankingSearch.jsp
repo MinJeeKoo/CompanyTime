@@ -81,6 +81,9 @@ function search() {
       <option value="">부서</option>
    </select>
 <input type="button" value="검색" onclick="search()" />
+<p>
+ <a href="<c:url value='/user/main_login/form' />">홈화면</a>
+
 </div>
 </form>
 </body>
