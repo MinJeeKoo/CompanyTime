@@ -50,7 +50,7 @@ public class RequestMapping {
     	mappings.put("/search/rankingSearch/json", new ListDepartmentJSONController());
         
     	//랭킹출력
-    	mappings.put("/search/rankingSearch", new RankingSearchController());
+    	mappings.put("/search/rankingSearchResult", new RankingSearchController());
     	
     	//matching controller
     	mappings.put("/matching/recommend", new MatchingController());
