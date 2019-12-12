@@ -74,7 +74,7 @@ function userList(targetUri) {
 }
 </script>
 </head>
-<body>
+<body onload="alert('매칭 기능을 사용하기 위해선 스펙 작성이 필요합니다.')">
 <form name="form" method="POST" action="<c:url value='/matching/register' />">
 
 <table style="background-color: YellowGreen">
