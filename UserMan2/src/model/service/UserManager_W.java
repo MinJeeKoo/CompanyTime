@@ -106,9 +106,7 @@ public class UserManager_W {
 	}
 
 	// 대기자 명단에 있는 사람들 중 분야가 같은 사람 matching 하기
-	public int insertMatchingTW() throws SQLException {
-		return matchingTWDAO.insertMatching();
-	}
+
 	
 
 }

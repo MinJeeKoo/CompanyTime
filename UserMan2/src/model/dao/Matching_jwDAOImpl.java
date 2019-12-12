@@ -95,31 +95,6 @@ public class Matching_jwDAOImpl implements Matching_jwDAO {
 	 */
 	//cf_num이 같으면 랜덤 매칭
 	@Override
-	public int insertMatchingJW() throws SQLException {
-		String sql = "INSERT INTO RECOMMEND_MATCHING "
-				+ "SELECT w_id, js_id, p_id "
-				+ "FROM (SELECT w_id, js_id, p_id "
-				+ "FROM waiting_mento mto, waiting_mentee mtee "
-				+ "WHERE mtee.cf_num = mto.cf_num "
-				+ "ORDER BY mtee.waiting_date, mto.waiting_date) "
-				+ "WHERE ROWNUM = 1";
-				
-		jdbcUtil.setSql(sql); // JDBCUtil 에 insert문 설정
-
-		try {
-			int result = jdbcUtil.executeUpdate(); // insert 문 실행
-			logger.debug("result: {}", result);
-			return result;
-		} catch (Exception ex) {
-			jdbcUtil.rollback();
-			ex.printStackTrace();
-		} finally {
-			jdbcUtil.commit();
-			jdbcUtil.close(); // resource 반환
-		}
-		return 0;
-	}
-	@Override
 	public int deleteMatchingJW_ByJS_ID(String js_id) throws SQLException {
 		String sql = "DELETE FROM RECOMMEND_MATCHING WHERE JS_ID=?";
 		

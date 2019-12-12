@@ -2,6 +2,7 @@ package model.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -69,26 +70,51 @@ public class Matching_twDAOImpl implements Matching_twDAO {
 		return null;
 	}
 
+	//select, insert, delete
+	
+	public ArrayList<String> selectMatching() throws SQLException {
+		ArrayList<String> result = new ArrayList<String>();
+		String sql = "SELECT w_id, js_id, p_id "
+				+ "FROM (SELECT w_id, js_id, p_id "
+						+ "FROM waiting_mento mto, waiting_mentee mtee "
+						+ "WHERE mtee.cf_num = mto.cf_num "
+						+ "ORDER BY mtee.waiting_date, mto.waiting_date) "
+				+ "WHERE ROWNUM = 1";
+		
+	      jdbcUtil.setSql(sql);
+	      
+	      try {
+	          ResultSet rs = jdbcUtil.executeQuery();
+	          while (rs.next()) {
+	             result.add(rs.getString("w_id"));
+	             logger.debug("result***: {}", result);
+	             result.add(rs.getString("js_id"));
+	             result.add(rs.getString("p_id"));
+	          }
+	          logger.debug("result: {}", result);
+	          return result;
+	       } catch (Exception ex) {
+	          ex.printStackTrace();
+	       } finally {
+	          jdbcUtil.close();
+	       }
+	      return null;
+	      
+	}
 	/**
 	 * Matching_twDAOImpl 테이블에 새로운 매칭정보 추가.
 	 */
 
 	//cf_num이 같으면 랜덤 매칭
 	@Override
-	public int insertMatching() throws SQLException {
-		String sql = "INSERT INTO RECOMMEND_MATCHING "
-				+ "SELECT w_id, js_id, p_id "
-				+ "FROM (SELECT w_id, js_id, p_id "
-				+ "FROM waiting_mento mto, waiting_mentee mtee "
-				+ "WEHRE mtee.cf_num = mto.cf_num "
-				+ "ORDER BY mtee.waiting_date, mto.waiting_date "
-				+ "WHERE ROWNUM = 1";
-
-		jdbcUtil.setSql(sql); // JDBCUtil 에 insert문 설정
+	public int insertMatching(ArrayList<String> result) throws SQLException {
+		String sql = "INSERT INTO RECOMMEND_MATCHING(w_id, p_id, js_id) VALUES(?, ?, ?) ";
+		Object[] param = new Object[] { result.get(0), result.get(1), result.get(2) };
+		jdbcUtil.setSqlAndParameters(sql, param); // JDBCUtil 에 insert문 설정
 
 		try {
-			int result = jdbcUtil.executeUpdate(); // insert 문 실행
-			return result;
+			int rs = jdbcUtil.executeUpdate(); // insert 문 실행
+			return rs;
 		} catch (Exception ex) {
 			jdbcUtil.rollback();
 			ex.printStackTrace();
@@ -96,6 +122,7 @@ public class Matching_twDAOImpl implements Matching_twDAO {
 			jdbcUtil.commit();
 			jdbcUtil.close(); // resource 반환
 		}
+		//
 		return 0;
 	}
 
