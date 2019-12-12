@@ -33,6 +33,7 @@ public class MainLoginController implements Controller {
 		// 로그인한 사용자 type을 request에 저장하여 전달
 		request.setAttribute("curUserType", 
 				UserSessionUtils.getLoginUserType(request.getSession()));
+		
 
 		// 사용자 리스트 화면으로 이동(forwarding)
 		return "/user/main_afterLogin.jsp";

@@ -47,7 +47,7 @@
 	  <c:forEach var="user" items="${userList}">  			  	
   		<tr>
 		  <td width="190" align="center" bgcolor="ffffff" height="20">
-		  	${user.p_id}       <%-- <%=user.getP_id()%> --%>
+		  	${user.w_id}       <%-- <%=user.getP_id()%> --%>
 		  </td>
 <%-- 		   <td width="200" bgcolor="ffffff" style="padding-left: 10">
 			<a href="<c:url value='/user/view_pt'>

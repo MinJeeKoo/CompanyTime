@@ -64,7 +64,8 @@
 	<tr>
 		<td>
 		<!-- 로그인한 회원의 정보 보여주기 -->
-		<form action="<c:url value='/user/view_pt' />">
+		<form action="<c:url value='/user/view' />">
+			<input type = "hidden" name="userType" value='${curUserType}'>
 			<button type="submit" style="font-size:2em; border-radius:0.5em; padding:5px 20px" name="userId" value='${curUserId}'>
 			회원정보
 			</button>

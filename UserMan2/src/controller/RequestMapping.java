@@ -25,8 +25,9 @@ public class RequestMapping {
         mappings.put("/user/list_w", new ListWController());
         mappings.put("/user/list_pt", new ListPTController());
         mappings.put("/user/list_js", new ListJSController());
+        
         mappings.put("/user/view", new ViewUserController());
-        mappings.put("/user/view_pt", new ViewPTController());
+   
         mappings.put("/user/main/form", new ForwardController("/user/main.jsp"));
         mappings.put("/user/main_login", new ForwardController("/user/main_afterLogin.jsp"));
         mappings.put("/user/main_login/form", new MainLoginController());
@@ -49,12 +50,14 @@ public class RequestMapping {
     	mappings.put("/search/rankingSearch/json", new ListDepartmentJSONController());
         
     	//랭킹출력
-    	mappings.put("/search/rankingSearch", new RankingSearchController());
+    	mappings.put("/search/rankingSearchResult", new RankingSearchController());
     	
     	//matching controller
     	mappings.put("/matching/recommend", new MatchingController());
     	mappings.put("/matching/recommend/Result", new MatchingResultController());
     	mappings.put("/matching/register/form", new ForwardController("/matching/registerForm_Matching.jsp"));
+    	
+    	mappings.put("/matching/register", new SpecRegisterController());
     	
         logger.info("Initialized Request Mapping!");
     }

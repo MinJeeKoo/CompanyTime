@@ -278,111 +278,7 @@ public class InfoDAOImpl implements InfoDAO {
          return false;
       }
     
-    // TODO: : change 
-    
-//    public List<InfoDTO> findUserList() throws SQLException {
-//           String sql = "SELECT p_id, pw, name, c_num, cf_num, cfd_num, company_email, matching_result " 
-//                 + "FROM preparation_for_turnover "
-//                 + "ORDER BY p_id";
-//         jdbcUtil.setSqlAndParameters(sql, null);      // JDBCUtil�� query�� ����
-//                  
-//         try {
-//            ResultSet rs = jdbcUtil.executeQuery();         // query ����         
-//            List<InfoDTO> userList = new ArrayList<InfoDTO>();   // User���� ����Ʈ ����
-//            while (rs.next()) {
-//               InfoDTO user = new InfoDTO(         // User ��ü�� �����Ͽ� ���� ���� ������ ����
-//                     rs.getString("p_id"),
-//                     rs.getString("pw"),
-//                     rs.getString("name"),
-//                     rs.getInt("c_num"),
-//                     rs.getInt("cf_num"),
-//                     rs.getInt("cfd_num"),
-//                     rs.getString("company_email"),
-//                     Integer.valueOf(0)
-//                     );   
-//               userList.add(user);            // List�� User ��ü ����
-//            }
-//            return userList;               
-//            
-//         } catch (Exception ex) {
-//            ex.printStackTrace();
-//         } finally {
-//            jdbcUtil.close();      // resource ��ȯ
-//         }
-//         return null;
-//      }
-//      
-//      /**
-//       * ��ü ����� ������ �˻��� �� ���� �������� �������� ����� ����� ���� �̿��Ͽ�
-//       * �ش��ϴ� ����� �������� List�� �����Ͽ� ��ȯ.
-//       */
-//      public List<InfoDTO> findUserList(int currentPage, int countPerPage) throws SQLException {
-//           String sql = "SELECT p_id, pw, name, c_num, cf_num, cfd_num, company_email, matching_result " 
-//                    + "FROM preparation_for_turnover "
-//                    + "ORDER BY p_id";
-//         jdbcUtil.setSqlAndParameters(sql, null,               // JDBCUtil�� query�� ����
-//               ResultSet.TYPE_SCROLL_INSENSITIVE,            // cursor scroll ����
-//               ResultSet.CONCUR_READ_ONLY);                  
-//         
-//         try {
-//            ResultSet rs = jdbcUtil.executeQuery();            // query ����         
-//            int start = ((currentPage-1) * countPerPage) + 1;   // ����� ������ �� ��ȣ ���
-//            if ((start >= 0) && rs.absolute(start)) {         // Ŀ���� ���� ������ �̵�
-//               List<InfoDTO> userList = new ArrayList<InfoDTO>();   // User���� ����Ʈ ����
-//               do {
-//                  InfoDTO user = new InfoDTO(      // User ��ü�� �����Ͽ� ���� ���� ������ ����
-//                     rs.getString("p_id"),
-//                     rs.getString("pw"),
-//                     rs.getString("name"),
-//                     rs.getInt("c_num"),
-//                     rs.getInt("cf_num"),
-//                     rs.getInt("cfd_num"),
-//                     rs.getString("company_email"),
-//                     rs.getInt("matching_result")
-//                     );   
-//                  userList.add(user);                     // ����Ʈ�� User ��ü ����
-//               } while ((rs.next()) && (--countPerPage > 0));      
-//               return userList;                     
-//            }
-//         } catch (Exception ex) {
-//            ex.printStackTrace();
-//         } finally {
-//            jdbcUtil.close();      // resource ��ȯ
-//         }
-//         return null;
-//      }
-//      /**
-//       * �־��� ����� ID�� �ش��ϴ� ����� ������ �����ͺ��̽����� ã�� User ������ Ŭ������ 
-//       * �����Ͽ� ��ȯ.
-//       */
-//      public InfoDTO findUser(String p_id) throws SQLException {
-//           String sql = "SELECT p_id, c_num, cf_num, cfd_num, name, company_email, pw, matching_result "
-//                    + "FROM preparation_for_turnover "
-//                    + "WHERE p_id=? ";
-//         jdbcUtil.setSqlAndParameters(sql, new Object[] {p_id});   // JDBCUtil�� query���� �Ű� ���� ����
-//
-//         try {
-//            ResultSet rs = jdbcUtil.executeQuery();      // query ����
-//            if (rs.next()) {                  // �л� ���� �߰�
-//               InfoDTO user = new InfoDTO(      // User ��ü�� �����Ͽ� �л� ������ ����
-//                     rs.getString("p_id"),
-//                     rs.getString("pw"),
-//                     rs.getString("name"),
-//                     rs.getInt("c_num"),
-//                     rs.getInt("cf_num"),
-//                     rs.getInt("cfd_num"),
-//                     rs.getString("company_email"),
-//                     rs.getInt("matching_result")
-//               );
-//               return user;
-//            }
-//         } catch (Exception ex) {
-//            ex.printStackTrace();
-//         } finally {
-//            jdbcUtil.close();      // resource ��ȯ
-//         }
-//         return null;
-//      }
+
    @Override
    public InfoDTO getInfoByP_id(String p_id) {
       // TODO Auto-generated method stub
@@ -397,7 +293,7 @@ public class InfoDAOImpl implements InfoDAO {
    
    @Override
    public List<ForSearchList> getSearchList(String cfd_name, String category) throws SQLException{
-      if(category.equals("annual_income")){
+      if(category.equals("ANNUAL_INCOME")){
          String query = "SELECT C_NAME, CFD_NAME, avg(ANNUAL_INCOME) AS INCOME FROM INFO WHERE CFD_NAME = ? GROUP BY C_NAME, CFD_NAME ORDER BY INCOME DESC";
          Object[] param = new Object[] {cfd_name};
          jdbcUtil.setSqlAndParameters(query, param);

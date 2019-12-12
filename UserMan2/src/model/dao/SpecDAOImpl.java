@@ -48,7 +48,7 @@ public class SpecDAOImpl implements SpecDAO {
 				s.setAwards(rs.getString("awards"));
 				s.setStudy_abroad(rs.getString("study_abroad"));
 				s.setVolun(rs.getString("volun"));
-				s.setToeic_speaking(rs.getInt("toeic_speaking"));
+				s.setToeic_speaking(rs.getString("toeic_speaking"));
 			}
 			return s;
 		} catch (Exception e) {
@@ -64,10 +64,10 @@ public class SpecDAOImpl implements SpecDAO {
 	public int insertSpec(SpecDTO sp) {
 		// TODO Auto-generated method stub
 		int result = 0;
-		String query = "INSERT INTO SPEC (spec_num, p_num, w_num, js_num, certification, grade, internship toeic, opic, contest, awards, study_abroad, volun, toeic_speaking)"
-						+ " VALUES (sequence_spec.nextval(), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String query = "INSERT INTO SPEC (spec_num, p_id, w_id, js_id, certification, grade, internship, toeic, opic, contest, awards, study_abroad, volun, toeic_speaking) "
+						+ " VALUES (sequence_spec.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
 		
-		Object[] param = new Object[] { sp.getP_num(), sp.getW_num(), sp.getJs_num(), sp.getCertification(), sp.getGrade(), sp.getInternship(), sp.getToeic(), sp.getOpic(), sp.getContest(), sp.getAwards(), sp.getStudy_abroad(), sp.getVolun(), sp.getToeic_speaking() };
+		Object[] param = new Object[] { sp.getP_id(), sp.getW_id(), sp.getJs_id(), sp.getCertification(), sp.getGrade(), sp.getInternship(), sp.getToeic(), sp.getOpic(), sp.getContest(), sp.getAwards(), sp.getStudy_abroad(), sp.getVolun(), sp.getToeic_speaking() };
 		
 		jdbcUtil.setSqlAndParameters(query, param);
 		try {
@@ -182,8 +182,8 @@ public class SpecDAOImpl implements SpecDAO {
 	}
 	
 	public int getSpecNumByJS_num(String jsId) {
-		String query = "SELECT spec_num AS spec_num"
-				+ "FROM spec WHERE js_Id = ? ";
+		String query = "SELECT spec_num AS spec_num "
+				+ "FROM spec WHERE js_Id = ?";
 		
 		Object[] param = new Object[] { jsId };
 		jdbcUtil.setSqlAndParameters(query, param);
@@ -201,4 +201,5 @@ public class SpecDAOImpl implements SpecDAO {
 
 		return -1;
 	}
+	
 }

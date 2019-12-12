@@ -4,23 +4,31 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import controller.Controller;
+import controller.DispatcherServlet;
+import controller.user.UserSessionUtils;
 import model.Waiting_MenteeDTO;
 import model.Waiting_MentoDTO;
+import model.service.MatchingManager;
 import model.service.UserManager_JS;
 import model.service.UserManager_PT;
 import model.service.UserManager_W;
 
 public class MatchingController implements Controller {
-
+	private final static Logger logger = LoggerFactory.getLogger(DispatcherServlet.class);
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
 		//스펙작성 여부 확인
 		String userId = request.getParameter("userId");
 		String userType = request.getParameter("userType");
+		logger.debug("userType: {}", userType);
 
+		MatchingManager mmanager = MatchingManager.getInstance();
+		
 		if (userType.equals("pt")) { //이직자 - 멘티
 			UserManager_PT manager_pt = UserManager_PT.getInstance();
 			if(manager_pt.check_PId(userId) != -1) { //스펙작성을 했으면
@@ -36,9 +44,11 @@ public class MatchingController implements Controller {
 				manager_pt.createWaitingList(mt);
 				
 				//분야 같은 멘토-멘티 랜덤 매칭하기
-				manager_pt.insertMatchingTW();
+				
+				mmanager.insert();
 				
 				//매칭결과 보여주는 창으로 넘어가기 - 연제
+			
 				return "/matching/recommend/Result";
 			}
 		} else if (userType.equals("js")) { //취준생 - 멘티
@@ -46,9 +56,9 @@ public class MatchingController implements Controller {
 			if(manager_js.check_JSId(userId) != -1) {
 				Waiting_MenteeDTO mt = new Waiting_MenteeDTO(null, userId, manager_js.findUser(userId).getCf_num());
 				manager_js.createWaitingList(mt);
-				manager_js.insertMatchingJW();
-				
+				mmanager.insert();				
 				//매칭결과 보여주는 창으로 넘어가기 - 연제
+			
 				return "/matching/recommend/Result";
 			}
 		} else { //현직자 - 멘토
@@ -56,12 +66,21 @@ public class MatchingController implements Controller {
 			if(manager_w.check_WId(userId) != -1) {
 				Waiting_MentoDTO mto = new Waiting_MentoDTO(userId, manager_w.findUser(userId).getCf_num());
 				manager_w.createWaitingList(mto);
-				manager_w.insertMatchingTW();
 				//매칭결과 보여주는 창으로 넘어가기 - 연제
+				
 				return "/matching/recommend/Result";
 			}
 		}
 
+		// 현재 로그인한 사용자 ID를 request에 저장하여 전달
+		request.setAttribute("curUserId", 
+				UserSessionUtils.getLoginUserId(request.getSession()));	
+		
+		// 로그인한 사용자 type을 request에 저장하여 전달
+		request.setAttribute("curUserType", 
+				UserSessionUtils.getLoginUserType(request.getSession()));
+		
+		
 		//스펙작성을 안했으면 스펙작성하는 화면으로 넘어가기 - 혜경
 		return "/matching/register/form";
 
