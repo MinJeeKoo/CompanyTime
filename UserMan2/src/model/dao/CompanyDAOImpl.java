@@ -67,30 +67,6 @@ public class CompanyDAOImpl implements CompanyDAO{
 		}
 		return null;
 	}
-public String getC_NAMEByC_NUM(Integer c_num) {
-		
-		String c_name = null;
-		String query = "SELECT C_NAME "
-				+ "FROM COMPANY "
-				+ "WHERE C_NUM = ?" ;
-		
-		Object[] param = new Object[] {c_num};
-		jdbcUtil.setSqlAndParameters(query, param);
-		
-		try {
-			ResultSet result = jdbcUtil.executeQuery();
-			while (result.next()) {
-				c_name = result.getString("C_NAME");
-			}
-			return c_name;
-		}catch(Exception ex) {
-			ex.printStackTrace();
-		}finally{
-			jdbcUtil.close();
-		}
-		return null;
-	}
-
 	public List<CompanyDTO> getCompanyList(){
 		
 		String query = " SELECT C_NUM, C_NAME FROM COMPANY; ";

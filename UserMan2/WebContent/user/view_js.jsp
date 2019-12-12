@@ -31,32 +31,32 @@ function userRemove() {
           <tr>
          <td width="120" align="center" bgcolor="E6ECDE" height="22">ID</td>
          <td width="470" bgcolor="ffffff" style="padding-left: 10">
-             ${user.userId}
+            <%=user.getUserId()%>
          </td>
         </tr>
         <tr>
          <td width="120" align="center" bgcolor="E6ECDE" height="22">패스워드</td>
          <td width="470" bgcolor="ffffff" style="padding-left: 10">
-             ${user.password}
+            <%=user.getPassword()%>
          </td>
         </tr>
         <tr>
          <td width="120" align="center" bgcolor="E6ECDE" height="22">이름</td>
          <td width="470" bgcolor="ffffff" style="padding-left: 10">
-            ${user.name}
+            <%=user.getName()%>
          </td>
         </tr>
         <tr>
          <td width="120" align="center" bgcolor="E6ECDE" height="22">희망매칭분야(field)</td>
          <td width="470" bgcolor="ffffff" style="padding-left: 10">
-            ${cf_name}
+            <%=user.getCf_num()%>
          </td>
         </tr>
 
         <tr>
          <td width="120" align="center" bgcolor="E6ECDE" height="22">이메일 주소</td>
          <td width="470" bgcolor="ffffff" style="padding-left: 10">
-            ${user.email} <%-- <%=user.getCompany_email()%> --%>
+            ${user.company_email} <%-- <%=user.getCompany_email()%> --%>
          </td>
         </tr>      
        </table>

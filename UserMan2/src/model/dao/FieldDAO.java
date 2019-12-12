@@ -6,8 +6,5 @@ import model.FieldDTO;
 
 public interface FieldDAO {
 	public Integer getCF_NUMByCF_NAME(String cf_name) throws SQLException;
-	public String getCF_NAMEByCF_NUM(Integer cf_name) throws SQLException;
 	public List<FieldDTO> getFieldList() throws SQLException;
-
-	
 }

@@ -24,7 +24,7 @@ public class Matching_jwDAOImpl implements Matching_jwDAO {
 	
 	@Override
 	public Matching_jwDTO getMatchingW_ByJS_ID(String js_id) {
-		String allQuery = query + "FROM RECOMMEND_MATCHING_JW WHERE JS_ID = ?";
+		String allQuery = query + "FROM RECOMMEND_MATCHING WHERE JS_ID = ?";
 		Object[] param = new Object[] { js_id }; // 매칭결과를 찾기 위한 조건으로 이름을 설정
 		jdbcUtil.setSqlAndParameters(allQuery, param); // JDBCUtil 에 query 문의 매개변수 값으로 사용할 매개변수 설정
 
@@ -46,7 +46,7 @@ public class Matching_jwDAOImpl implements Matching_jwDAO {
 	}
 	@Override
 	public Matching_jwDTO getMatchingJS_ByW_ID(String w_id) {
-		String allQuery = query + "FROM RECOMMEND_MATCHING_JW WHERE W_ID = ? ";
+		String allQuery = query + "FROM RECOMMEND_MATCHING WHERE W_ID = ? ";
 		jdbcUtil.setSql(allQuery); // JDBCUtil 에 query 문 설정
 		Object[] param = new Object[] { w_id }; // 매칭결과를 찾기 위한 조건으로 이름을 설정
 		jdbcUtil.setParameters(param); // JDBCUtil 에 query 문의 매개변수 값으로 사용할 매개변수 설정
@@ -96,11 +96,14 @@ public class Matching_jwDAOImpl implements Matching_jwDAO {
 	//cf_num이 같으면 랜덤 매칭
 	@Override
 	public int insertMatchingJW() throws SQLException {
-		String sql = "INSERT INTO RECOMMEND_MATCHING_JW "
-				+ "SELECT DISTINCT w_id, js_id "
+		String sql = "INSERT INTO RECOMMEND_MATCHING "
+				+ "SELECT w_id, js_id, p_id "
+				+ "FROM (SELECT w_id, js_id, p_id "
 				+ "FROM waiting_mento mto, waiting_mentee mtee "
-				+ "WHERE mtee.cf_num = mto.cf_num";
-
+				+ "WHERE mtee.cf_num = mto.cf_num "
+				+ "ORDER BY mtee.waiting_date, mto.waiting_date) "
+				+ "WHERE ROWNUM = 1";
+				
 		jdbcUtil.setSql(sql); // JDBCUtil 에 insert문 설정
 
 		try {
@@ -118,7 +121,7 @@ public class Matching_jwDAOImpl implements Matching_jwDAO {
 	}
 	@Override
 	public int deleteMatchingJW_ByJS_ID(String js_id) throws SQLException {
-		String sql = "DELETE FROM RECOMMEND_MATCHING_JW WHERE JS_ID=?";
+		String sql = "DELETE FROM RECOMMEND_MATCHING WHERE JS_ID=?";
 		
 		try {				
 			int result = jdbcUtil.executeUpdate();	// delete 문 실행
@@ -136,7 +139,7 @@ public class Matching_jwDAOImpl implements Matching_jwDAO {
 
 	@Override
 	public int deleteMatchingJW_ByW_ID(String w_id) throws SQLException {
-		String sql = "DELETE FROM RECOMMEND_MATCHING_JW WHERE W_ID=?";
+		String sql = "DELETE FROM RECOMMEND_MATCHING WHERE W_ID=?";
 		
 		try {				
 			int result = jdbcUtil.executeUpdate();	// delete 문 실행
@@ -152,7 +155,7 @@ public class Matching_jwDAOImpl implements Matching_jwDAO {
 		return 0;
 	}
 	public boolean existingUserJS(String js_id) throws SQLException {
-		String sql = "SELECT count(*) FROM recommend_matching_jw WHERE js_id=?";      
+		String sql = "SELECT count(*) FROM recommend_matching WHERE js_id=?";      
 		jdbcUtil.setSqlAndParameters(sql, new Object[] {js_id});	// JDBCUtil에 query문과 매개 변수 설정
 
 		try {
@@ -171,7 +174,7 @@ public class Matching_jwDAOImpl implements Matching_jwDAO {
 	}
 	
 	public boolean existingUserW(String w_id) throws SQLException {
-		String sql = "SELECT count(*) FROM recommend_matching_jw WHERE w_id=?";      
+		String sql = "SELECT count(*) FROM recommend_matching WHERE w_id=?";      
 		jdbcUtil.setSqlAndParameters(sql, new Object[] {w_id});	// JDBCUtil에 query문과 매개 변수 설정
 
 		try {

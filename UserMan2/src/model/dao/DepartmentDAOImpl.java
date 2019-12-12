@@ -67,29 +67,7 @@ public class DepartmentDAOImpl implements DepartmentDAO{
 		}
 		return null;
 	}
-	public String getCFD_NAMEByCFD_NUM(Integer cfd_num) {
-		
-		String cfd_name = null;
-		String query = "SELECT CFD_NAME "
-				+ "FROM DEPARTMENT "
-				+ "WHERE CFD_NUM = ?" ;
-		
-		Object[] param = new Object[] {cfd_num};
-		jdbcUtil.setSqlAndParameters(query, param);
-		
-		try {
-			ResultSet result = jdbcUtil.executeQuery();
-			while (result.next()) {
-				cfd_name = result.getString("CFD_NAME");
-			}
-			return cfd_name;
-		}catch(Exception ex) {
-			ex.printStackTrace();
-		}finally{
-			jdbcUtil.close();
-		}
-		return null;
-	}
+
 	//구현하기
 	public List<String> findDepartmentListByCf_name(String cf_name) throws SQLException {
 		String query = "SELECT cfd_name FROM department WHERE cf_num = ? ";

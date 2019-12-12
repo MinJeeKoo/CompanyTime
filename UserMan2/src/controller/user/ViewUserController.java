@@ -4,7 +4,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import controller.Controller;
-import model.service.SearchManager;
 import model.service.UserManager_JS;
 import model.P_TurnoverDTO;
 import model.service.UserManager_PT;
@@ -30,12 +29,6 @@ public class ViewUserController implements Controller {
     	P_TurnoverDTO pt_user = null;
     	UserManager_JS js_manager = UserManager_JS.getInstance();
     	JobSeekerDTO js_user = null;
-    	
-    	SearchManager smanager = SearchManager.getInstance();
-    	
-    	
-    	
-    	
 		try {
 			if(userType.equals("w")) {
 				w_user = w_manager.findUser(userId);
@@ -49,28 +42,13 @@ public class ViewUserController implements Controller {
 	        return "redirect:/user/list";
 		}	
 		if(userType.equals("w")) {
-			String c_name = smanager.getC_NAMEByC_NUM(w_user.getC_num());
-	    	String cf_name = smanager.getCF_NAMEByCF_NUM(w_user.getCf_num());
-	    	String cfd_name = smanager.getCFD_NAMEByCFD_NUM(w_user.getCfd_num());
-	    	request.setAttribute("c_name", c_name);
-	    	request.setAttribute("cf_name", cf_name);
-	    	request.setAttribute("cfd_name", cfd_name);
-			request.setAttribute("user", w_user);
+			request.setAttribute("user", w_user);	
 			return "/user/view_w.jsp";
 		}else if(userType.equals("pt")) {
-			String c_name = smanager.getC_NAMEByC_NUM(pt_user.getC_num());
-	    	String cf_name = smanager.getCF_NAMEByCF_NUM(pt_user.getCf_num());
-	    	String cfd_name = smanager.getCFD_NAMEByCFD_NUM(pt_user.getCfd_num());
-	    	request.setAttribute("c_name", c_name);
-	    	request.setAttribute("cf_name", cf_name);
-	    	request.setAttribute("cfd_name", cfd_name);
 			request.setAttribute("user", pt_user);	
 			return "/user/view_pt.jsp";
 		}else {
 			request.setAttribute("user", js_user);	
-	    	String cf_name = smanager.getCF_NAMEByCF_NUM(js_user.getCf_num());
-
-	    	request.setAttribute("cf_name", cf_name);
 			return "/user/view_js.jsp";
 		}
 			// 사용자 정보 저장		

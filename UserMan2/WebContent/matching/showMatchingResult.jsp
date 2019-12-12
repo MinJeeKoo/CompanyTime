@@ -23,30 +23,143 @@
 				</tr>
 			</table>
 			<br>
-			<c:if test="${empty mt}">
-				<table>
-					<tr>
-						<td style="font-size:50px" height="22">&nbsp;&nbsp;<b>${userId}님은 아직 매칭중입니다.</b>&nbsp;&nbsp;</td>
-					</tr>
-				</table>
-			</c:if>
 			<c:if test="${userType == 'pt' || userType == 'js'}">
-				<table>
-					<tr>
-						<td style="font-size:50px" height="22">&nbsp;&nbsp;<b>${userId}님은 ${mt.getW_id()}님과 매칭 되셨습니다.</b>&nbsp;&nbsp;</td>
-					</tr>
-				</table>
+				<c:if test="${empty mento}">
+					<table>
+						<tr>
+							<td style="font-size:30px" height="22">&nbsp;&nbsp;<b>${userId}님은 아직 매칭중입니다.</b>&nbsp;&nbsp;</td>
+						</tr>
+					</table>
+				</c:if>
+				<c:if test="${!empty mento}">
+					<table>
+						<tr>
+							<td style="font-size:30px" height="22">&nbsp;&nbsp;<b>${userId}님은 ${mento.getW_id()}님과 매칭 되셨습니다.</b>&nbsp;&nbsp;<br></td>
+						</tr>
+						<tr>
+							<td>
+								<br><br>
+								<details>
+									<summary>매칭된 멘토 정보 보기</summary>
+									<table style="background-color: LightCoral">
+										<tr height="40">
+											<td width="150" align="center" bgcolor="FDEDEC">이름</td>
+											<td width="250" bgcolor="ffffff" style="padding-left: 10">
+											<input type = "text" name="userType" value='${mento.name}' readonly>
+											</td>
+										</tr>
+										<tr height="40">
+											<td width="150" align="center" bgcolor="FDEDEC">회사</td>
+											<td width="250" bgcolor="ffffff" style="padding-left: 10">
+											<input type = "text" name="userType" value='${mento.c_num}' readonly>
+											</td>
+										</tr>
+										<tr height="40">
+											<td width="150" align="center" bgcolor="FDEDEC">부서</td>
+											<td width="250" bgcolor="ffffff" style="padding-left: 10">
+											<input type = "text" name="userType" value='${mento.cfd_num}' readonly>
+											</td>
+										</tr>
+										<tr height="40">
+											<td width="150" align="center" bgcolor="FDEDEC">이메일</td>
+											<td width="250" bgcolor="ffffff" style="padding-left: 10">
+											<input type = "text" name="userType" value='${mento.company_email}' readonly>
+											</td>
+										</tr>
+									</table>
+								</details>
+							</td>
+						</tr>
+					</table>
+				</c:if>
 			</c:if>
 			<c:if test="${userType == 'w'}">
+				<c:if test="${empty mentee}">
+					<table>
+						<tr>
+							<td style="font-size:30px" height="22">&nbsp;&nbsp;<b>${userId}님은 아직 매칭중입니다.</b>&nbsp;&nbsp;</td>
+						</tr>
+					</table>
+				</c:if>
 				<table>
-					<tr>
-						<c:if test="${!empty js}">
-							<td style="font-size:50px" height="22">&nbsp;&nbsp;<b>${userId}님은 ${js.getJS_id()}님과 매칭 되셨습니다.</b>&nbsp;&nbsp;</td>
-						</c:if>
-						<c:if test="${!empty pt}">
-							<td style="font-size:50px" height="22">&nbsp;&nbsp;<b>${userId}님은 ${pt.getP_id()}님과 매칭 되셨습니다.</b>&nbsp;&nbsp;</td>
-						</c:if>
-					</tr>
+					<c:if test="${!empty js}">
+						<tr>
+							<td style="font-size:30px" height="22">&nbsp;&nbsp;<b>${userId}님은 ${js.getUserId()}님과 매칭 되셨습니다.</b>&nbsp;&nbsp;<br></td>
+						</tr>
+						<tr>
+							<td>
+								<br><br>
+								<details>
+									<summary>매칭된 멘티 정보 보기</summary>
+									<table style="background-color: LightCoral">
+										<tr height="40">
+											<td width="150" align="center" bgcolor="FDEDEC">이름</td>
+											<td width="250" bgcolor="ffffff" style="padding-left: 10">
+											<input type = "text" name="userType" value='${js.name}' readonly>
+											</td>
+										</tr>
+										<tr height="40">
+											<td width="150" align="center" bgcolor="FDEDEC">학교</td>
+											<td width="250" bgcolor="ffffff" style="padding-left: 10">
+											<input type = "text" name="userType" value='${js.school}' readonly>
+											</td>
+										</tr>
+										<tr height="40">
+											<td width="150" align="center" bgcolor="FDEDEC">전공</td>
+											<td width="250" bgcolor="ffffff" style="padding-left: 10">
+											<input type = "text" name="userType" value='${js.major}' readonly>
+											</td>
+										</tr>
+										<tr height="40">
+											<td width="150" align="center" bgcolor="FDEDEC">이메일</td>
+											<td width="250" bgcolor="ffffff" style="padding-left: 10">
+											<input type = "text" name="userType" value='${js.email}' readonly>
+											</td>
+										</tr>
+									</table>
+								</details>
+							</td>
+						</tr>
+					</c:if>
+					<c:if test="${!empty pt}">
+						<tr>
+							<td style="font-size:30px" height="22">&nbsp;&nbsp;<b>${userId}님은 ${pt.getUserId()}님과 매칭 되셨습니다.</b>&nbsp;&nbsp;<br></td>
+						</tr>
+						<tr>
+							<td>
+								<br><br>
+								<details>
+									<summary>매칭된 멘티 정보 보기</summary>
+									<table style="background-color: LightCoral">
+										<tr height="40">
+											<td width="150" align="center" bgcolor="FDEDEC">이름</td>
+											<td width="250" bgcolor="ffffff" style="padding-left: 10">
+											<input type = "text" name="userType" value='${pt.name}' readonly>
+											</td>
+										</tr>
+										<tr height="40">
+											<td width="150" align="center" bgcolor="FDEDEC">회사</td>
+											<td width="250" bgcolor="ffffff" style="padding-left: 10">
+											<input type = "text" name="userType" value='${pt.c_num}' readonly>
+											</td>
+										</tr>
+										<tr height="40">
+											<td width="150" align="center" bgcolor="FDEDEC">부서</td>
+											<td width="250" bgcolor="ffffff" style="padding-left: 10">
+											<input type = "text" name="userType" value='${pt.cfd_num}' readonly>
+											</td>
+										</tr>
+										<tr height="40">
+											<td width="150" align="center" bgcolor="FDEDEC">이메일</td>
+											<td width="250" bgcolor="ffffff" style="padding-left: 10">
+											<input type = "text" name="userType" value='${pt.company_email}' readonly>
+											</td>
+										</tr>
+									</table>
+								</details>
+							</td>
+						</tr>
+					</c:if>
 				</table>
 			</c:if>
 			 <%-- <table style="background-color: YellowGreen">

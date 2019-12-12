@@ -63,7 +63,6 @@ public class MatchingController implements Controller {
 			if(manager_w.check_WId(userId) != -1) {
 				Waiting_MentoDTO mto = new Waiting_MentoDTO(userId, manager_w.findUser(userId).getCf_num());
 				manager_w.createWaitingList(mto);
-				manager_w.insertMatchingTW();
 				//매칭결과 보여주는 창으로 넘어가기 - 연제
 				
 				return "/matching/recommend/Result";

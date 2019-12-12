@@ -26,7 +26,7 @@ public class Waiting_MentoDAOImpl implements Waiting_MentoDAO {
 	@Override
 	public int createWaitingList(Waiting_MentoDTO mto) {
 		String sql = "INSERT INTO waiting_mento "
-				+ "VALUES (sequence_waiting_mento.nextval(), ?, ?, SYSDATE)";		
+				+ "VALUES (sequence_waiting_mento.nextval, ?, ?, SYSDATE)";		
 		Object[] param = new Object[] {mto.getW_id(), mto.getCf_num()};				
 		jdbcUtil.setSqlAndParameters(sql, param);	// JDBCUtil 에 insert문과 매개 변수 설정
 						

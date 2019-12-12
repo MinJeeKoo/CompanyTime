@@ -19,12 +19,6 @@ function specAdd() {
 		alert("학점을 입력하십시오.");
 		form.grade.focus();
 		return false;
-	}else{
-		if (form.grade.value > 4.5 || form.grade.value < 0) {
-			alert("학점이 부적합합니다.");
-			form.grade.focus();
-			return false;
-		}
 	}
 	if (form.internship.value == "") {
 		alert("인턴경험을 입력하십시오.");
@@ -35,14 +29,17 @@ function specAdd() {
 		alert("토익점수를 입력하십시오.");
 		form.toeic.focus();
 		return false;
-	}else{
-		if (form.toeic.value > 990 || form.toeic.value < 0) {
-			alert("토익점수가 부적합합니다.");
-			form.toeic.focus();
-			return false;
-		}
 	}
-	
+	if (form.toeic_speaking.value == "") {
+		alert("토익스피킹을 입력하십시오.");
+		form.toeic_speaking.focus();
+		return false;
+	}
+	if (form.opic.value == "") {
+		alert("오픽을 입력하십시오.");
+		form.opic.focus();
+		return false;
+	}
 	if (form.contest.value == "") {
 		alert("대외활동을 입력하십시오.");
 		form.contest.focus();
@@ -64,8 +61,6 @@ function specAdd() {
 		return false;
 	}
 	
-	alert("스펙 작성이 완료되었습니다.\n");
-	
 	form.submit();
 }
 function userList(targetUri) {
@@ -74,7 +69,7 @@ function userList(targetUri) {
 }
 </script>
 </head>
-<body onload="alert('매칭 기능을 사용하기 위해선 스펙 작성이 필요합니다.')">
+<body>
 <form name="form" method="POST" action="<c:url value='/matching/register' />">
 
 <table style="background-color: YellowGreen">
