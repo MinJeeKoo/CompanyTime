@@ -83,5 +83,7 @@ function search() {
 <input type="button" value="검색" onclick="search()" />
 </div>
 </form>
+<br>
+	  <a href="<c:url value='/user/main_login/form' />">홈화면</a>
 </body>
 </html>

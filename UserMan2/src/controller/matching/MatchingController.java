@@ -27,7 +27,6 @@ public class MatchingController implements Controller {
 		String userType = request.getParameter("userType");
 		logger.debug("userType: {}", userType);
 
-
 		MatchingManager mmanager = MatchingManager.getInstance();
 		
 		if (userType.equals("pt")) { //이직자 - 멘티
@@ -57,9 +56,7 @@ public class MatchingController implements Controller {
 			if(manager_js.check_JSId(userId) != -1) {
 				Waiting_MenteeDTO mt = new Waiting_MenteeDTO(null, userId, manager_js.findUser(userId).getCf_num());
 				manager_js.createWaitingList(mt);
-
 				mmanager.insert();				
-
 				//매칭결과 보여주는 창으로 넘어가기 - 연제
 			
 				return "/matching/recommend/Result";
@@ -90,4 +87,3 @@ public class MatchingController implements Controller {
 	}
 
 }
-

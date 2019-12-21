@@ -109,6 +109,7 @@ public class Matching_twDAOImpl implements Matching_twDAO {
 	@Override
 	public int insertMatching(ArrayList<String> result) throws SQLException {
 		String sql = "INSERT INTO RECOMMEND_MATCHING(w_id, p_id, js_id) VALUES(?, ?, ?) ";
+
 		Object[] param = new Object[] { result.get(0), result.get(1), result.get(2) };
 		jdbcUtil.setSqlAndParameters(sql, param); // JDBCUtil 에 insert문 설정
 

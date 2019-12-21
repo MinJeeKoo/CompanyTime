@@ -57,6 +57,8 @@ public class RequestMapping {
     	mappings.put("/matching/recommend/Result", new MatchingResultController());
     	mappings.put("/matching/register/form", new ForwardController("/matching/registerForm_Matching.jsp"));
     	
+    	//API
+    	mappings.put("/search/google_api", new Api_MapController());
     	mappings.put("/matching/register", new SpecRegisterController());
     	
         logger.info("Initialized Request Mapping!");

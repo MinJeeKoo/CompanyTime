@@ -91,10 +91,13 @@
          <%=i%>
         </td>
         <td width="190" align="center" bgcolor="ffffff" height="20">
-         <%=user.getC_name()%>
+        <a href="<c:url value='/search/google_api'>
+					   <c:param name='companyname' value='<%=user.getC_name()%>'/>
+			 		 </c:url>">
+         <%=user.getC_name()%></a>
         </td>
         <td width="200" bgcolor="ffffff" style="padding-left: 10">
-           <%=user.getCfd_name()%>
+        	<%=user.getCfd_name()%>
         </td>
         <td width="200" align="center" bgcolor="ffffff" height="20">
            <%=user.getSearch_category()%>
