@@ -56,7 +56,7 @@ public class WorkerDAOImpl {
 	public int update(WorkerDTO user) throws SQLException {
 		String sql = "UPDATE Worker "
 				+ "SET c_num=?, cf_num=?, cfd_num=?, name=?, company_email=?, pw=? "
-				+ "WHERE p_id=?";
+				+ "WHERE w_id=?";
 		Object[] param = new Object[] {user.getC_num(), user.getCf_num(), user.getCfd_num(), user.getName(), user.getCompany_email(), 
 				user.getPw(), user.getW_id()};				
 		jdbcUtil.setSqlAndParameters(sql, param);	// JDBCUtil에 update문과 매개 변수 설정
@@ -79,7 +79,7 @@ public class WorkerDAOImpl {
 	 * 사용자 ID에 해당하는 사용자를 삭제.
 	 */
 	public int remove(String userId) throws SQLException {
-		String sql = "DELETE FROM Worker WHERE userid=?";		
+		String sql = "DELETE FROM Worker WHERE w_id=?";		
 		jdbcUtil.setSqlAndParameters(sql, new Object[] {userId});	// JDBCUtil에 delete문과 매개 변수 설정
 
 		try {				

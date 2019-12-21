@@ -1,8 +1,8 @@
 <%@page contentType="text/html; charset=UTF-8" %>
-<%@page import="model.P_TurnoverDTO" %>
+<%@page import="model.WorkerDTO" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
-   P_TurnoverDTO user = (P_TurnoverDTO)request.getAttribute("user");
+   WorkerDTO user = (WorkerDTO)request.getAttribute("user");
 %>
 <html>
 <head>
@@ -11,7 +11,6 @@
 <link rel=stylesheet href="<c:url value='/css/user.css' />" type="text/css">
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script>
-
 function userModify() {
    if (form.password.value == "") {
       alert("비밀번호를 입력하십시오.");
@@ -39,6 +38,7 @@ function userModify() {
       form.empno.focus();
       return false;
    }
+
    form.submit();
 }
 
@@ -75,15 +75,15 @@ $(document).ready(function() {
 </head>
 <body bgcolor=#FFFFFF text=#000000 leftmargin=0 topmargin=0 marginwidth=0 marginheight=0>
 <br>
-<form name="form" method="POST" action="<c:url value='/user/updatePT' />">
-  <input type="hidden" name="userId" value="<%=user.getP_id()%>"/>     
+<form name="form" method="POST" action="<c:url value='/user/updateW' />">
+  <input type="hidden" name="userId" value="<%=user.getW_id()%>"/>     
   <table style="width: 100%">
    <tr>
      <td width="20"></td>
      <td>
        <table>
         <tr>
-          <td bgcolor="f4f4f4" height="22">&nbsp;&nbsp;<b>내 정보 수정(이직준비자)</b>&nbsp;&nbsp;</td>
+          <td bgcolor="f4f4f4" height="22">&nbsp;&nbsp;<b>내 정보 수정(현직자)</b>&nbsp;&nbsp;</td>
         </tr>
        </table> 
        <br>     
@@ -91,7 +91,7 @@ $(document).ready(function() {
            <tr height="40">
          <td width="150" align="center" bgcolor="E6ECDE">사용자 ID</td>
          <td width="250" bgcolor="ffffff" style="padding-left: 10">
-            <%= user.getP_id() %>
+            <%= user.getW_id() %>
          </td>
         </tr>
           <tr height="40">
@@ -112,52 +112,25 @@ $(document).ready(function() {
             <input type="text" style="width: 240" name="name" value="<%=user.getName()%>">
          </td>
         </tr>
-        <tr height="40">
+          <tr height="40">
          <td width="150" align="center" bgcolor="E6ECDE">이메일 주소</td>
          <td width="250" bgcolor="ffffff" style="padding-left: 10">
             <input type="text" style="width: 240" name="email" value="${user.company_email}">
          </td>
-        </tr>
+        </tr>         
         
+        <!-- 회사 정보 -->        
         <tr height="40">
          <td width="150" align="center" bgcolor="E6ECDE">회사</td>
          <td width="250" bgcolor="ffffff" style="padding-left: 10">
-            <input type="text" style="width: 240" name="company" value="${c_name}" />
+            <input type="text" style="width: 240" name="company" value="${c_name}">
          </td>
-        </tr>  
-        
-        <tr height="40">
-        <td width="150" align="center" bgcolor="E6ECDE">희망분야</td>
-         <td width="250" bgcolor="ffffff" style="padding-left: 10">
-            <c:if test="${updateFailed}">value="${cf_name}"</c:if>
+        </tr>    
             
-            <div id="fld_hope">
-               <select id="field_hope" name="cf_name_hope">
-               	  <option value="분야 선택">분야 선택</option>
-                  <option value="경영/사무">경영/사무</option>
-                  <option value="영업/고객상담">영업/고객상담</option>
-                  <option value="IT/인터넷">IT/인터넷</option>
-                  <option value="디자인">디자인</option>
-                  <option value="서비스">서비스</option>
-                  <option value="전문직">전문직</option>
-                  <option value="의료">의료</option>
-                  <option value="생산/제조">생산/제조</option>
-                  <option value="건설">건설</option>
-                  <option value="유통/무역">유통/무역</option>
-                  <option value="미디어">미디어</option>
-                  <option value="교육">교육</option>
-                  <option value="특수계층/공공">특수계층/공공</option>
-               </select>
-            </div>
-         
-         </td>
-        </tr>     
         <tr height="40">
-         <td width="150" align="center" bgcolor="E6ECDE">부서</td>
+         <td width="150" align="center" bgcolor="E6ECDE">분야</td>
          <td width="250" bgcolor="ffffff" style="padding-left: 10">
-            <c:if test="${updateFailed}">value="${cfd_name}"</c:if>
-            
-             <div id="fld">
+           <div id="fld">
                <select id="field" name="cf_name">
                	  <option value="${cf_name}">${cf_name}</option>
                   <option value="경영/사무">경영/사무</option>
@@ -175,6 +148,13 @@ $(document).ready(function() {
                   <option value="특수계층/공공">특수계층/공공</option>
                </select>
             </div>
+         </td>
+        </tr>    
+        
+         <tr height="40">
+         <td width="150" align="center" bgcolor="E6ECDE">부서</td>
+         <td width="250" bgcolor="ffffff" style="padding-left: 10">
+            <c:if test="${updateFailed}">value="${cfd_name}"</c:if>
             <div id="dept">
                <select id="department" name="cfd_name">
                   <option value="${cfd_name}">${cfd_name}</option>
@@ -182,13 +162,20 @@ $(document).ready(function() {
             </div>
          </td>
         </tr>            
+        
+        <tr height="40">
+         <td width="150" align="center" bgcolor="E6ECDE">사원번호</td>
+         <td width="250" bgcolor="ffffff" style="padding-left: 10">
+            <input type="text" style="width: 240" name="dept" value="<%=user.getEmpno()%>">
+         </td>
+        </tr> 
         </table>
        <br>     
        <table style="width: 100%">
         <tr>
          <td align="left">
          <input type="button" value="수정" onClick="userModify()"> &nbsp;
-         <input type="button" value="목록" onClick="userList('<c:url value='/user/list_pt' />')">
+         <input type="button" value="목록" onClick="userList('<c:url value='/user/list_w' />')">
          </td>
         </tr>
        </table>

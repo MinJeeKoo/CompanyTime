@@ -9,5 +9,5 @@ public interface CompanyDAO {
 	public Integer getC_NUMByC_NAME(String c_name);
 	
 	public List<CompanyDTO> getCompanyList();
-	
+	public String getC_NAMEByC_NUM(Integer c_num);
 }

@@ -9,4 +9,5 @@ public interface DepartmentDAO {
 	public List<DepartmentDTO> getDepartmentList();
 	public Integer getCFD_NUMByCFD_NAME(String cfd_name) throws SQLException;
 	public List<String> findDepartmentListByCf_name(String cf_name) throws SQLException;
+	public String getCFD_NAMEByCFD_NUM(Integer cfd_num) throws SQLException;
 }

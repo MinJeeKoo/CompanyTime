@@ -3,6 +3,10 @@ package model.service;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import controller.DispatcherServlet;
 import model.InfoDTO;
 import model.dao.InfoDAO;
 import model.dao.InfoDAOImpl;
@@ -15,6 +19,7 @@ import model.dao.InfoDAOImpl;
  * ������ �� �� �ִ�.
  */
 public class InfoManager {
+	private final static Logger logger = LoggerFactory.getLogger(DispatcherServlet.class);
 	private static InfoManager infoMan = new InfoManager();
 	private InfoDAOImpl infoDAOImpl;
 //	private InfoAnalysis infoAanlysis;
@@ -91,6 +96,7 @@ public class InfoManager {
 
 	public Integer getI_numByW_id(String w_id) throws SQLException {
 		// TODO Auto-generated method stub
+		logger.debug("iManager");
 		return infoDAOImpl.getI_numByW_id(w_id);
 	}
 

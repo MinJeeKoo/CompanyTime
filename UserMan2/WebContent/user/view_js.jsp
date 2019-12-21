@@ -49,24 +49,24 @@ function userRemove() {
         <tr>
          <td width="120" align="center" bgcolor="E6ECDE" height="22">희망매칭분야(field)</td>
          <td width="470" bgcolor="ffffff" style="padding-left: 10">
-            <%=user.getCf_num()%>
+           ${cf_name}
          </td>
         </tr>
 
         <tr>
          <td width="120" align="center" bgcolor="E6ECDE" height="22">이메일 주소</td>
          <td width="470" bgcolor="ffffff" style="padding-left: 10">
-            ${user.company_email} <%-- <%=user.getCompany_email()%> --%>
+            ${user.email} <%-- <%=user.getCompany_email()%> --%>
          </td>
         </tr>      
        </table>
        <br>
-       <a href="<c:url value='/user/updatePT/form'>
+       <a href="<c:url value='/user/updateJS/form'>
                  <c:param name='userId' value='<%=user.getUserId()%>'/>
               </c:url>">수정</a> &nbsp;
-        <%--<a href="<c:url value='/user/delete'>
-               <c:param name='userId' value='<%=user.getUserId()%>'/>
-              </c:url>" onclick="return userRemove();">삭제</a> &nbsp;  --%>
+        <a href="<c:url value='/user/delete'>
+               <c:param name='js_id' value='<%=user.getUserId()%>'/>
+              </c:url>" onclick="return userRemove();">삭제</a> &nbsp; 
         <a href="<c:url value='/user/main_login/form'>
               <c:param name='userId' value='<%=user.getUserId()%>'/> 
               </c:url>">홈화면</a>        

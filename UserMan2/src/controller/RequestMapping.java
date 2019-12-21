@@ -28,6 +28,7 @@ public class RequestMapping {
         
         mappings.put("/user/view", new ViewUserController());
    
+        mappings.
         mappings.put("/user/main/form", new ForwardController("/user/main.jsp"));
         mappings.put("/user/main_login", new ForwardController("/user/main_afterLogin.jsp"));
         mappings.put("/user/main_login/form", new MainLoginController());
@@ -42,8 +43,11 @@ public class RequestMapping {
 
 //        mappings.put("/user/update/form", new UpdateUserFormController());
         mappings.put("/user/updatePT/form", new UpdatePTFormController());
-        mappings.put("/user/update", new UpdateUser_JobSeekerController());
+        mappings.put("/user/updateJS/form", new UpdateJSFormController());
+        mappings.put("/user/updateW/form", new UpdateWFormController());
+        mappings.put("/user/updateJS", new UpdateUser_JSController());
         mappings.put("/user/updatePT", new UpdateUser_PTController());
+        mappings.put("/user/updateW", new UpdateUser_WController());
         mappings.put("/user/delete", new DeleteUserController());
         mappings.put("/user/selectType/form", new ForwardController("/user/selectTypeForm.jsp"));
         mappings.put("/search/rankingSearch", new ForwardController("/search/rankingSearch.jsp"));

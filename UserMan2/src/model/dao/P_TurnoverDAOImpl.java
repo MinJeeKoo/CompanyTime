@@ -80,7 +80,7 @@ public class P_TurnoverDAOImpl implements P_TurnoverDAO {
 	 * 사용자 ID에 해당하는 사용자를 삭제.
 	 */
 	public int remove(String userId) throws SQLException {
-		String sql = "DELETE FROM USERINFO WHERE userid=?";		
+		String sql = "DELETE FROM preparation_for_turnover WHERE p_id=?";		
 		jdbcUtil.setSqlAndParameters(sql, new Object[] {userId});	// JDBCUtil에 delete문과 매개 변수 설정
 
 		try {				

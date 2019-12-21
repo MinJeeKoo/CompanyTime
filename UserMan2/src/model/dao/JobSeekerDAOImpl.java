@@ -45,11 +45,10 @@ public class JobSeekerDAOImpl {
 	 */
 	public int update(JobSeekerDTO user) throws SQLException {
 		String sql = "UPDATE Job_Seeker "
-					+ "SET js_id=?, pw=?, name=?, "
-					+ "school=?, major=?, personal_email=?, cf_num=?, matching_result=? "
-					+ "WHERE userid=?";
-		Object[] param = new Object[] {user.getUserId(), user.getPassword(), user.getName(), 
-				user.getSchool(), user.getMajor(), user.getEmail(), user.getCf_num(), user.getMatching_result()};				
+					+ "SET pw=?, name=?, school=?, major=?, personal_email=?, cf_num=? "
+					+ "WHERE js_id=?";
+		Object[] param = new Object[] { user.getPassword(), user.getName(), 
+				user.getSchool(), user.getMajor(), user.getEmail(), user.getCf_num(), user.getUserId()};				
 		jdbcUtil.setSqlAndParameters(sql, param);	// JDBCUtil에 update문과 매개 변수 설정
 			
 		try {				
@@ -94,7 +93,7 @@ public class JobSeekerDAOImpl {
 	public JobSeekerDTO findUser(String userId) throws SQLException {
         String sql = "SELECT pw, name, school, major, personal_email, cf_num, matching_result "
         			+ "FROM Job_Seeker "
-        			+ "WHERE js_id=? ";              
+        			+ "WHERE js_id=?";              
 		jdbcUtil.setSqlAndParameters(sql, new Object[] {userId});	// JDBCUtil�� query���� �Ű� ���� ����
 
 		try {
@@ -108,7 +107,7 @@ public class JobSeekerDAOImpl {
 					rs.getString("major"),
 					rs.getString("personal_email"),
 					rs.getInt("cf_num"), 
-					Integer.valueOf(0)
+					rs.getInt("matching_result")
 				);
 				return user;
 			}

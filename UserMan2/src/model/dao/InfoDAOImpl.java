@@ -56,7 +56,7 @@ public class InfoDAOImpl implements InfoDAO {
       }
 
       public Integer updateInfo(InfoDTO Info) {
-         String sql = "UPDATE"
+         String sql = "UPDATE "
                + "SET ANNUAL_INCOME =? , DEPARTEMENT_MOOD =? , JOB_SATISFACTION_R = ?, JOB_SATISFACTION_H =?,  CAFETERIA = ?, TRAFFIC_CONVENIENCE = ? , EMPLOYEE_WELLFARE= ?, CFD_NAME = ?, C_NAME = ?" 
                + "WHERE I_NUM=?";
       Object[] param = new Object[] {Info.getAnnual_Income(), Info.getInfoMood(), Info.getJobSat_R(), Info.getJobSat_R(), Info.getCafeteria(), Info.getTrafficConven(), Info.getEmpWellfare(), Info.getCfdName(), Info.getCName() };            
@@ -80,20 +80,24 @@ public class InfoDAOImpl implements InfoDAO {
 
       @Override
       public Integer deleteInfo(Integer iCode) {
-         int result = 0;
-         String deleteQuery = "DELETE FROM INFO WHERE I_NUM = iCode";
+         String deleteQuery = "DELETE FROM INFO WHERE I_NUM = ?";
       
-         jdbcUtil.setSql(deleteQuery);
+         Object[] param = new Object[] { iCode };
          
-         try {
-            result =jdbcUtil.executeUpdate();
-            result = 1;//성공할 경우 1
-         }catch(Exception ex) {
-            ex.printStackTrace();
-         }finally{
-            jdbcUtil.close();
-         }
-         return result;
+         jdbcUtil.setSqlAndParameters(deleteQuery, param);
+         
+         try {				
+ 			int result = jdbcUtil.executeUpdate();	// delete 문 실행
+ 			return result;
+ 		 } catch (Exception ex) {
+ 			jdbcUtil.rollback();
+ 			ex.printStackTrace();
+ 		 }
+ 		 finally {
+ 			jdbcUtil.commit();
+ 			jdbcUtil.close();	// resource 반환
+ 		 }		
+ 		 return 0;
       }//3
 
    
@@ -213,9 +217,9 @@ public class InfoDAOImpl implements InfoDAO {
    public Integer getI_numByP_id(String p_id) throws SQLException {
       // TODO Auto-generated method stub
 	  Integer i_num = null;
-      String query = "SELECT i_num AS i_num, "
+      String query = "SELECT i_num AS i_num "
             + "FROM info "
-            + "WHERE p_id = ? ";
+            + "WHERE p_id = ?";
       
       Object[] param = new Object[] { p_id };
       jdbcUtil.setSqlAndParameters(query, param);
@@ -238,25 +242,25 @@ public class InfoDAOImpl implements InfoDAO {
    public Integer getI_numByW_id(String w_id) {
       // TODO Auto-generated method stub
 	   Integer i_num = null;
-	   String query = "SELECT i_num AS i_num "
+	   String query = "SELECT i_num "
 			   + "FROM info "
 			   + "WHERE w_id = ?";
 
 	   Object[] param = new Object[] { w_id };
 	   jdbcUtil.setSqlAndParameters(query, param);
-
+	   logger.debug("w_id: {}", w_id);
 	   try {
 		   ResultSet rs = jdbcUtil.executeQuery();
 		   while (rs.next()) {
 			   i_num = rs.getInt("i_num");
 		   }
+		   logger.debug("i_num : {}", i_num);
 		   return i_num;
 	   } catch (Exception ex) {
 		   ex.printStackTrace();
 	   } finally {
 		   jdbcUtil.close();
 	   }
-
 	   return null;
    }
    
