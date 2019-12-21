@@ -30,6 +30,7 @@ public class MainLoginController implements Controller {
 		request.setAttribute("curUserId", 
 				UserSessionUtils.getLoginUserId(request.getSession()));	
 		
+		
 		// 로그인한 사용자 type을 request에 저장하여 전달
 		request.setAttribute("curUserType", 
 				UserSessionUtils.getLoginUserType(request.getSession()));
