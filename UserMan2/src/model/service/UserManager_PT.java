@@ -55,6 +55,13 @@ public class UserManager_PT {
 		return user;
 	}
 
+	public P_TurnoverDTO findUser_matching(String userId)
+			throws SQLException {
+			P_TurnoverDTO user = userDAO.findUser(userId);
+		
+			return user;
+		}
+	
 	public List<P_TurnoverDTO> findUserList() throws SQLException {
 			return userDAO.findUserList();
 	}

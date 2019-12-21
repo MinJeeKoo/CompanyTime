@@ -27,9 +27,9 @@
  }
  
  function userList(targetUri) {
-		form.action = targetUri;
-		form.submit();
-	}
+      form.action = targetUri;
+      form.submit();
+   }
 </script>
 
 
@@ -42,65 +42,69 @@
 
 </head>
 <body>
-	<h1 align="CENTER">우리사이</h1>
+   <h1 align="CENTER">우리사이</h1>
 
 <!-- 로그아웃클릭시 로그인화면으로 넘어감 -->
+
+<c:if test="${deleteFailed}">
+          <br><font color="red"><c:out value="${exception.getMessage()}" /></font><br>
+</c:if>
 <a href="<c:url value='/user/logout' />">로그아웃(&nbsp;${curUserId}&nbsp;)</a>
 <br>
 <br>
 
 <form name="search" style="margin-right:70px;" method = "get"  
-		action ="NextFile.jsp" onsubmit="return keyword_check()">
+      action ="NextFile.jsp" onsubmit="return keyword_check()">
 <!-- 일단 NextFile.jsp로 넘어감 -->
 
-	<div>
- 	 	<input type="text" name="keyword"> 
-		<input type="submit" value="search">
-	</div>  
+   <div>
+        <input type="text" name="keyword"> 
+      <input type="submit" value="search">
+   </div>  
 </form>
 
-	
+   
 <table style="width:100%">
-	<tr>
-		<td>
-		<!-- 로그인한 회원의 정보 보여주기 -->
-		<form action="<c:url value='/user/view' />">
-			<input type = "hidden" name="userType" value='${curUserType}'>
-			<button type="submit" style="font-size:2em; border-radius:0.5em; padding:5px 20px" name="userId" value='${curUserId}'>
-			회원정보
-			</button>
-		</form>
-			  
-		</td>
-		
-		<td>
-			<form method="get" action="<c:url value='/search/rankingSearch' />">
-				<button type="submit" style="font-size:2em; border-radius:0.5em; padding:5px 20px">
-				랭킹검색
-				</button>
-			</form>
-		</td>
-	</tr>
-	
-	<tr>
-		<td id="search">
-			<form action="" method="get">
-				회사<input type="text" name="company"><br>
-				부서<input type="text" name="department"><br>
-				<button type="submit">검색</button>
-			</form>
-		</td>
-		<td>
-			<form method="get" action="<c:url value='/matching/recommend' />">
-				<input type = "hidden" name="userType" value='${curUserType}'>
-				<button type="submit" style="font-size:2em; border-radius:0.5em; padding:5px 20px" name="userId" value='${curUserId}'>
-				매칭
-				</button>
-			</form>
-		</td>
-	
-	</tr>
+   <tr>
+      <td>
+      <!-- 로그인한 회원의 정보 보여주기 -->
+      <form action="<c:url value='/user/view' />">
+         <input type = "hidden" name="userType" value='${curUserType}'>
+         <button type="submit" style="font-size:2em; border-radius:0.5em; padding:5px 20px" name="userId" value='${curUserId}'>
+         회원정보
+         </button>
+      </form>
+           
+      </td>
+      
+      <td>
+         <form method="get" action="<c:url value='/search/rankingSearch' />">
+            <button type="submit" style="font-size:2em; border-radius:0.5em; padding:5px 20px">
+            랭킹검색
+            </button>
+         </form>
+      </td>
+   </tr>
+   
+   <tr>
+      <td id="search">
+         <form action="" method="get">
+            회사<input type="text" name="company"><br>
+            부서<input type="text" name="department"><br>
+            <button type="submit">검색</button>
+         </form>
+      </td>
+      <td>
+         <form method="get" action="<c:url value='/matching/recommend' />">
+            <input type = "hidden" name="userType" value='${curUserType}'>
+            <button type="submit" style="font-size:2em; border-radius:0.5em; padding:5px 20px" name="userId" value='${curUserId}'>
+            매칭
+            </button>
+         </form>
+      </td>
+   
+   </tr>
 </table>
-	
+   
 </body>
 </html>

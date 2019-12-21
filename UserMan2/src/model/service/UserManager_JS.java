@@ -69,6 +69,13 @@ public class UserManager_JS {
 		}		
 		return user;
 	}
+	
+	public JobSeekerDTO findUser_matching(String userId)
+			throws SQLException {
+			JobSeekerDTO user = userDAO.findUser(userId);
+					
+			return user;
+		}
 
 	public List<JobSeekerDTO> findUserList() throws SQLException {
 			return userDAO.findUserList();

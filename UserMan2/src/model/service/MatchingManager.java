@@ -55,9 +55,11 @@ public class MatchingManager {
 		if (jw == null && tw == null) {
 			throw new WaitingMatchingException(w_id + "님은 아직 매칭 대기중입니다.");
 		} else if (jw != null) {
-			return jw.getJS_ID();
-		} else {
+			logger.debug("멘티 - pt {}", tw.getP_ID());
 			return tw.getP_ID();
+		} else {
+			logger.debug("멘티 - js {}", jw.getJS_ID());
+			return jw.getJS_ID();
 		}
 	}
 	
@@ -82,10 +84,10 @@ public class MatchingManager {
 			int rs = matching_twDAOImpl.insertMatching(result);
 			
 			int deleteMentee = 0;
-			if (result.get(1) != null) {
-				deleteMentee =  waiting_menteeDAOImpl.deleteWaitingByPid(result.get(1));
-			} else if (result.get(2) != null) {
-				deleteMentee = waiting_menteeDAOImpl.deleteWaitingByJSid(result.get(2));
+			if (result.get(2) != null) {
+				deleteMentee =  waiting_menteeDAOImpl.deleteWaitingByPid(result.get(2));
+			} else if (result.get(1) != null) {
+				deleteMentee = waiting_menteeDAOImpl.deleteWaitingByJSid(result.get(1));
 			}
 			int deleteMento = waiting_mentoDAOImpl.deleteWaiting(result.get(0));
 			

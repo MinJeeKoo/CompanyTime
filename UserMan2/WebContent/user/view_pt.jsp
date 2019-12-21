@@ -47,7 +47,7 @@ function userRemove() {
          </td>
         </tr>
         <tr>
-         <td width="120" align="center" bgcolor="E6ECDE" height="22">회사번호</td>
+         <td width="120" align="center" bgcolor="E6ECDE" height="22">회사</td>
          <td width="470" bgcolor="ffffff" style="padding-left: 10">
             ${c_name}
          </td>
@@ -59,7 +59,7 @@ function userRemove() {
          </td>
         </tr>
         <tr>
-         <td width="120" align="center" bgcolor="E6ECDE" height="22">부서번호</td>
+         <td width="120" align="center" bgcolor="E6ECDE" height="22">부서</td>
          <td width="470" bgcolor="ffffff" style="padding-left: 10">
             ${cfd_name}
          </td>

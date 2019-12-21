@@ -51,13 +51,13 @@
 										<tr height="40">
 											<td width="150" align="center" bgcolor="FDEDEC">회사</td>
 											<td width="250" bgcolor="ffffff" style="padding-left: 10">
-											<input type = "text" name="userType" value='${mento.c_num}' readonly>
+											<input type = "text" name="userType" value='${mentoC}' readonly>
 											</td>
 										</tr>
 										<tr height="40">
 											<td width="150" align="center" bgcolor="FDEDEC">부서</td>
 											<td width="250" bgcolor="ffffff" style="padding-left: 10">
-											<input type = "text" name="userType" value='${mento.cfd_num}' readonly>
+											<input type = "text" name="userType" value='${mentoCfd}' readonly>
 											</td>
 										</tr>
 										<tr height="40">
@@ -84,7 +84,7 @@
 				<table>
 					<c:if test="${!empty js}">
 						<tr>
-							<td style="font-size:30px" height="22">&nbsp;&nbsp;<b>${userId}님은 ${js.getUserId()}님과 매칭 되셨습니다.</b>&nbsp;&nbsp;<br></td>
+							<td style="font-size:30px" height="22">&nbsp;&nbsp;<b>${userId}님은 ${js.js_id}님과 매칭 되셨습니다.</b>&nbsp;&nbsp;<br></td>
 						</tr>
 						<tr>
 							<td>
@@ -123,7 +123,7 @@
 					</c:if>
 					<c:if test="${!empty pt}">
 						<tr>
-							<td style="font-size:30px" height="22">&nbsp;&nbsp;<b>${userId}님은 ${pt.getUserId()}님과 매칭 되셨습니다.</b>&nbsp;&nbsp;<br></td>
+							<td style="font-size:30px" height="22">&nbsp;&nbsp;<b>${userId}님은 ${pt.p_id}님과 매칭 되셨습니다.</b>&nbsp;&nbsp;<br></td>
 						</tr>
 						<tr>
 							<td>
@@ -140,13 +140,13 @@
 										<tr height="40">
 											<td width="150" align="center" bgcolor="FDEDEC">회사</td>
 											<td width="250" bgcolor="ffffff" style="padding-left: 10">
-											<input type = "text" name="userType" value='${pt.c_num}' readonly>
+											<input type = "text" name="userType" value='${menteeC}' readonly>
 											</td>
 										</tr>
 										<tr height="40">
 											<td width="150" align="center" bgcolor="FDEDEC">부서</td>
 											<td width="250" bgcolor="ffffff" style="padding-left: 10">
-											<input type = "text" name="userType" value='${pt.cfd_num}' readonly>
+											<input type = "text" name="userType" value='${menteeCfd}' readonly>
 											</td>
 										</tr>
 										<tr height="40">

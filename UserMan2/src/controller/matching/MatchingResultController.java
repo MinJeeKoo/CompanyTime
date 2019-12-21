@@ -53,6 +53,8 @@ public class MatchingResultController implements Controller{
 			request.setAttribute("userType", userType);
 			request.setAttribute("userId", userId);
 			request.setAttribute("mento", mento);
+			request.setAttribute("mentoC", smanager.getC_NAMEByC_NUM(mento.getC_num()));
+			request.setAttribute("mentoCfd", smanager.getCFD_NAMEByCFD_NUM(mento.getCfd_num()));
 			return "/matching/showMatchingResult.jsp";
 		} else if (userType.equals("js")) {
 			Matching_jwDTO jw = null;
@@ -66,6 +68,8 @@ public class MatchingResultController implements Controller{
 			request.setAttribute("userType", userType);
 			request.setAttribute("userId", userId);
 			request.setAttribute("mento", mento);
+			request.setAttribute("mentoC", smanager.getC_NAMEByC_NUM(mento.getC_num()));
+			request.setAttribute("mentoCfd", smanager.getCFD_NAMEByCFD_NUM(mento.getCfd_num()));
 			return "/matching/showMatchingResult.jsp";
 		} else {
 			
@@ -78,9 +82,11 @@ public class MatchingResultController implements Controller{
 			JobSeekerDTO js = null;
 			try {
 				menteeID = manager.getMentee(userId);
-				js = jsmanager.findUser(menteeID);
+				js = jsmanager.findUser_matching(menteeID);
 				if (js == null) {
-					pt = ptmanager.findUser(menteeID);
+					pt = ptmanager.findUser_matching(menteeID);
+					request.setAttribute("menteeC", smanager.getC_NAMEByC_NUM(pt.getC_num()));
+					request.setAttribute("menteeCfd", smanager.getCFD_NAMEByCFD_NUM(pt.getCfd_num()));
 				}
 			} catch (WaitingMatchingException e) {
 				e.getStackTrace();
