@@ -5,11 +5,16 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import controller.Controller;
+import controller.DispatcherServlet;
 import model.P_TurnoverDTO;
 import model.service.UserManager_PT;
 
 public class MainLoginController implements Controller {
+	private final static Logger logger = LoggerFactory.getLogger(DispatcherServlet.class);
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -29,7 +34,7 @@ public class MainLoginController implements Controller {
 		request.setAttribute("userList", userList);				
 		request.setAttribute("curUserId", 
 				UserSessionUtils.getLoginUserId(request.getSession()));	
-		
+		logger.debug("id: {}", UserSessionUtils.getLoginUserId(request.getSession()));
 		
 		// 로그인한 사용자 type을 request에 저장하여 전달
 		request.setAttribute("curUserType", 

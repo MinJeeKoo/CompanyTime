@@ -37,6 +37,8 @@ public class DeleteUserController implements Controller {
                (!UserSessionUtils.isLoginUser("admin", session) &&  // 로그인한 사용자가 관리자가 아니고 
                      UserSessionUtils.isLoginUser(p_id, session))) { // 로그인한 사용자가 삭제 대상인 경우 (자기 자신을 삭제)
 
+        	 
+        	 
             Integer infoId = iManager.getI_numByP_id(p_id);
             iManager.deleteInfo(infoId);
             log.debug("Delete info : {}", infoId);

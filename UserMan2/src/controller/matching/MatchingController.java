@@ -46,6 +46,10 @@ public class MatchingController implements Controller {
 				
 				//분야 같은 멘토-멘티 랜덤 매칭하기
 				
+				if (mmanager.pt_isMatching(userId)) {
+					return "/matching/recommend/Result";
+				}
+				
 				mmanager.insert();
 				
 				//매칭결과 보여주는 창으로 넘어가기 - 연제
@@ -57,7 +61,11 @@ public class MatchingController implements Controller {
 			if(manager_js.check_JSId(userId) != -1) {
 				Waiting_MenteeDTO mt = new Waiting_MenteeDTO(null, userId, manager_js.findUser(userId).getCf_num());
 				manager_js.createWaitingList(mt);
-
+				
+				if (mmanager.js_isMatching(userId)) {
+					return "/matching/recommend/Result";
+				}
+				
 				mmanager.insert();				
 
 				//매칭결과 보여주는 창으로 넘어가기 - 연제

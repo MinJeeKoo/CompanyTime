@@ -130,14 +130,14 @@ public class Matching_jwDAOImpl implements Matching_jwDAO {
 		return 0;
 	}
 	public boolean existingUserJS(String js_id) throws SQLException {
-		String sql = "SELECT count(*) FROM recommend_matching WHERE js_id=?";      
+		String sql = "SELECT count(*) AS c FROM recommend_matching WHERE js_id=?";      
 		jdbcUtil.setSqlAndParameters(sql, new Object[] {js_id});	// JDBCUtil에 query문과 매개 변수 설정
 
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();		// query문 실행
 			if (rs.next()) {
-				int count = rs.getInt(1);
-				logger.debug("count: {}" + count);
+				int count = rs.getInt("c");
+				logger.debug("count: {}", count);
 				return (count == 1 ? true : false);
 			}
 		} catch (Exception ex) {
@@ -149,13 +149,13 @@ public class Matching_jwDAOImpl implements Matching_jwDAO {
 	}
 	
 	public boolean existingUserW(String w_id) throws SQLException {
-		String sql = "SELECT count(*) FROM recommend_matching WHERE w_id=?";      
+		String sql = "SELECT count(*) AS c FROM recommend_matching WHERE w_id=?";      
 		jdbcUtil.setSqlAndParameters(sql, new Object[] {w_id});	// JDBCUtil에 query문과 매개 변수 설정
 
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();		// query문 실행
 			if (rs.next()) {
-				int count = rs.getInt(1);
+				int count = rs.getInt("c");
 				return (count == 1 ? true : false);
 			}
 		} catch (Exception ex) {

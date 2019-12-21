@@ -92,5 +92,35 @@ public class MatchingManager {
 			result = matching_twDAOImpl.selectMatching();
 		}
 	}
+	
+	public boolean w_isMatching(String w_id) throws SQLException {
 
+		if(matching_jwDAOImpl.existingUserW(w_id)) {
+			return true;
+		}else {
+			return false;
+		}
+
+	}
+	public boolean pt_isMatching(String pt_id) throws SQLException {
+
+		if(matching_twDAOImpl.existingUserPT(pt_id)) {
+			return true;
+		}else {
+			return false;
+		}
+
+	}
+	public boolean js_isMatching(String js_id) throws SQLException {
+
+		if(matching_jwDAOImpl.existingUserJS(js_id)) {
+			return true;
+		}else {
+			return false;
+		}
+
+	}
+
+	
+	
 }

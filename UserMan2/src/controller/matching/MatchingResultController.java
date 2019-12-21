@@ -68,6 +68,11 @@ public class MatchingResultController implements Controller{
 			request.setAttribute("mento", mento);
 			return "/matching/showMatchingResult.jsp";
 		} else {
+			
+//			if (!manager.w_isMatching(userId)) {
+//				return "/user/main";
+//			}
+			
 			String menteeID = null;
 			P_TurnoverDTO pt = null;
 			JobSeekerDTO js = null;

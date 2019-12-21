@@ -106,6 +106,7 @@ public class UserManager_JS {
 	public int createWaitingList(Waiting_MenteeDTO mt) throws SQLException {
 		logger.debug("js_id: " + mt.getJs_id());
 		if (menteeDAO.existingUserJS(mt.getJs_id()) || matchingDAO.existingUserJS(mt.getJs_id()))  {
+			logger.debug("존재");
 			return 0;
 		}
 		return menteeDAO.createWaitingList(mt);

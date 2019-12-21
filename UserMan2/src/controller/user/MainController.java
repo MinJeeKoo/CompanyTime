@@ -16,7 +16,7 @@ public class MainController implements Controller {
 		if (UserSessionUtils.getLoginUserId(session) == null) {
 			return "/user/main/form";
 		} else {
-			return "/user/main_login";
+			return "/user/main_login/form";
 		}
 	}
 
