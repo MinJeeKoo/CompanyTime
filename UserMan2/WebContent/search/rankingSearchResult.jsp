@@ -35,17 +35,17 @@
       <td>
       <%
       if(category.equals("annual_income"))
-    		  out.println(" 카테고리: 연봉");
-    	else if(category.equals("department_mood"))
-    		   out.println(" 카테고리: 부서 분위기");
-    	else if(category.equals("job_satisfaction_r"))
- 		   out.println(" 카테고리: 직업 만족도");
-    	else if(category.equals("traffic_convenience"))
- 		   out.println(" 카테고리: 교통편의성");
-    	else if(category.equals("cafeteria"))
-  		   out.println(" 카테고리: 구내식당");
-    	else 
-   		   out.println(" 카테고리: 직원복지");
+            out.println(" 카테고리: 연봉");
+       else if(category.equals("department_mood"))
+             out.println(" 카테고리: 부서 분위기");
+       else if(category.equals("job_satisfaction_r"))
+          out.println(" 카테고리: 직업 만족도");
+       else if(category.equals("traffic_convenience"))
+          out.println(" 카테고리: 교통편의성");
+       else if(category.equals("cafeteria"))
+           out.println(" 카테고리: 구내식당");
+       else 
+            out.println(" 카테고리: 직원복지");
       %>
       </td>
       </tr>
@@ -91,7 +91,10 @@
          <%=i%>
         </td>
         <td width="190" align="center" bgcolor="ffffff" height="20">
-         <%=user.getC_name()%>
+        <a href="<c:url value='/search/google_api'>
+                  <c:param name='companyname' value='<%=user.getC_name()%>'/>
+                 </c:url>">
+         <%=user.getC_name()%></a>
         </td>
         <td width="200" bgcolor="ffffff" style="padding-left: 10">
            <%=user.getCfd_name()%>

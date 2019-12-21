@@ -47,20 +47,29 @@ public class MatchingManager {
 		return jw;
 	}
 	
-	public String getMentee(String w_id) 
-			throws SQLException, WaitingMatchingException {
+	public String getMentee(String w_id) throws SQLException, WaitingMatchingException {
 		Matching_jwDTO jw = matching_jwDAOImpl.getMatchingJS_ByW_ID(w_id);
 		Matching_twDTO tw = matching_twDAOImpl.getMatchingP_ByW_ID(w_id);
 		
+		logger.debug("js: {}", jw);
+		logger.debug("pt: {}", tw);
 		if (jw == null && tw == null) {
 			throw new WaitingMatchingException(w_id + "님은 아직 매칭 대기중입니다.");
-		} else if (jw != null) {
-			logger.debug("멘티 - pt {}", tw.getP_ID());
-			return tw.getP_ID();
-		} else {
+		} else if (jw.getJS_ID() != null) {
 			logger.debug("멘티 - js {}", jw.getJS_ID());
 			return jw.getJS_ID();
+		} else {
+			logger.debug("멘티 - pt {}", tw.getP_ID());
+			return tw.getP_ID();
 		}
+		/*if (jw != null && tw == null) {
+			logger.debug("멘티 - js {}", jw.getJS_ID());
+			return jw.getJS_ID();
+		} 
+		if (jw == null && tw != null) {
+			logger.debug("멘티 - pt {}", tw.getP_ID());
+			return tw.getP_ID();
+		}*/
 	}
 	
 	public Matching_twDTO getMatchingW_ByP_ID(String p_id) 

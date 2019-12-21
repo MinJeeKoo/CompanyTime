@@ -69,6 +69,7 @@ public class DeleteUserController implements Controller {
          if(mmanager.w_isMatching(w_id)) {
             String m = "매칭 중인 사용자는 탈퇴할 수 없습니다!";
             request.setAttribute("exception", new IllegalStateException(m));
+            request.setAttribute("deleteFailed", true);
             return "/user/main";
          }else {
             log.debug("Delete User : {}", w_id);
@@ -106,6 +107,7 @@ public class DeleteUserController implements Controller {
          if(mmanager.js_isMatching(js_id)) {
             String m = "매칭 중인 사용자는 탈퇴할 수 없습니다!";
             request.setAttribute("exception", new IllegalStateException(m));
+            request.setAttribute("deleteFailed", true);
             return "/user/main";
          }else {
             log.debug("Delete User : {}", js_id);

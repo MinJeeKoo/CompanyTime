@@ -63,6 +63,8 @@ public class RequestMapping {
     	
     	mappings.put("/matching/register", new SpecRegisterController());
     	
+    	mappings.put("/search/google_api", new Api_MapController());
+    	
         logger.info("Initialized Request Mapping!");
     }
 
