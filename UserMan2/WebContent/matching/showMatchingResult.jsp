@@ -84,7 +84,7 @@
 				<table>
 					<c:if test="${!empty js}">
 						<tr>
-							<td style="font-size:30px" height="22">&nbsp;&nbsp;<b>${userId}님은 ${js.js_id}님과 매칭 되셨습니다.</b>&nbsp;&nbsp;<br></td>
+							<td style="font-size:30px" height="22">&nbsp;&nbsp;<b>${userId}님은 ${js.userId}님과 매칭 되셨습니다.</b>&nbsp;&nbsp;<br></td>
 						</tr>
 						<tr>
 							<td>
