@@ -105,8 +105,13 @@ public class UserManager_PT {
 	
 	//대기자 명단에 있는 사람들 중 분야가 같은 사람 matching 하기
 	
+	public boolean existingUserPT(String p_id) throws SQLException {
+		return menteeDAO.existingUserPT(p_id);
+	}
 	
-	
+	public int deleteWaitingByPid(String p_id) throws SQLException {
+		return menteeDAO.deleteWaitingByPid(p_id);
+	}
 	
 	
 

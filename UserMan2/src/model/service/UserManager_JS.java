@@ -121,6 +121,12 @@ public class UserManager_JS {
 		
 	//대기자 명단에 있는 사람들 중 분야가 같은 사람 matching 하기
 	
+	public boolean existingUserJS(String js_id) throws SQLException {
+		return menteeDAO.existingUserJS(js_id);
+	}
 	
+	public int deleteWaitingByJSid(String js_id) {
+		return menteeDAO.deleteWaitingByJSid(js_id);
+	}
 	
 }

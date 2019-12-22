@@ -53,8 +53,10 @@ public class MatchingResultController implements Controller{
 			request.setAttribute("userType", userType);
 			request.setAttribute("userId", userId);
 			request.setAttribute("mento", mento);
-			request.setAttribute("mentoC", smanager.getC_NAMEByC_NUM(mento.getC_num()));
-			request.setAttribute("mentoCfd", smanager.getCFD_NAMEByCFD_NUM(mento.getCfd_num()));
+			if (mento != null) {
+				request.setAttribute("mentoC", smanager.getC_NAMEByC_NUM(mento.getC_num()));
+				request.setAttribute("mentoCfd", smanager.getCFD_NAMEByCFD_NUM(mento.getCfd_num()));
+			}
 			return "/matching/showMatchingResult.jsp";
 		} else if (userType.equals("js")) {
 			Matching_jwDTO jw = null;
@@ -68,8 +70,10 @@ public class MatchingResultController implements Controller{
 			request.setAttribute("userType", userType);
 			request.setAttribute("userId", userId);
 			request.setAttribute("mento", mento);
-			request.setAttribute("mentoC", smanager.getC_NAMEByC_NUM(mento.getC_num()));
-			request.setAttribute("mentoCfd", smanager.getCFD_NAMEByCFD_NUM(mento.getCfd_num()));
+			if (mento != null) {
+				request.setAttribute("mentoC", smanager.getC_NAMEByC_NUM(mento.getC_num()));
+				request.setAttribute("mentoCfd", smanager.getCFD_NAMEByCFD_NUM(mento.getCfd_num()));
+			}
 			return "/matching/showMatchingResult.jsp";
 		} else {
 			

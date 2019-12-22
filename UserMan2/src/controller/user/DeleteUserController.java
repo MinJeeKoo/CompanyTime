@@ -38,13 +38,16 @@ public class DeleteUserController implements Controller {
    
             UserManager_PT pt_manager = UserManager_PT.getInstance();
    
-   
             if ((UserSessionUtils.isLoginUser("admin", session) &&    // 로그인한 사용자가 관리자이고    
                   !p_id.equals("admin"))                     // 삭제 대상이 일반 사용자인 경우, 
                   ||                                     // 또는 
                   (!UserSessionUtils.isLoginUser("admin", session) &&  // 로그인한 사용자가 관리자가 아니고 
                         UserSessionUtils.isLoginUser(p_id, session))) { // 로그인한 사용자가 삭제 대상인 경우 (자기 자신을 삭제)
    
+            	if (pt_manager.existingUserPT(p_id)) {
+            		pt_manager.deleteWaitingByPid(p_id);
+            	}
+            	
                Integer infoId = iManager.getI_numByP_id(p_id);
                iManager.deleteInfo(infoId);
                log.debug("Delete info : {}", infoId);
@@ -83,6 +86,11 @@ public class DeleteUserController implements Controller {
                   (!UserSessionUtils.isLoginUser("admin", session) &&  // 로그인한 사용자가 관리자가 아니고 
                         UserSessionUtils.isLoginUser(w_id, session))) { // 로그인한 사용자가 삭제 대상인 경우 (자기 자신을 삭제)
               log.debug("before iManager");
+              
+              if (w_manager.existingUserW(w_id)) {
+            	  w_manager.deleteWaiting(w_id);
+              }
+              
                Integer infoId = iManager.getI_numByW_id(w_id);
                log.debug("Delete info : {}", infoId);
                iManager.deleteInfo(infoId);
@@ -121,6 +129,10 @@ public class DeleteUserController implements Controller {
                   (!UserSessionUtils.isLoginUser("admin", session) &&  // 로그인한 사용자가 관리자가 아니고 
                         UserSessionUtils.isLoginUser(js_id, session))) { // 로그인한 사용자가 삭제 대상인 경우 (자기 자신을 삭제)
    
+            	if (js_manager.existingUserJS(js_id)) {
+            		js_manager.deleteWaitingByJSid(js_id);
+            	}
+            	
                js_manager.remove(js_id);            // 사용자 정보 삭제
                if (UserSessionUtils.isLoginUser("admin", session))   // 로그인한 사용자가 관리자    
                   return "redirect:/user/list_js";      // 사용자 리스트로 이동
